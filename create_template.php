@@ -19,7 +19,7 @@ echo $OUTPUT->heading(get_string('create_template', 'tool_gnotify'));
 global $DB;
 
 $renderer = $PAGE->get_renderer('core');
-$cform = new tool_gnotify_create_form();
+$cform = new tool_gnotify_create_form('create_template.php',[],'post');
 $params = ["cform" => $cform->render()];
 
 

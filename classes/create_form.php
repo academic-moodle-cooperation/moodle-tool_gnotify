@@ -16,15 +16,18 @@ class tool_gnotify_create_form extends moodleform {
 
         $mform->addElement('text', 'template_name', get_string('create_name', 'tool_gnotify'), 'size="64"');
         $mform->setType('template_name', PARAM_TEXT);
-        $mform->addRule('template_name','Test33', 'required', null, 'client');
+        $mform->addRule('template_name',get_string('required') , 'required', null, 'client');
+        $mform->addRule('template_name', get_string('maximumchars', '', 64), 'maxlength', 64, 'client');
+
 
         $atto = new atto_texteditor();
         $atto->use_editor('editor', []);
 
-        $mform->addElement('editor', 'message','Test22', null);
-        $mform->setType('message', PARAM_RAW);
-        $mform->addRule('message','Test33', 'required', null, 'client');
+        $mform->addElement('editor', 'content', get_string('create_template_content','tool_gnotify'), null);
+        $mform->setType('content', PARAM_RAW);
+        $mform->addRule('content',get_string('required'), 'required', null, 'client');
         //$mform->addElement($atto);
+        $this->add_action_buttons();
         // TODO: Implement definition() method.
     }
 }

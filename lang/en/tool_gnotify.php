@@ -23,6 +23,7 @@
  */
 $string['create_name'] = 'Name';
 $string['create_template'] = 'Create Notification Templates';
+$string['create_template_content'] = 'Content';
 $string['pluginname'] = 'Global Notifications';
 $string['templates'] = 'Notification Templates';
 $string['templatetableheadername'] = 'Name';
