@@ -42,7 +42,7 @@
         <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="gnotify_tpl" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>
-        <INDEX NAME="tpl_varname_unique" UNIQUE="true" FIELDS="varname"/>
+        <INDEX NAME="tpl_tplid_varname_unique" UNIQUE="true" FIELDS="tplid, varname"/>
       </INDEXES>
     </TABLE>
     <TABLE NAME="gnotify_tpl_ins" COMMENT="Template Instance">
