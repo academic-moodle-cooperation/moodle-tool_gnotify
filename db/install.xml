@@ -34,8 +34,8 @@
     <TABLE NAME="gnotify_tpl_var" COMMENT="Default comment for the table, please edit me">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="tplid" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="varname" TYPE="char" LENGTH="256" NOTNULL="true" SEQUENCE="false" COMMENT="Template variable"/>
+        <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="varname" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Template variable"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -62,7 +62,7 @@
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="insid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="instance id"/>
         <FIELD NAME="varid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="content" TYPE="char" LENGTH="256" NOTNULL="true" SEQUENCE="false" COMMENT="variable content"/>
+        <FIELD NAME="content" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="variable content"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
