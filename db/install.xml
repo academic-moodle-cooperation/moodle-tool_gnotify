@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="admin/tool/gnotify/db" VERSION="20190910" COMMENT="XMLDB file for Moodle local/globalnotification"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="gnotify_tpl" COMMENT="Gnotify Template">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false" COMMENT="Template Name"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="tpl_name" UNIQUE="true" FIELDS="name" COMMENT="Template Name Unique Index"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="gnotify_tpl_lang" COMMENT="Multi-Language Templates">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="lang" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="content" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Language specific content"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="gnotify_tpl" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="tpl_id_lang" UNIQUE="true" FIELDS="tplid, lang"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="gnotify_tpl_var" COMMENT="Default comment for the table, please edit me">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="tplid" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="varname" TYPE="char" LENGTH="256" NOTNULL="true" SEQUENCE="false" COMMENT="Template variable"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="gnotify_tpl" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="tpl_varname_unique" UNIQUE="true" FIELDS="varname"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="gnotify_tpl_ins" COMMENT="Template Instance">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Start Date"/>
+        <FIELD NAME="end" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="end date"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="gnotify_tpl" REFFIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="gnotify_tpl_ins_var" COMMENT="template variable instance">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="insid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="instance id"/>
+        <FIELD NAME="varid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="content" TYPE="char" LENGTH="256" NOTNULL="true" SEQUENCE="false" COMMENT="variable content"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="tpl_fk_insid" TYPE="foreign" FIELDS="insid" REFTABLE="gnotify_tpl_ins" REFFIELDS="id"/>
+        <KEY NAME="tpl_fk_varid" TYPE="foreign" FIELDS="varid" REFTABLE="gnotify_tpl_var" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="tpl_insid_varid" UNIQUE="true" FIELDS="insid, varid"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="gnotify_tpl_ins_ack" COMMENT="Notification acknowledged by user">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="insid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="tpl_fk_insid" TYPE="foreign" FIELDS="insid" REFTABLE="gnotify_tpl_ins" REFFIELDS="id"/>
+        <KEY NAME="tpl_fk_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="tpl_insid_userid" UNIQUE="true" FIELDS="insid, userid"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+</XMLDB>
