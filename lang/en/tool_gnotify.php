@@ -27,6 +27,7 @@ $string['createtemplate'] = 'Create notification template';
 $string['createtemplatecontent'] = 'Content';
 $string['deletetemplate'] = 'Delete';
 $string['edittemplate'] = 'Edit Template';
+$string['noiderror'] = 'No id given for this page.';
 $string['pluginname'] = 'Global Notifications';
 $string['templates'] = 'Notification Templates';
 $string['templatetableheadername'] = 'Name';
