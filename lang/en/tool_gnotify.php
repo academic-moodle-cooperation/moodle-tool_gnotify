@@ -24,4 +24,6 @@
 
 $string['pluginname'] = 'Global Notifications';
 $string['templates'] = 'Notification Templates';
+$string['create_template'] = 'Create Notification Templates';
+$string['create_name'] = 'Name';
 
