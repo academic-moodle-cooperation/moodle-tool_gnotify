@@ -21,9 +21,12 @@
  * @copyright  2019 Universitaet Wien
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-$string['create_name'] = 'Name';
-$string['create_template'] = 'Create Notification Templates';
-$string['create_template_content'] = 'Content';
+$string['createname'] = 'Name';
+$string['createtemplates'] = 'Create Notification Templates';
+$string['createtemplate'] = 'Create notification template';
+$string['createtemplatecontent'] = 'Content';
+$string['deletetemplate'] = 'Delete';
+$string['edittemplate'] = 'Edit Template';
 $string['pluginname'] = 'Global Notifications';
 $string['templates'] = 'Notification Templates';
 $string['templatetableheadername'] = 'Name';
