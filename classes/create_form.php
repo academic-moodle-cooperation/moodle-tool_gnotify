@@ -14,7 +14,7 @@ class tool_gnotify_create_form extends moodleform {
         global $CFG, $OUTPUT;
         $mform =& $this->_form;
 
-        $mform->addElement('text', 'template_name', get_string('create_name', 'tool_gnotify'), 'size="64"');
+        $mform->addElement('text', 'template_name', get_string('createname', 'tool_gnotify'), 'size="64"');
         $mform->setType('template_name', PARAM_TEXT);
         $mform->addRule('template_name',get_string('required') , 'required', null, 'client');
         $mform->addRule('template_name', get_string('maximumchars', '', 64), 'maxlength', 64, 'client');
@@ -23,7 +23,7 @@ class tool_gnotify_create_form extends moodleform {
         $atto = new atto_texteditor();
         $atto->use_editor('editor', []);
 
-        $mform->addElement('editor', 'content', get_string('create_template_content','tool_gnotify'), null);
+        $mform->addElement('editor', 'content', get_string('createtemplatecontent','tool_gnotify'), null);
         $mform->setType('content', PARAM_RAW);
         $mform->addRule('content',get_string('required'), 'required', null, 'client');
         //$mform->addElement($atto);

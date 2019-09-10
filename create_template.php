@@ -10,11 +10,11 @@ $context = context_system::instance();
 
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/admin/tool/gnotify/create_template.php'));
-$PAGE->set_title(get_string('create_template', 'tool_gnotify'));
+$PAGE->set_title(get_string('createtemplate', 'tool_gnotify'));
 $PAGE->set_pagelayout('admin');
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('create_template', 'tool_gnotify'));
+echo $OUTPUT->heading(get_string('createtemplate', 'tool_gnotify'));
 
 global $DB;
 
