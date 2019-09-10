@@ -1,0 +1,22 @@
+<div>
+<table id="templates-{{uniqid}}" class="notify-templates-table">
+<thead>
+ <tr>
+ <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
+ <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
+ </tr>
+</thead>
+<tbody>
+{{#templates}}
+ <tr>
+   <td>
+     {{name}}
+   </td>
+   <td>
+   <a href="{{wwwroot}}/admin/tool/gnotify/usetemplate.php?templateid={{id}}"> {{# str }} usetemplate, tool_gnotify {{/ str }}</a>
+   </td>
+ </tr>
+{{/templates}}
+</tbody>
+</table>
+</div>
