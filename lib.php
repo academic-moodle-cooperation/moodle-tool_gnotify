@@ -35,7 +35,11 @@ function tool_gnotify_before_footer() {
             $sql = "SELECT var.varname, content from {gnotify_tpl_ins_var} ins, {gnotify_tpl_var} var  WHERE var.id = ins.varid AND ins.insid = :insid";
             $vars = $DB->get_records_sql($sql,['insid' => $record->id]);
             $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
-            $htmlcontent = $renderer->render_direct($htmlcontent,$vars);
+            $vararray = [];
+            foreach ($vars as $var) {
+                $vararray[$var->varname] = $var->content;
+            }
+            $htmlcontent = $renderer->render_direct($htmlcontent,$vararray);
             
             $context['notifications'][] = ['html' => $htmlcontent ];
         }
