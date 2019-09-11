@@ -1,6 +1,19 @@
 <?php
 use mod_data\event\record_created;
 
+class tool_gnotify_var_renderer extends renderer_base {
+    
+    public function render_direct($html,$vars) {
+        $mustache = $this->get_mustache();
+        $tmploader = $mustache->getLoader();
+        $mustache->setLoader(new Mustache_Loader_StringLoader());
+        $rendered = $this->render_from_template($html, $vars);
+        $mustache->setLoader($tmploader);
+        return $rendered;
+        
+    }
+    
+}
 function tool_gnotify_before_footer() {
     
     global $PAGE, $DB,$USER;
@@ -18,8 +31,15 @@ function tool_gnotify_before_footer() {
     if($records) {
         $context = [];
         foreach ($records as $record) {
-            $context['notifications'][] = ['html' => format_text($record->content)];
+            $htmlcontent = format_text($record->content);
+            $sql = "SELECT var.varname, content from {gnotify_tpl_ins_var} ins, {gnotify_tpl_var} var  WHERE var.id = ins.varid AND ins.insid = :insid";
+            $vars = $DB->get_records_sql($sql,['insid' => $record->id]);
+            $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
+            $htmlcontent = $renderer->render_direct($htmlcontent,$vars);
+            
+            $context['notifications'][] = ['html' => $htmlcontent ];
         }
         $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', $context);
     }
 }
+
