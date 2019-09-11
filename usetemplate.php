@@ -35,6 +35,15 @@ if($template) {
 
         $id = $DB->insert_record('gnotify_tpl_ins', $record2);
 
+        foreach($templatevars as $v) {
+            $recordVar = new stdClass();
+            $recordVar->insid = $id;
+            $recordVar->varid = $DB->get_field('gnotify_tpl_var','id',['varname' => $v]);
+            $recordVar->content = $useform->$v;
+            $DB->insert_record('gnotify_tpl_ins_var', $recordVar);
+        }
+
+
         $DB->commit_delegated_transaction($trans);
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
     }

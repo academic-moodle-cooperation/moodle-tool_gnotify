@@ -14,10 +14,10 @@ class tool_gnotify_use_form extends moodleform {
         $mform =& $this->_form;
         $formcontext = $this->_customdata;
         foreach ($formcontext["vars"] as $var) {
-            $mform->addElement('text', $var->name, $var->name, 'size="64"');
-            $mform->addRule($var->name,get_string('required') , 'required', null, 'client');
-            $mform->setType($var->name, PARAM_TEXT);
-            $mform->addRule($var->name, get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+            $mform->addElement('text', $var, $var, 'size="64"');
+            $mform->addRule($var,get_string('required') , 'required', null, 'client');
+            $mform->setType($var, PARAM_TEXT);
+            $mform->addRule($var, get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         }
         $mform->addElement('date_time_selector',
             'fromdate',
