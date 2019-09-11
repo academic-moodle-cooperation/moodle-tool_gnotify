@@ -3,6 +3,10 @@
 require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
+
+$action = optional_param('action', null, PARAM_ALPHANUMEXT);
+$tpltodeleteid = optional_param('templateid', null, PARAM_INT);
+
 admin_externalpage_setup('gnotify_templates');
 
 $context = context_system::instance();
@@ -15,6 +19,14 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('templates', 'tool_gnotify'));
 
 global $DB;
+
+
+if ($action == "delete" && $tpltodeleteid) {
+    $DB->delete_records('gnotify_tpl_ins',["id"=>$tpltodeleteid]);
+    $DB->delete_records('gnotify_tpl_ins_var', ['insid'=>$tpltodeleteid]);
+    $DB->delete_records('gnotify_tpl_ins_ack', ['insid'=>$tpltodeleteid]);
+}
+
 $templates = $DB->get_recordset('gnotify_tpl',null );
 
 if ($templates->valid()) {
@@ -30,7 +42,7 @@ $readytpl = array();
 foreach($instemplates as $value) {
     $fromdate = (new DateTime("@$value->fromdate"))->format('Y-m-d H:i:s');
     $todate = (new DateTime("@$value->todate"))->format('Y-m-d H:i:s');
-    array_push($readytpl, ['name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate]);
+    array_push($readytpl, ['id'=>$value->id,'name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate]);
 }
 
 
