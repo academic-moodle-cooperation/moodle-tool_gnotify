@@ -11,7 +11,6 @@ class tool_gnotify_create_form extends moodleform {
      * Form definition. Abstract method - always override!
      */
     protected function definition() {
-        global $CFG, $OUTPUT;
         $mform =& $this->_form;
 
         $mform->addElement('text', 'template_name', get_string('createname', 'tool_gnotify'), 'size="64"');
