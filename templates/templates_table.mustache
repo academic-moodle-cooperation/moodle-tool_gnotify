@@ -6,13 +6,13 @@
  <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
  </tr>
 </thead>
-<tbody>
+<tbody class="table">
 {{#templates}}
- <tr>
-   <td>
+ <tr class="table-row">
+   <td class="table-cell">
      {{name}}
    </td>
-   <td>
+   <td class="table-cell">
    <a href="{{wwwroot}}/admin/tool/gnotify/usetemplate.php?templateid={{id}}"> {{# str }} usetemplate, tool_gnotify {{/ str }}</a>,
    <a href="{{wwwroot}}/admin/tool/gnotify/edit_template.php?templateid={{id}}"> {{# str }} edittemplate, tool_gnotify {{/ str }}</a>,
    <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&templateid={{id}}"> {{# str }} deletetemplate, tool_gnotify {{/ str }}</a>

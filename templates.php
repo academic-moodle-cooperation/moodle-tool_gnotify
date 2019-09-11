@@ -15,9 +15,9 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('templates', 'tool_gnotify'));
 
 global $DB;
-$templates = $DB->get_records('gnotify_tpl',null );
+$templates = $DB->get_recordset('gnotify_tpl',null );
+
 $templatestablecontext = array("templates" => $templates);
-$templatestablecontext = array("templates" => [["name" => "t1", "id"=>"1"], 1 => ["name" => "t2", "id"=>"2"]]);
 $templatestablecontext["wwwroot"] = $CFG->wwwroot;
 $renderer = $PAGE->get_renderer('core');
 echo $renderer->render_from_template('tool_gnotify/templates_table', $templatestablecontext);
