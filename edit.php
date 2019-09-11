@@ -5,10 +5,15 @@ require_once($CFG->libdir . '/adminlib.php');
 
 require_login();
 //TODO admin
+
+global $DB;
+
+$context = context_system::instance();
+$PAGE->set_context($context);
+$PAGE->set_url(new moodle_url('/admin/tool/gnotify/edit.php?templateid=' . $id));
+
 $id = required_param('templateid', PARAM_INT);
 //admin_externalpage_setup('gnotify_edit');
-global $DB;
-$context = context_system::instance();
 
 //TODO multilang
 $form = new tool_gnotify_edit_form(new moodle_url('edit.php', ['templateid' => $id]));
@@ -22,20 +27,31 @@ if ($form->is_cancelled()) {
     $updateRecord->id = $useform->langid;
     $updateRecord->content = $useform->content['text'];
 
-    $id = $DB->update_record('gnotify_tpl_lang', $updateRecord);
+    $DB->update_record('gnotify_tpl_lang', $updateRecord);
+
+    preg_match_all('/{{\s*(.*?)\s*}}/', $useform->content['text'], $matches);
+
+    foreach($matches[1] as $value) {
+        if (!$DB->record_exists('gnotify_tpl_var', ['varname' => $value])) {
+            $recordVar = new stdClass();
+            $recordVar->tplid = $id;
+            $recordVar->varname = $value;
+            $DB->insert_record('gnotify_tpl_var', $recordVar);
+        }
+    }
 
     $DB->commit_delegated_transaction($trans);
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
 }
-if ($templatelang = $DB->get_record_sql('SELECT A.id, A.name, B.id as langid, B.lang, B.content FROM {gnotify_tpl} as A LEFT JOIN {gnotify_tpl_lang} as B ON A.id = B.tplid')) {
 
-    $formdata['langid'] = $templatelang->langid;
-    $formdata['template_name'] = $templatelang->name;
+if ($templatelang = $DB->get_record('gnotify_tpl_lang', ['tplid' => $id])) {
+    $template = $DB->get_record('gnotify_tpl', ['id' => $id]);
+    $formdata['langid'] = $templatelang->id;
+    $formdata['template_name'] = $template->name;
     $formdata['content']['text'] = $templatelang->content;
     $form->set_data($formdata);
 }
-$PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/admin/tool/gnotify/edit.php?templateid=' . $id));
+
 $PAGE->set_title(get_string('templates', 'tool_gnotify'));
 $PAGE->set_pagelayout('admin');
 
