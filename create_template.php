@@ -5,6 +5,8 @@ require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
 global $DB;
+
+$context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/admin/tool/gnotify/create_template.php'));
 require_login();
@@ -43,7 +45,6 @@ if ($cform->is_cancelled()) {
 }
 
 
-$context = context_system::instance();
 
 
 $PAGE->set_title(get_string('createtemplate', 'tool_gnotify'));
