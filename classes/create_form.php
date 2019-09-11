@@ -11,13 +11,14 @@ class tool_gnotify_create_form extends moodleform {
      * Form definition. Abstract method - always override!
      */
     protected function definition() {
-        global $CFG, $OUTPUT;
+
         $mform =& $this->_form;
 
         $mform->addElement('text', 'template_name', get_string('createname', 'tool_gnotify'), 'size="64"');
         $mform->setType('template_name', PARAM_TEXT);
         $mform->addRule('template_name',get_string('required') , 'required', null, 'client');
         $mform->addRule('template_name', get_string('maximumchars', '', 64), 'maxlength', 64, 'client');
+        $mform->addRule('template_name','serversidetest', 'required', null,'server');
 
 
         $atto = new atto_texteditor();
@@ -29,5 +30,19 @@ class tool_gnotify_create_form extends moodleform {
         //$mform->addElement($atto);
         $this->add_action_buttons();
         // TODO: Implement definition() method.
+    }
+
+    function validation($data, $files) {
+        global $DB;
+        $errors = parent::validation($data, $files);
+        if (!empty($data['template_name'])) {
+            if ($DB->record_exists('gnotify_tpl', ['name' => $data['template_name']])) {
+                $errors['duplicate'] = 'Duplicate Keys';
+                //TODO Show error message
+            }
+        }
+
+
+        return $errors;
     }
 }

@@ -23,8 +23,6 @@ if ($cform->is_cancelled()) {
     //TODO: lang should be not null
     $DB->insert_record('gnotify_tpl_lang', $recordContent);
 
-
-
     preg_match_all('/{{\s*(.*?)\s*}}/', $fromform->content['text'], $matches);
 
     foreach($matches[1] as $value) {
