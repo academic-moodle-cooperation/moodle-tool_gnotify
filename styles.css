@@ -1,0 +1,12 @@
+#notifications .content {
+	position:absolute;
+	top: 50px;
+	left: 300px;
+	right: 0px;
+	z-index: 1030;
+	background-color: white;
+}
+#notifications .content .notification{
+border: 1px;
+border-color: black;
+}
