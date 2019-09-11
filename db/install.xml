@@ -49,8 +49,8 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="start" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Start Date"/>
-        <FIELD NAME="end" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="end date"/>
+        <FIELD NAME="fromdate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Start Date"/>
+        <FIELD NAME="todate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="end date"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

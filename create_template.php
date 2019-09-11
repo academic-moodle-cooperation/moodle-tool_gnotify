@@ -4,6 +4,11 @@ require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
+global $DB;
+
+require_login();
+//TODO admin
+
 $cform = new tool_gnotify_create_form();
 
 if ($cform->is_cancelled()) {
@@ -14,7 +19,7 @@ if ($cform->is_cancelled()) {
 
     $record = new stdClass();
     $record->name = $fromform->template_name;
-    $id = $DB->insert_record('gnotify_tpl', $record, true);
+    $id = $DB->insert_record('gnotify_tpl', $record);
 
     $recordContent = new stdClass();
     $recordContent->tplid = $id;
@@ -46,8 +51,6 @@ $PAGE->set_pagelayout('admin');
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('createtemplate', 'tool_gnotify'));
-
-global $DB;
 
 $renderer = $PAGE->get_renderer('core');
 
