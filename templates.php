@@ -6,6 +6,7 @@ require_once($CFG->libdir . '/adminlib.php');
 
 $action = optional_param('action', null, PARAM_ALPHANUMEXT);
 $tpltodeleteid = optional_param('templateid', null, PARAM_INT);
+$instodeleteid = optional_param('insid', null, PARAM_INT);
 
 admin_externalpage_setup('gnotify_templates');
 
@@ -20,11 +21,26 @@ echo $OUTPUT->heading(get_string('templates', 'tool_gnotify'));
 
 global $DB;
 
-
 if ($action == "delete" && $tpltodeleteid) {
-    $DB->delete_records('gnotify_tpl_ins',["id"=>$tpltodeleteid]);
-    $DB->delete_records('gnotify_tpl_ins_var', ['insid'=>$tpltodeleteid]);
-    $DB->delete_records('gnotify_tpl_ins_ack', ['insid'=>$tpltodeleteid]);
+
+    $DB->delete_records('gnotify_tpl',['id'=> $tpltodeleteid]);
+    $DB->delete_records('gnotify_tpl_var',['tplid'=> $tpltodeleteid]);
+    $DB->delete_records('gnotify_tpl_lang',['tplid'=> $tpltodeleteid]);
+    //TODO lets get rid of riid
+    $riid = $DB->get_records('gnotify_tpl_ins', ['tplid'=>$tpltodeleteid]);
+
+    $DB->delete_records('gnotify_tpl_ins', ["tplid" => $tpltodeleteid]);
+
+    foreach ($riid as $x) {
+        $DB->delete_records('gnotify_tpl_ins_var', ['insid' => $x->id]);
+        $DB->delete_records('gnotify_tpl_ins_ack', ['insid' => $x->id]);
+    }
+}
+
+if ($action == "delete-ins" && $instodeleteid) {
+    $DB->delete_records('gnotify_tpl_ins',["id"=>$instodeleteid]);
+    $DB->delete_records('gnotify_tpl_ins_var', ['insid'=>$instodeleteid]);
+    $DB->delete_records('gnotify_tpl_ins_ack', ['insid'=>$instodeleteid]);
 }
 
 $templates = $DB->get_recordset('gnotify_tpl',null );
