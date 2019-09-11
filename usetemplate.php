@@ -6,7 +6,6 @@ require_once($CFG->libdir . '/adminlib.php');
 require_login();
 //TODO admin
 $id = required_param('templateid', PARAM_INT);
-
 admin_externalpage_setup('gnotify_templates');
 global $DB;
 $context = context_system::instance();
@@ -16,12 +15,18 @@ $PAGE->set_title(get_string('templates', 'tool_gnotify'));
 $PAGE->set_pagelayout('admin');
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('templates', 'tool_gnotify'));
-if(!$id) {
-    echo get_string("noiderror","tool_gnotify");
-}
 $template = $DB->get_record('gnotify_tpl', ['id'=> $id]);
 if($template) {
-    $template = $DB->get_records('gnotify_tpl_lang', ['tplid'=> $template->id]);
+    $templatelang = $DB->get_record('gnotify_tpl_lang', ['tplid'=> $template->id, 'lang' => 'en']);
     //TODO multilang
+    $templatevars = $DB->get_fieldset_select('gnotify_tpl_var',  'varname' , 'tplid = :templateid', ['templateid' => $template->id]);
+//     $templatevars = ['var1','var2'];
+    $templatecontext = array();
+    $templatecontext['vars'] = $templatevars;
+    $templatecontext['lang'] = $templatelang;
+    $form = new tool_gnotify_use_form(new moodle_url('usetemplate.php',['templateid' => $id]) , $templatecontext);
+    echo $form->render();
+} else {
+    print_error('wrongiderror','tool_gnotify');
 }
 echo $OUTPUT->footer();
