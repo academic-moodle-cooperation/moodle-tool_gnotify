@@ -1,17 +1,17 @@
 define(['jquery'], function($) {
  
     return {
-        init: function() {
+        init: function(context) {
         	var element = document.getElementById('page');
         	var notifications = document.createElement('div');
         	notifications.id = 'notifications'
         	notifications.innerHTML = '<div class="content"/>';
-        	element.parentNode.insertBefore(notifications, element.nextSibling);
+        	element.parentNode.insertBefore(notifications, element);
+
         	require(['core/templates'], function(templates) {
         	    // This will be the context for our template. So {{name}} in the template will resolve to "Tweety bird".
-        	    var context = { notifications: {html: '<div class="notification"><p>TestVars<p></div>' }};
-        	 
         	    // This will call the function to load and render our template. 
+            	context['notifications'] = context;
         	    templates.render('tool_gnotify/notifications', context)
         	 
         	    // It returns a promise that needs to be resoved.
