@@ -6,6 +6,15 @@
 	z-index: 1030;
 	background-color: white;
 }
+
+#gnotify-close {
+	position:fixed;
+	top: 50px;
+	right: 0px;
+	z-index: 1031;
+	background-color: white;
+}
+
 #notifications .content .notification{
 border: 1px;
 border-color: black;
