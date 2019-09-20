@@ -41,7 +41,7 @@ function tool_gnotify_before_footer() {
             }
             $htmlcontent = $renderer->render_direct($htmlcontent,$vararray);
             
-            $context['notifications'][] = ['html' => $htmlcontent ];
+            $context['notifications'][] = ['html' => $htmlcontent, 'id' => $record->id ];
         }
         $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', $context);
     }

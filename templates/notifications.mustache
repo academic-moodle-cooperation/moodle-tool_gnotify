@@ -1,6 +1,8 @@
 {{#.}}
-<div id="gnotify" class="notification" >
-    <button class="gnotify-close btn btn-primary" onclick="var element = document.getElementById('gnotify');element.hidden = true;">X</button>
-	{{{html}}}
+<div id="{{id}}-gnotify" class="notification" >
+    <div class="gnotify-notification-html"> 
+        {{{html}}}
+    </div>
+    <button class="gnotify-close btn btn-secondary" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});">X</button>
 </div>
 {{/.}}
