@@ -4,8 +4,9 @@ define(['jquery'], function($) {
             var element = document.getElementById('page');
             var notifications = document.createElement('div');
             notifications.id = 'notifications';
+            notifications.className = 'row';
             notifications.innerHTML = '<div class="content"/>';
-            element.parentNode.insertBefore(notifications, element);
+            element.insertBefore(notifications, element.firstChild);
             require(['core/templates'], function(templates) {
                 // This will be the context for our template. So {{name}} in the template will resolve to "Tweety bird".
                 // This will call the function to load and render our template.
