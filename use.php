@@ -20,7 +20,7 @@ if($template) {
     $templatecontext = array();
     $templatecontext['vars'] = $templatevars;
     $templatecontext['lang'] = $templatelang;
-    $form = new tool_gnotify_use_form(new moodle_url('usetemplate.php',['templateid' => $id]) , $templatecontext);
+    $form = new tool_gnotify_use_form(new moodle_url('use.php',['templateid' => $id]) , $templatecontext);
 
     if ($form->is_cancelled()) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
@@ -53,7 +53,7 @@ if($template) {
 }
 
 $PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/admin/tool/gnotify/usetemplates.php?id=' . $id));
+$PAGE->set_url(new moodle_url('/admin/tool/gnotify/use.php?id=' . $id));
 $PAGE->set_title(get_string('templates', 'tool_gnotify'));
 $PAGE->set_pagelayout('admin');
 echo $OUTPUT->header();
