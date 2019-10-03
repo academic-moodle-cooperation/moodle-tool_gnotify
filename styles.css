@@ -1,21 +1,30 @@
-#notifications .content {
-	position:fixed;
-	top: 50px;
-	left: 300px;
-	right: 0px;
-	z-index: 1030;
-	background-color: white;
+
+.gnotify-pt {
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 1rem !important;
+	background: white;
 }
 
-#gnotify-close {
-	position:fixed;
-	top: 50px;
-	right: 0px;
+.gnotify {
+	position: absolute;
+	width: 100%;
+}
+
+.gnotify-close {
+	position: absolute;
+	top: 0;
+	right: 0;
 	z-index: 1031;
 	background-color: white;
 }
 
-#notifications .content .notification{
-border: 1px;
-border-color: black;
+#notifications .content {
+	/*padding-right: 15px;
+	padding-left: 15px;*/
+	position: relative;
+	z-index: 1030;
+	width: 100%;
+	background-color: white;
+	border: 1px black;
 }
