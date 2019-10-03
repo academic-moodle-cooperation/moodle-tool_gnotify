@@ -8,7 +8,7 @@ global $DB;
 
 $context = context_system::instance();
 $PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/admin/tool/gnotify/create_template.php'));
+$PAGE->set_url(new moodle_url('/admin/tool/gnotify/create.php'));
 require_login();
 //TODO admin
 
@@ -44,19 +44,10 @@ if ($cform->is_cancelled()) {
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
 }
 
-
-
-
 $PAGE->set_title(get_string('createtemplate', 'tool_gnotify'));
 $PAGE->set_pagelayout('admin');
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('createtemplate', 'tool_gnotify'));
-
-$renderer = $PAGE->get_renderer('core');
-
-$params = ["cform" => $cform->render()];
-
-echo $renderer->render_from_template('tool_gnotify/create_template', $params);
-
+echo $cform->render();
 echo $OUTPUT->footer();
