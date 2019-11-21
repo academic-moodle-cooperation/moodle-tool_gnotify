@@ -1,4 +1,3 @@
-
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -16,16 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version info for local_globalnotification
+ * Version information
  *
- * @package    block_timeline
- * @copyright  2019 Thomas Wedekind <elearning.dev@univie.ac.at>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     tool_gnotify
+ * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
+ * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019092005;         // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2019051100;         // Requires Moodle 3.7.
+$plugin->version = 2019092005;         // The current plugin version (Date: YYYYMMDDXX).
+$plugin->requires = 2019051100;         // Requires Moodle 3.7.
 $plugin->component = 'tool_gnotify'; // Full name of the plugin (used for diagnostics).
 

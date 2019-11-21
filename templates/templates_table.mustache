@@ -1,34 +1,35 @@
 <div>
-<table id="templates-{{uniqid}}" class="notify-templates-table table">
-<thead>
- <tr>
- <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
- <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
- </tr>
-</thead>
-<tbody class="table">
-{{#templates}}
- <tr class="table-row">
-   <td class="table-cell">
-     {{name}}
-   </td>
-   <td class="table-cell">
-   <a href="{{wwwroot}}/admin/tool/gnotify/use.php?templateid={{id}}"> {{# str }} usetemplate, tool_gnotify {{/ str }}</a>,
-   <a href="{{wwwroot}}/admin/tool/gnotify/edit.php?templateid={{id}}"> {{# str }} edittemplate, tool_gnotify {{/ str }}</a>,
-   <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&templateid={{id}}"> {{# str }} deletetemplate, tool_gnotify {{/ str }}</a>
-   </td>
- </tr>
-{{/templates}}
-{{^templates}}
-    <tr class="table-row">
-    <td class="table-cell">
-    <p>{{# str}} notemplates, tool_gnotify {{/str}}</p>
-    </td>
-    </tr>
-{{/templates}}
-</tbody>
-</table>
-<a href="{{wwwroot}}/admin/tool/gnotify/create.php"><button class="btn btn-primary"/> {{# str }} createtemplate, tool_gnotify {{/ str }}</button></a>
+    <table id="templates-{{uniqid}}" class="notify-templates-table table">
+        <thead>
+        <tr>
+            <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
+            <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
+        </tr>
+        </thead>
+        <tbody class="table">
+        {{#templates}}
+            <tr class="table-row">
+                <td class="table-cell">
+                    {{name}}
+                </td>
+                <td class="table-cell">
+                    <a href="{{wwwroot}}/admin/tool/gnotify/use.php?templateid={{id}}"> {{# str }} usetemplate, tool_gnotify {{/ str }}</a>,
+                    <a href="{{wwwroot}}/admin/tool/gnotify/edit.php?templateid={{id}}"> {{# str }} edittemplate, tool_gnotify {{/ str }}</a>,
+                    <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&templateid={{id}}"> {{# str }} deletetemplate, tool_gnotify {{/ str }}</a>
+                </td>
+            </tr>
+        {{/templates}}
+        {{^templates}}
+            <tr class="table-row">
+                <td class="table-cell">
+                    <p>{{# str}} notemplates, tool_gnotify {{/str}}</p>
+                </td>
+            </tr>
+        {{/templates}}
+        </tbody>
+    </table>
+    <a href="{{wwwroot}}/admin/tool/gnotify/create.php">
+        <button class="btn btn-primary"/> {{# str }} createtemplate, tool_gnotify {{/ str }}</button></a>
 </div>
 <div>
     <table id="templates-{{uniqid}}" class="notify-templates-table table">
@@ -47,7 +48,7 @@
                     {{name}}
                 </td>
                 <td class="table-cell">
-                  {{fromdate}}
+                    {{fromdate}}
                 </td>
                 <td class="table-cell">
                     {{todate}}

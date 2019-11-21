@@ -1,4 +1,27 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Gnotify manage templates
+ *
+ * @package     tool_gnotify
+ * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
+ * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/course/lib.php');
@@ -23,11 +46,11 @@ global $DB;
 
 if ($action == "delete" && $tpltodeleteid) {
 
-    $DB->delete_records('gnotify_tpl',['id'=> $tpltodeleteid]);
-    $DB->delete_records('gnotify_tpl_var',['tplid'=> $tpltodeleteid]);
-    $DB->delete_records('gnotify_tpl_lang',['tplid'=> $tpltodeleteid]);
-    //TODO lets get rid of riid
-    $riid = $DB->get_records('gnotify_tpl_ins', ['tplid'=>$tpltodeleteid]);
+    $DB->delete_records('gnotify_tpl', ['id' => $tpltodeleteid]);
+    $DB->delete_records('gnotify_tpl_var', ['tplid' => $tpltodeleteid]);
+    $DB->delete_records('gnotify_tpl_lang', ['tplid' => $tpltodeleteid]);
+    // TODO lets get rid of riid
+    $riid = $DB->get_records('gnotify_tpl_ins', ['tplid' => $tpltodeleteid]);
 
     $DB->delete_records('gnotify_tpl_ins', ["tplid" => $tpltodeleteid]);
 
@@ -38,12 +61,12 @@ if ($action == "delete" && $tpltodeleteid) {
 }
 
 if ($action == "delete-ins" && $instodeleteid) {
-    $DB->delete_records('gnotify_tpl_ins',["id"=>$instodeleteid]);
-    $DB->delete_records('gnotify_tpl_ins_var', ['insid'=>$instodeleteid]);
-    $DB->delete_records('gnotify_tpl_ins_ack', ['insid'=>$instodeleteid]);
+    $DB->delete_records('gnotify_tpl_ins', ["id" => $instodeleteid]);
+    $DB->delete_records('gnotify_tpl_ins_var', ['insid' => $instodeleteid]);
+    $DB->delete_records('gnotify_tpl_ins_ack', ['insid' => $instodeleteid]);
 }
 
-$templates = $DB->get_recordset('gnotify_tpl',null );
+$templates = $DB->get_recordset('gnotify_tpl', null);
 
 if ($templates->valid()) {
     $templatestablecontext = array("templates" => $templates);
@@ -51,16 +74,16 @@ if ($templates->valid()) {
 $templatestablecontext["wwwroot"] = $CFG->wwwroot;
 
 // Template ins
-//TODO use moodle functions
-$instemplates = $DB->get_records_sql('SELECT B.id, A.name, B.fromdate, B.todate FROM {gnotify_tpl} AS A RIGHT JOIN {gnotify_tpl_ins} as B ON A.id=B.tplid');
+// TODO use moodle functions
+$instemplates =
+        $DB->get_records_sql('SELECT B.id, A.name, B.fromdate, B.todate FROM {gnotify_tpl} A RIGHT JOIN {gnotify_tpl_ins} B ON A.id=B.tplid');
 
 $readytpl = array();
-foreach($instemplates as $value) {
+foreach ($instemplates as $value) {
     $fromdate = (new DateTime("@$value->fromdate"))->format('Y-m-d H:i:s');
     $todate = (new DateTime("@$value->todate"))->format('Y-m-d H:i:s');
-    array_push($readytpl, ['id'=>$value->id,'name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate]);
+    array_push($readytpl, ['id' => $value->id, 'name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate]);
 }
-
 
 $templatestablecontext['instemplates'] = $readytpl;
 

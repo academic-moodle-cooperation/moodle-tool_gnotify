@@ -1,26 +1,49 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Gnotify creates instance of template
+ *
+ * @package     tool_gnotify
+ * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
+ * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
 require_login();
-//TODO admin
+// TODO admin
 $id = required_param('templateid', PARAM_INT);
 admin_externalpage_setup('gnotify_templates');
 global $DB;
 $context = context_system::instance();
 
-
-$template = $DB->get_record('gnotify_tpl', ['id'=> $id]);
-if($template) {
-    $templatelang = $DB->get_record('gnotify_tpl_lang', ['tplid'=> $template->id, 'lang' => 'en']);
-    //TODO multilang
-    $templatevars = $DB->get_fieldset_select('gnotify_tpl_var',  'varname' , 'tplid = :templateid', ['templateid' => $template->id]);
-    //     $templatevars = ['var1','var2'];
+$template = $DB->get_record('gnotify_tpl', ['id' => $id]);
+if ($template) {
+    $templatelang = $DB->get_record('gnotify_tpl_lang', ['tplid' => $template->id, 'lang' => 'en']);
+    // TODO multilang
+    $templatevars = $DB->get_fieldset_select('gnotify_tpl_var', 'varname', 'tplid = :templateid', ['templateid' => $template->id]);
+    // $templatevars = ['var1','var2'];
     $templatecontext = array();
     $templatecontext['vars'] = $templatevars;
     $templatecontext['lang'] = $templatelang;
-    $form = new tool_gnotify_use_form(new moodle_url('use.php',['templateid' => $id]) , $templatecontext);
+    $form = new tool_gnotify_use_form(new moodle_url('use.php', ['templateid' => $id]), $templatecontext);
 
     if ($form->is_cancelled()) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
@@ -35,21 +58,20 @@ if($template) {
 
         $id = $DB->insert_record('gnotify_tpl_ins', $record2);
 
-        foreach($templatevars as $v) {
-            $recordVar = new stdClass();
-            $recordVar->insid = $id;
-            $recordVar->varid = $DB->get_field('gnotify_tpl_var','id',['varname' => $v]);
-            $recordVar->content = $useform->$v;
-            $DB->insert_record('gnotify_tpl_ins_var', $recordVar);
+        foreach ($templatevars as $v) {
+            $recordvar = new stdClass();
+            $recordvar->insid = $id;
+            $recordvar->varid = $DB->get_field('gnotify_tpl_var', 'id', ['varname' => $v]);
+            $recordvar->content = $useform->$v;
+            $DB->insert_record('gnotify_tpl_ins_var', $recordvar);
         }
-
 
         $DB->commit_delegated_transaction($trans);
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
     }
 
 } else {
-    print_error('wrongiderror','tool_gnotify');
+    print_error('wrongiderror', 'tool_gnotify');
 }
 
 $PAGE->set_context($context);
