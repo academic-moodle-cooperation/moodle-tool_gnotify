@@ -47,7 +47,7 @@ class tool_gnotify_use_form extends moodleform {
             $mform->setType($var, PARAM_TEXT);
             $mform->addRule($var, get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         }
-        $mform->addElement('advcheckbox', 'sticky', get_string('sticky','tool_gnotify'), get_string('stickyinfo', 'tool_gnotify'), array(0, 1));
+        $mform->addElement('advcheckbox', 'sticky', get_string('sticky', 'tool_gnotify'), get_string('stickyinfo', 'tool_gnotify'), array(0, 1));
         $mform->addElement('date_time_selector',
                 'fromdate',
                 get_string('fromdate', 'tool_gnotify'),

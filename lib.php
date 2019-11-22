@@ -69,8 +69,9 @@ function tool_gnotify_before_footer() {
         // when printing, or during redirects.
         return;
     }
-    $sql = "SELECT g.id,l.content, g.sticky FROM {gnotify_tpl_ins} g, {gnotify_tpl_lang} l WHERE :time between fromdate AND todate AND l.lang = 'en' AND l.tplid = g.tplid AND NOT EXISTS
-            (SELECT 1 FROM {gnotify_tpl_ins_ack} a WHERE g.id=a.insid AND a.userid = :userid)";
+    $sql = "SELECT g.id, l.content, g.sticky FROM {gnotify_tpl_ins} g, {gnotify_tpl_lang} l " .
+    "WHERE :time between fromdate AND todate AND l.lang = 'en' AND l.tplid = g.tplid AND NOT EXISTS " .
+    "(SELECT 1 FROM {gnotify_tpl_ins_ack} a WHERE g.id=a.insid AND a.userid = :userid)";
     $records = $DB->get_records_sql($sql, ['time' => time(), 'userid' => $USER->id]);
 
     if ($records) {
