@@ -1,16 +1,16 @@
 define(['jquery'], function ($) {
     return {
-        init: function (context, sticky) {
-            var element = document.getElementById('page');
-            var notifications = document.createElement('div');
-            notifications.id = 'notifications';
-            if (sticky === "1") {
-                notifications.className = 'row notification-sticky';
-            } else {
-                notifications.className = 'row notification-relative';
-            }
-            notifications.innerHTML = '<div class="content"/>';
-            element.insertBefore(notifications, element.firstChild);
+        init: function (context) {
+            //var element = document.getElementById('page');
+            //var notifications = document.createElement('div');
+            //notifications.id = 'tool-gnotify';
+            //if (sticky === "1") {
+            //    notifications.className = 'row notification-sticky';
+            //} else {
+            //    notifications.className = 'row notification-relative';
+            //}
+            //notifications.className = 'row';
+            //element.insertBefore(notifications, element.firstChild);
             require(['core/templates'], function (templates) {
                 // This will be the context for our template. So {{name}} in the template will resolve to "Tweety bird".
                 // This will call the function to load and render our template.
@@ -20,7 +20,7 @@ define(['jquery'], function ($) {
                     .then(function (html, js) {
                         // Here eventually I have my compiled template, and any javascript that it generated.
                         // The templates object has append, prepend and replace functions.
-                        templates.appendNodeContents('#notifications .content', html, js);
+                        templates.prependNodeContents('#page', html, js);
                     }).fail(function (ex) {
                     templates.setBody(ex.message);
                 });

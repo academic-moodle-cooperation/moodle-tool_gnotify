@@ -18,11 +18,8 @@
     background-color: white;
 }
 
-#notifications {
-    z-index: 1029;
-}
-
 .notification-sticky {
+    z-index: 1029;
     position: sticky;
     top: 50px;
 }

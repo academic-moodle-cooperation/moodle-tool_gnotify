@@ -89,10 +89,12 @@ function tool_gnotify_before_footer() {
             }
             $htmlcontent = $renderer->render_direct($htmlcontent, $vararray);
 
-            $context['notifications'][] = ['html' => $htmlcontent, 'id' => $record->id];
-
-            if ($context['sticky']!= 1) {
-                $context['sticky'] = $record->sticky;
+            if ($record->sticky != 1) {
+                $context['notifications']['non-sticky'][] =
+                        ['html' => $htmlcontent, 'id' => $record->id];
+            } else {
+                $context['notifications']['sticky'][] =
+                        ['html' => $htmlcontent, 'id' => $record->id];
             }
         }
         $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', $context);
