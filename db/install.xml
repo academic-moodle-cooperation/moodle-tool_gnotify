@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="admin/tool/gnotify/db" VERSION="20190910" COMMENT="XMLDB file for Moodle local/globalnotification"
+<XMLDB PATH="admin/tool/gnotify/db" VERSION="20191122" COMMENT="XMLDB file for Moodle local/globalnotification"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
@@ -51,6 +51,7 @@
         <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
         <FIELD NAME="fromdate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Start Date"/>
         <FIELD NAME="todate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="end date"/>
+        <FIELD NAME="sticky" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Defines if notification is sticky."/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

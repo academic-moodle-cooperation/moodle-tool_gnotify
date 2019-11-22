@@ -1,10 +1,14 @@
 define(['jquery'], function ($) {
     return {
-        init: function (context) {
+        init: function (context, sticky) {
             var element = document.getElementById('page');
             var notifications = document.createElement('div');
             notifications.id = 'notifications';
-            notifications.className = 'row';
+            if (sticky === "1") {
+                notifications.className = 'row notification-sticky';
+            } else {
+                notifications.className = 'row notification-relative';
+            }
             notifications.innerHTML = '<div class="content"/>';
             element.insertBefore(notifications, element.firstChild);
             require(['core/templates'], function (templates) {
@@ -28,12 +32,7 @@ define(['jquery'], function ($) {
                     var promises = ajax.call([
                         {methodname: 'tool_gnotify_acknoledge_notification', args: {id: $id}}
                     ]);
-                    promises[0].done(function (response) {
-                        alert('done' + response);
-                    }).fail(function (ex) {
-                        // do something with the exception
-                        alert('exception' + ex.message);
-                    });
+                    promises[0].done();
                 });
             };
         }

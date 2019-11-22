@@ -55,6 +55,7 @@ if ($template) {
         $record2->tplid = $template->id;
         $record2->fromdate = $useform->fromdate;
         $record2->todate = $useform->todate;
+        $record2->sticky = $useform->sticky;
 
         $id = $DB->insert_record('gnotify_tpl_ins', $record2);
 

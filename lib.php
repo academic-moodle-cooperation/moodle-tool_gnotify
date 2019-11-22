@@ -69,16 +69,18 @@ function tool_gnotify_before_footer() {
         // when printing, or during redirects.
         return;
     }
-    $sql = "SELECT g.id,l.content FROM {gnotify_tpl_ins} g, {gnotify_tpl_lang} l WHERE :time between fromdate AND todate AND l.lang = 'en' AND l.tplid = g.tplid AND NOT EXISTS
+    $sql = "SELECT g.id,l.content, g.sticky FROM {gnotify_tpl_ins} g, {gnotify_tpl_lang} l WHERE :time between fromdate AND todate AND l.lang = 'en' AND l.tplid = g.tplid AND NOT EXISTS
             (SELECT 1 FROM {gnotify_tpl_ins_ack} a WHERE g.id=a.insid AND a.userid = :userid)";
     $records = $DB->get_records_sql($sql, ['time' => time(), 'userid' => $USER->id]);
 
     if ($records) {
         $context = [];
         foreach ($records as $record) {
-            $htmlcontent = format_text($record->content);
-            $sql =
-                    "SELECT var.varname, content from {gnotify_tpl_ins_var} ins, {gnotify_tpl_var} var  WHERE var.id = ins.varid AND ins.insid = :insid";
+            $formatoptions = new stdClass();
+            $formatoptions->trusted = true;
+            $formatoptions->noclean = true;
+            $htmlcontent = format_text($record->content, FORMAT_HTML, $formatoptions);
+            $sql = "SELECT var.varname, content from {gnotify_tpl_ins_var} ins, {gnotify_tpl_var} var  WHERE var.id = ins.varid AND ins.insid = :insid";
             $vars = $DB->get_records_sql($sql, ['insid' => $record->id]);
             $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
             $vararray = [];
@@ -88,6 +90,10 @@ function tool_gnotify_before_footer() {
             $htmlcontent = $renderer->render_direct($htmlcontent, $vararray);
 
             $context['notifications'][] = ['html' => $htmlcontent, 'id' => $record->id];
+
+            if ($context['sticky']!= 1) {
+                $context['sticky'] = $record->sticky;
+            }
         }
         $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', $context);
     }

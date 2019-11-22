@@ -1,5 +1,5 @@
 <div>
-    <table id="templates-{{uniqid}}" class="notify-templates-table table">
+    <table id="templates-{{uniqid}}" class="generaltable fullwidth">
         <thead>
         <tr>
             <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
@@ -21,7 +21,7 @@
         {{/templates}}
         {{^templates}}
             <tr class="table-row">
-                <td class="table-cell">
+                <td class="table-cell" colspan="2">
                     <p>{{# str}} notemplates, tool_gnotify {{/str}}</p>
                 </td>
             </tr>
@@ -29,10 +29,10 @@
         </tbody>
     </table>
     <a href="{{wwwroot}}/admin/tool/gnotify/create.php">
-        <button class="btn btn-primary"/> {{# str }} createtemplate, tool_gnotify {{/ str }}</button></a>
+        <button class="btn btn-secondary"/> {{# str }} createtemplate, tool_gnotify {{/ str }}</button></a>
 </div>
 <div>
-    <table id="templates-{{uniqid}}" class="notify-templates-table table">
+    <table id="templates-{{uniqid}}" class="generaltable fullwidth">
         <thead>
         <tr>
             <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
@@ -60,7 +60,7 @@
         {{/instemplates}}
         {{^instemplates}}
             <tr class="table-row">
-                <td class="table-cell">
+                <td class="table-cell" colspan="4" >
                     <p>{{# str}} notemplates, tool_gnotify {{/str}}</p>
                 </td>
             </tr>

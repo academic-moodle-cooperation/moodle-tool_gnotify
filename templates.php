@@ -80,8 +80,8 @@ $instemplates =
 
 $readytpl = array();
 foreach ($instemplates as $value) {
-    $fromdate = (new DateTime("@$value->fromdate"))->format('Y-m-d H:i:s');
-    $todate = (new DateTime("@$value->todate"))->format('Y-m-d H:i:s');
+    $fromdate = (new DateTime("@$value->fromdate",core_date::get_user_timezone_object()))->format('Y-m-d H:i:s');
+    $todate = (new DateTime("@$value->todate", core_date::get_user_timezone_object()))->format('Y-m-d H:i:s');
     array_push($readytpl, ['id' => $value->id, 'name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate]);
 }
 

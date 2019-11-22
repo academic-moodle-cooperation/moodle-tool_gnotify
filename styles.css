@@ -3,11 +3,10 @@
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 1rem !important;
-    background: white;
 }
 
 .gnotify {
-    position: absolute;
+    position: relative;
     width: 100%;
 }
 
@@ -15,16 +14,28 @@
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 1031;
+    /*z-index: 1031;*/
     background-color: white;
 }
 
-#notifications .content {
+#notifications {
+    z-index: 1029;
+}
+
+.notification-sticky {
+    position: sticky;
+    top: 50px;
+}
+
+.notification-relative {
+    position: relative;
+}
+
+.content {
     /*padding-right: 15px;
     padding-left: 15px;*/
     position: relative;
-    z-index: 1030;
+    /*z-index: 1030;*/
     width: 100%;
-    background-color: white;
     border: 1px black;
 }
