@@ -24,9 +24,6 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-require_once('config.php');
-global $OUTPUT;
-
 /**
  * Class tool_gnotify_var_renderer
  *
@@ -38,10 +35,12 @@ class tool_gnotify_var_renderer extends renderer_base {
     /**
      * Render direct
      *
+     * @param string $html Template
+     * @param array $vars Variables
      * @return bool|string
      * @throws moodle_exception
      */
-    public function render_direct() {
+    public function render_direct($html, $vars) {
         $mustache = $this->get_mustache();
         $tmploader = $mustache->getLoader();
         $mustache->setLoader(new Mustache_Loader_StringLoader());

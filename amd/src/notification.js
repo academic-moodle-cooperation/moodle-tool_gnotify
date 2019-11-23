@@ -1,20 +1,12 @@
 define(['jquery'], function ($) {
     return {
-        init: function (context) {
-            //var element = document.getElementById('page');
-            //var notifications = document.createElement('div');
-            //notifications.id = 'tool-gnotify';
-            //if (sticky === "1") {
-            //    notifications.className = 'row notification-sticky';
-            //} else {
-            //    notifications.className = 'row notification-relative';
-            //}
-            //notifications.className = 'row';
-            //element.insertBefore(notifications, element.firstChild);
+        init: function (uid) {
+            var gnotify = $('[id="' + uid + '"]');
+            var context = gnotify.data('gnotify');
+
             require(['core/templates'], function (templates) {
                 // This will be the context for our template. So {{name}} in the template will resolve to "Tweety bird".
                 // This will call the function to load and render our template.
-                context['notifications'] = context;
                 templates.render('tool_gnotify/notifications', context)
                 // It returns a promise that needs to be resoved.
                     .then(function (html, js) {
