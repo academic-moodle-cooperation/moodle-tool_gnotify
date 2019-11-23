@@ -69,9 +69,9 @@ function tool_gnotify_before_footer() {
         // when printing, or during redirects.
         return;
     }
-    $sql = "SELECT g.id, l.content, g.sticky FROM {gnotify_tpl_ins} g, {gnotify_tpl_lang} l " .
+    $sql = "SELECT g.id, l.content, g.sticky FROM {tool_gnotify_tpl_ins} g, {tool_gnotify_tpl_lang} l " .
     "WHERE :time between fromdate AND todate AND l.lang = 'en' AND l.tplid = g.tplid AND NOT EXISTS " .
-    "(SELECT 1 FROM {gnotify_tpl_ins_ack} a WHERE g.id=a.insid AND a.userid = :userid)";
+    "(SELECT 1 FROM {tool_gnotify_tpl_ins_ack} a WHERE g.id=a.insid AND a.userid = :userid)";
     $records = $DB->get_records_sql($sql, ['time' => time(), 'userid' => $USER->id]);
 
     if ($records) {
@@ -81,7 +81,7 @@ function tool_gnotify_before_footer() {
             $formatoptions->trusted = true;
             $formatoptions->noclean = true;
             $htmlcontent = format_text($record->content, FORMAT_HTML, $formatoptions);
-            $sql = "SELECT var.varname, content from {gnotify_tpl_ins_var} ins, {gnotify_tpl_var} var  WHERE var.id = ins.varid AND ins.insid = :insid";
+            $sql = "SELECT var.varname, content from {tool_gnotify_tpl_ins_var} ins, {tool_gnotify_tpl_var} var  WHERE var.id = ins.varid AND ins.insid = :insid";
             $vars = $DB->get_records_sql($sql, ['insid' => $record->id]);
             $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
             $vararray = [];

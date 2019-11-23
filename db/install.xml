@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="gnotify_tpl" COMMENT="Gnotify Template">
+    <TABLE NAME="tool_gnotify_tpl" COMMENT="Gnotify Template">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="name" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false" COMMENT="Template Name"/>
@@ -16,7 +16,7 @@
         <INDEX NAME="tpl_name" UNIQUE="true" FIELDS="name" COMMENT="Template Name Unique Index"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="gnotify_tpl_lang" COMMENT="Multi-Language Templates">
+    <TABLE NAME="tool_gnotify_tpl_lang" COMMENT="Multi-Language Templates">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
@@ -25,13 +25,13 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="gnotify_tpl" REFFIELDS="id"/>
+        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="tool_gnotify_tpl" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>
         <INDEX NAME="tpl_id_lang" UNIQUE="true" FIELDS="tplid, lang"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="gnotify_tpl_var" COMMENT="Default comment for the table, please edit me">
+    <TABLE NAME="tool_gnotify_tpl_var" COMMENT="Default comment for the table, please edit me">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
@@ -39,13 +39,13 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="gnotify_tpl" REFFIELDS="id"/>
+        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="tool_gnotify_tpl" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>
         <INDEX NAME="tpl_tplid_varname_unique" UNIQUE="true" FIELDS="tplid, varname"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="gnotify_tpl_ins" COMMENT="Template Instance">
+    <TABLE NAME="tool_gnotify_tpl_ins" COMMENT="Template Instance">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
@@ -55,10 +55,10 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="gnotify_tpl" REFFIELDS="id"/>
+        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="tool_gnotify_tpl" REFFIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="gnotify_tpl_ins_var" COMMENT="template variable instance">
+    <TABLE NAME="tool_gnotify_tpl_ins_var" COMMENT="template variable instance">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="insid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="instance id"/>
@@ -67,14 +67,14 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_insid" TYPE="foreign" FIELDS="insid" REFTABLE="gnotify_tpl_ins" REFFIELDS="id"/>
-        <KEY NAME="tpl_fk_varid" TYPE="foreign" FIELDS="varid" REFTABLE="gnotify_tpl_var" REFFIELDS="id"/>
+        <KEY NAME="tpl_fk_insid" TYPE="foreign" FIELDS="insid" REFTABLE="tool_gnotify_tpl_ins" REFFIELDS="id"/>
+        <KEY NAME="tpl_fk_varid" TYPE="foreign" FIELDS="varid" REFTABLE="tool_gnotify_tpl_var" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>
         <INDEX NAME="tpl_insid_varid" UNIQUE="true" FIELDS="insid, varid"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="gnotify_tpl_ins_ack" COMMENT="Notification acknowledged by user">
+    <TABLE NAME="tool_gnotify_tpl_ins_ack" COMMENT="Notification acknowledged by user">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="insid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
@@ -82,7 +82,7 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_insid" TYPE="foreign" FIELDS="insid" REFTABLE="gnotify_tpl_ins" REFFIELDS="id"/>
+        <KEY NAME="tpl_fk_insid" TYPE="foreign" FIELDS="insid" REFTABLE="tool_gnotify_tpl_ins" REFFIELDS="id"/>
         <KEY NAME="tpl_fk_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>

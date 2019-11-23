@@ -51,16 +51,16 @@ if ($form->is_cancelled()) {
     $updaterecord->id = $useform->langid;
     $updaterecord->content = $useform->content['text'];
 
-    $DB->update_record('gnotify_tpl_lang', $updaterecord);
+    $DB->update_record('tool_gnotify_tpl_lang', $updaterecord);
 
     preg_match_all('/{{\s*(.*?)\s*}}/', $useform->content['text'], $matches);
 
     foreach ($matches[1] as $value) {
-        if (!$DB->record_exists('gnotify_tpl_var', ['varname' => $value])) {
+        if (!$DB->record_exists('tool_gnotify_tpl_var', ['varname' => $value])) {
             $recordvar = new stdClass();
             $recordvar->tplid = $id;
             $recordvar->varname = $value;
-            $DB->insert_record('gnotify_tpl_var', $recordvar);
+            $DB->insert_record('tool_gnotify_tpl_var', $recordvar);
         }
     }
 
@@ -68,8 +68,8 @@ if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
 }
 
-if ($templatelang = $DB->get_record('gnotify_tpl_lang', ['tplid' => $id])) {
-    $template = $DB->get_record('gnotify_tpl', ['id' => $id]);
+if ($templatelang = $DB->get_record('tool_gnotify_tpl_lang', ['tplid' => $id])) {
+    $template = $DB->get_record('tool_gnotify_tpl', ['id' => $id]);
     $formdata['langid'] = $templatelang->id;
     $formdata['template_name'] = $template->name;
     $formdata['content']['text'] = $templatelang->content;

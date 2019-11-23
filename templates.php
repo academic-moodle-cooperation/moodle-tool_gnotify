@@ -46,27 +46,27 @@ global $DB;
 
 if ($action == "delete" && $tpltodeleteid) {
 
-    $DB->delete_records('gnotify_tpl', ['id' => $tpltodeleteid]);
-    $DB->delete_records('gnotify_tpl_var', ['tplid' => $tpltodeleteid]);
-    $DB->delete_records('gnotify_tpl_lang', ['tplid' => $tpltodeleteid]);
+    $DB->delete_records('tool_gnotify_tpl', ['id' => $tpltodeleteid]);
+    $DB->delete_records('tool_gnotify_tpl_var', ['tplid' => $tpltodeleteid]);
+    $DB->delete_records('tool_gnotify_tpl_lang', ['tplid' => $tpltodeleteid]);
     // TODO lets get rid of riid
-    $riid = $DB->get_records('gnotify_tpl_ins', ['tplid' => $tpltodeleteid]);
+    $riid = $DB->get_records('tool_gnotify_tpl_ins', ['tplid' => $tpltodeleteid]);
 
-    $DB->delete_records('gnotify_tpl_ins', ["tplid" => $tpltodeleteid]);
+    $DB->delete_records('tool_gnotify_tpl_ins', ["tplid" => $tpltodeleteid]);
 
     foreach ($riid as $x) {
-        $DB->delete_records('gnotify_tpl_ins_var', ['insid' => $x->id]);
-        $DB->delete_records('gnotify_tpl_ins_ack', ['insid' => $x->id]);
+        $DB->delete_records('tool_gnotify_tpl_ins_var', ['insid' => $x->id]);
+        $DB->delete_records('tool_gnotify_tpl_ins_ack', ['insid' => $x->id]);
     }
 }
 
 if ($action == "delete-ins" && $instodeleteid) {
-    $DB->delete_records('gnotify_tpl_ins', ["id" => $instodeleteid]);
-    $DB->delete_records('gnotify_tpl_ins_var', ['insid' => $instodeleteid]);
-    $DB->delete_records('gnotify_tpl_ins_ack', ['insid' => $instodeleteid]);
+    $DB->delete_records('tool_gnotify_tpl_ins', ["id" => $instodeleteid]);
+    $DB->delete_records('tool_gnotify_tpl_ins_var', ['insid' => $instodeleteid]);
+    $DB->delete_records('tool_gnotify_tpl_ins_ack', ['insid' => $instodeleteid]);
 }
 
-$templates = $DB->get_recordset('gnotify_tpl', null);
+$templates = $DB->get_recordset('tool_gnotify_tpl', null);
 
 if ($templates->valid()) {
     $templatestablecontext = array("templates" => $templates);
@@ -76,7 +76,7 @@ $templatestablecontext["wwwroot"] = $CFG->wwwroot;
 // Template ins
 // TODO use moodle functions
 $instemplates =
-        $DB->get_records_sql('SELECT B.id, A.name, B.fromdate, B.todate FROM {gnotify_tpl} A RIGHT JOIN {gnotify_tpl_ins} B ON A.id=B.tplid');
+        $DB->get_records_sql('SELECT B.id, A.name, B.fromdate, B.todate FROM {tool_gnotify_tpl} A RIGHT JOIN {tool_gnotify_tpl_ins} B ON A.id=B.tplid');
 
 $readytpl = array();
 foreach ($instemplates as $value) {

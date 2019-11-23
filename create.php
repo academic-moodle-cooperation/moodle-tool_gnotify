@@ -45,14 +45,14 @@ if ($cform->is_cancelled()) {
 
     $record = new stdClass();
     $record->name = $fromform->template_name;
-    $id = $DB->insert_record('gnotify_tpl', $record);
+    $id = $DB->insert_record('tool_gnotify_tpl', $record);
 
     $recordcontent = new stdClass();
     $recordcontent->tplid = $id;
     $recordcontent->lang = 'en';
     $recordcontent->content = $fromform->content['text'];
     // TODO: lang should be not null
-    $DB->insert_record('gnotify_tpl_lang', $recordcontent);
+    $DB->insert_record('tool_gnotify_tpl_lang', $recordcontent);
 
     preg_match_all('/{{\s*(.*?)\s*}}/', $fromform->content['text'], $matches);
 
@@ -60,7 +60,7 @@ if ($cform->is_cancelled()) {
         $recordvar = new stdClass();
         $recordvar->tplid = $id;
         $recordvar->varname = $value;
-        $DB->insert_record('gnotify_tpl_var', $recordvar);
+        $DB->insert_record('tool_gnotify_tpl_var', $recordvar);
     }
 
     $DB->commit_delegated_transaction($trans);

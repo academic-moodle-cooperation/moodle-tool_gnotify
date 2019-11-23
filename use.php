@@ -34,11 +34,11 @@ admin_externalpage_setup('gnotify_templates');
 global $DB;
 $context = context_system::instance();
 
-$template = $DB->get_record('gnotify_tpl', ['id' => $id]);
+$template = $DB->get_record('tool_gnotify_tpl', ['id' => $id]);
 if ($template) {
-    $templatelang = $DB->get_record('gnotify_tpl_lang', ['tplid' => $template->id, 'lang' => 'en']);
+    $templatelang = $DB->get_record('tool_gnotify_tpl_lang', ['tplid' => $template->id, 'lang' => 'en']);
     // TODO multilang
-    $templatevars = $DB->get_fieldset_select('gnotify_tpl_var', 'varname', 'tplid = :templateid', ['templateid' => $template->id]);
+    $templatevars = $DB->get_fieldset_select('tool_gnotify_tpl_var', 'varname', 'tplid = :templateid', ['templateid' => $template->id]);
     // $templatevars = ['var1','var2'];
     $templatecontext = array();
     $templatecontext['vars'] = $templatevars;
@@ -57,14 +57,14 @@ if ($template) {
         $record2->todate = $useform->todate;
         $record2->sticky = $useform->sticky;
 
-        $id = $DB->insert_record('gnotify_tpl_ins', $record2);
+        $id = $DB->insert_record('tool_gnotify_tpl_ins', $record2);
 
         foreach ($templatevars as $v) {
             $recordvar = new stdClass();
             $recordvar->insid = $id;
-            $recordvar->varid = $DB->get_field('gnotify_tpl_var', 'id', ['varname' => $v]);
+            $recordvar->varid = $DB->get_field('tool_gnotify_tpl_var', 'id', ['varname' => $v]);
             $recordvar->content = $useform->$v;
-            $DB->insert_record('gnotify_tpl_ins_var', $recordvar);
+            $DB->insert_record('tool_gnotify_tpl_ins_var', $recordvar);
         }
 
         $DB->commit_delegated_transaction($trans);

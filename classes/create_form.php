@@ -47,7 +47,7 @@ class tool_gnotify_create_form extends moodleform {
         global $DB;
         $errors = parent::validation($data, $files);
         if (!empty($data['template_name'])) {
-            if ($DB->record_exists('gnotify_tpl', ['name' => $data['template_name']])) {
+            if ($DB->record_exists('tool_gnotify_tpl', ['name' => $data['template_name']])) {
                 $errors['duplicate'] = 'Duplicate Keys';
                 // TODO Show error message
             }

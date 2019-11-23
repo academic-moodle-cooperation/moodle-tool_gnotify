@@ -42,12 +42,12 @@ class tool_gnotify_external extends external_api {
         global $USER, $DB;
         if ($USER) {
             if ($USER->id) {
-                if ($DB->get_record('gnotify_tpl_ins', ['id' => $id]) &&
-                        !$DB->get_record('gnotify_tpl_ins_ack', ['insid' => $id, 'userid' => $USER->id])) {
+                if ($DB->get_record('tool_gnotify_tpl_ins', ['id' => $id]) &&
+                        !$DB->get_record('tool_gnotify_tpl_ins_ack', ['insid' => $id, 'userid' => $USER->id])) {
                     $dataobject = new stdClass();
                     $dataobject->insid = $id;
                     $dataobject->userid = $USER->id;
-                    $DB->insert_record('gnotify_tpl_ins_ack', $dataobject);
+                    $DB->insert_record('tool_gnotify_tpl_ins_ack', $dataobject);
                 }
             }
         }
