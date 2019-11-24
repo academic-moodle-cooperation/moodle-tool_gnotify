@@ -18,11 +18,11 @@ define(['jquery'], function ($) {
                 });
             });
             $.fn.tool_gnotify_acknowledge_notification = function ($id) {
-                var notification = document.getElementById($id + '-gnotify');
+                var notification = document.getElementById($id + '-gnotify-wrapper');
                 notification.hidden = true;
                 require(['core/ajax'], function (ajax) {
                     var promises = ajax.call([
-                        {methodname: 'tool_gnotify_acknoledge_notification', args: {id: $id}}
+                        {methodname: 'tool_gnotify_acknowledge_notification', args: {id: $id}}
                     ]);
                     promises[0].done();
                 });

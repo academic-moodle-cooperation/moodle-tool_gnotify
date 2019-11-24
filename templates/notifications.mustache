@@ -1,7 +1,7 @@
 {{#sticky.length}}
     <div id="gnotify-wrapper-sticky" class="row notification-sticky">
-        <div id="gnotify-wrapper" class="gnotify gnotify-pt">
-            {{#sticky}}
+        {{#sticky}}
+            <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-pt">
                 <div id="{{id}}-gnotify" class="card">
                     <div class="gnotify-notification-html card-body">
                         <button type="button" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});" class="close" data-dismiss="alert">&times;</button>
@@ -9,14 +9,14 @@
                     </div>
                     <!-- button class="gnotify-close btn btn-secondary" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});">&times;</button-->
                 </div>
-            {{/sticky}}
-        </div>
+            </div>
+        {{/sticky}}
     </div>
 {{/sticky.length}}
 {{#non-sticky.length}}
     <div id="gnotify-wrapper-non-sticky" class="row notification-relative">
-        <div id="gnotify-wrapper" class="gnotify gnotify-pt">
-            {{#non-sticky}}
+        {{#non-sticky}}
+            <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-pt">
                 <div id="{{id}}-gnotify" class="card">
                     <div class="gnotify-notification-html card-body">
                         <button type="button" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});" class="close" data-dismiss="alert">&times;</button>
@@ -24,7 +24,8 @@
                     </div>
                     <!-- button class="gnotify-close btn btn-secondary" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});">&times;</button-->
                 </div>
-            {{/non-sticky}}
-        </div>
+
+            </div>
+        {{/non-sticky}}
     </div>
 {{/non-sticky.length}}

@@ -38,7 +38,7 @@ class tool_gnotify_external extends external_api {
      * @param int $id Template instance
      * @throws dml_exception
      */
-    public static function acknoledge($id) {
+    public static function acknowledge($id) {
         global $USER, $DB;
         if ($USER) {
             if ($USER->id) {
@@ -58,7 +58,7 @@ class tool_gnotify_external extends external_api {
      *
      * @return external_function_parameters
      */
-    public static function acknoledge_parameters() {
+    public static function acknowledge_parameters() {
         return new external_function_parameters(
                 array(
                         'id' => new external_value(PARAM_INT, 'id of notificationtemplate')
@@ -71,7 +71,7 @@ class tool_gnotify_external extends external_api {
      *
      * @return |null
      */
-    public static function acknoledge_returns() {
+    public static function acknowledge_returns() {
         return null;
     }
 
