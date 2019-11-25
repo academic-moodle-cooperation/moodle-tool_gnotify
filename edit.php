@@ -32,12 +32,11 @@ require_login();
 
 global $DB;
 
+$id = required_param('templateid', PARAM_INT);
+
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/admin/tool/gnotify/edit.php?templateid=' . $id));
-
-$id = required_param('templateid', PARAM_INT);
-// admin_externalpage_setup('gnotify_edit');
 
 // TODO multilang
 $form = new tool_gnotify_edit_form(new moodle_url('edit.php', ['templateid' => $id]));

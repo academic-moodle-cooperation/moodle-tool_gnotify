@@ -74,6 +74,7 @@ class tool_gnotify_edit_form extends moodleform {
         $mform->addRule('content', get_string('required'), 'required', null, 'client');
 
         $mform->addElement('hidden', 'langid');
+        $mform->setType('langid', PARAM_INT);
         // $mform->addElement($atto);
         $this->add_action_buttons();
         // TODO: Implement definition() method.
