@@ -78,10 +78,10 @@ function tool_gnotify_before_standard_top_of_body_html() {
             $htmlcontent = $renderer->render_direct($htmlcontent, $varray);
 
             if ($record->sticky != 1) {
-                $context['notifications']['non-sticky'][] =
+                $context['non-sticky'][] =
                         ['html' => $htmlcontent, 'id' => $record->id];
             } else {
-                $context['notifications']['sticky'][] =
+                $context['sticky'][] =
                         ['html' => $htmlcontent, 'id' => $record->id];
             }
         }
@@ -90,7 +90,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
         $attributes = array(
                 'id' => $uid,
                 'type' => 'hidden',
-                'data-gnotify' => json_encode($context['notifications']));
+                'data-gnotify' => json_encode($context));
         $html = html_writer::empty_tag('input', $attributes);
 
         $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', array($uid));

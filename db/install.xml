@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="admin/tool/gnotify/db" VERSION="20191122" COMMENT="XMLDB file for Moodle local/globalnotification"
+<XMLDB PATH="admin/tool/gnotify/db" VERSION="20191125" COMMENT="XMLDB file for Moodle local/globalnotification"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
@@ -28,7 +28,7 @@
         <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="tool_gnotify_tpl" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>
-        <INDEX NAME="tpl_id_lang" UNIQUE="true" FIELDS="tplid, lang"/>
+        <INDEX NAME="tpl_lang_tplid" UNIQUE="true" FIELDS="lang, tplid"/>
       </INDEXES>
     </TABLE>
     <TABLE NAME="tool_gnotify_tpl_var" COMMENT="Default comment for the table, please edit me">
@@ -86,7 +86,7 @@
         <KEY NAME="tpl_fk_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>
-        <INDEX NAME="tpl_insid_userid" UNIQUE="true" FIELDS="insid, userid"/>
+        <INDEX NAME="tpl_userid_insid" UNIQUE="true" FIELDS="userid, insid"/>
       </INDEXES>
     </TABLE>
   </TABLES>
