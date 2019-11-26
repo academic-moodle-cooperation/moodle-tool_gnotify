@@ -13,20 +13,34 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Render  in Moodle directly from strings
  *
- * @package ${PLUGIN}
- * @copyright (c) 2019 eDaktik GmbH
- * @author    Philipp Hager <philipp.hager@edaktik.at>
- * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     tool_gnotify
+ * @author      Philipp Hager <philipp.hager@edaktik.at>
+ * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once('config.php');
-global $OUTPUT;
+defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Class tool_gnotify_var_renderer
+ *
+ * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class tool_gnotify_var_renderer extends renderer_base {
 
-    public function render_direct() {
+    /**
+     * Render direct
+     *
+     * @param string $html Template
+     * @param array $vars Variables
+     * @return bool|string
+     * @throws moodle_exception
+     */
+    public function render_direct($html, $vars) {
         $mustache = $this->get_mustache();
         $tmploader = $mustache->getLoader();
         $mustache->setLoader(new Mustache_Loader_StringLoader());

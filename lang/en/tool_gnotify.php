@@ -15,27 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Lang strings for the timeline block.
+ * Lang file
  *
- * @package    admin_gnotify
- * @copyright  2019 Universitaet Wien
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     tool_gnotify
+ * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
+ * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['createname'] = 'Name';
 $string['createtemplates'] = 'Create Notification Templates';
 $string['createtemplate'] = 'Create notification template';
 $string['createtemplatecontent'] = 'Content';
 $string['deletetemplate'] = 'Delete';
-$string['edittemplate'] = 'Edit Template';
-$string['fromdate'] ="From";
+$string['edittemplate'] = 'Edit';
+$string['fromdate'] = "From";
 $string['notemplates'] = "No Templates ;)";
 $string['notifyusers'] = 'Notify users';
 $string['pluginname'] = 'Global Notifications';
 $string['templates'] = 'Notification Templates';
+$string['sticky'] = 'Sticky';
+$string['stickyinfo'] = 'If this option is checked, the message remains visible during scrolling.';
 $string['templatetableheaderactions'] = 'Actions';
 $string['templatetableheaderfrom'] = 'From';
 $string['templatetableheadername'] = 'Name';
 $string['templatetableheaderto'] = 'To';
 $string['todate'] = "To";
-$string['usetemplate'] ="Use template";
+$string['usetemplate'] = "Use";
 $string['wrongiderror'] = "Wrong id given in parameters";
