@@ -49,7 +49,7 @@ if ($action == "delete" && $tpltodeleteid) {
     $DB->delete_records('tool_gnotify_tpl', ['id' => $tpltodeleteid]);
     $DB->delete_records('tool_gnotify_tpl_var', ['tplid' => $tpltodeleteid]);
     $DB->delete_records('tool_gnotify_tpl_lang', ['tplid' => $tpltodeleteid]);
-    // TODO lets get rid of riid
+    // TODO Lets get rid of riid.
     $riid = $DB->get_records('tool_gnotify_tpl_ins', ['tplid' => $tpltodeleteid]);
 
     $DB->delete_records('tool_gnotify_tpl_ins', ["tplid" => $tpltodeleteid]);
@@ -73,10 +73,13 @@ if ($templates->valid()) {
 }
 $templatestablecontext["wwwroot"] = $CFG->wwwroot;
 
+$sql = 'SELECT     B.id, A.name, B.fromdate, B.todate
+        FROM       {tool_gnotify_tpl} A
+        RIGHT JOIN {tool_gnotify_tpl_ins} B ON A.id=B.tplid';
 // Template ins
 // TODO use moodle functions
 $instemplates =
-        $DB->get_records_sql('SELECT B.id, A.name, B.fromdate, B.todate FROM {tool_gnotify_tpl} A RIGHT JOIN {tool_gnotify_tpl_ins} B ON A.id=B.tplid');
+        $DB->get_records_sql($sql);
 
 $readytpl = array();
 foreach ($instemplates as $value) {

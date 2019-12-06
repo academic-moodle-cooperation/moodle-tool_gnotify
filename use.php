@@ -28,7 +28,7 @@ require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
 require_login();
-// TODO admin
+// TODO Admin.
 $id = required_param('templateid', PARAM_INT);
 admin_externalpage_setup('gnotify_templates');
 global $DB;
@@ -37,9 +37,8 @@ $context = context_system::instance();
 $template = $DB->get_record('tool_gnotify_tpl', ['id' => $id]);
 if ($template) {
     $templatelang = $DB->get_record('tool_gnotify_tpl_lang', ['tplid' => $template->id, 'lang' => 'en']);
-    // TODO multilang
-    $templatevars = $DB->get_fieldset_select('tool_gnotify_tpl_var', 'varname', 'tplid = :templateid', ['templateid' => $template->id]);
-    // $templatevars = ['var1','var2'];
+    // TODO Multilang.
+    $templatevars = $DB->get_fieldset_select('tool_gnotify_tpl_var', 'varname', 'tplid = :templateid ORDER BY id ASC', ['templateid' => $template->id]);
     $templatecontext = array();
     $templatecontext['vars'] = $templatevars;
     $templatecontext['lang'] = $templatelang;
@@ -56,7 +55,8 @@ if ($template) {
         $record2->fromdate = $useform->fromdate;
         $record2->todate = $useform->todate;
         $record2->sticky = $useform->sticky;
-
+        $record2->isvisibleonlogin = $useform->isvisibleonlogin;
+        $record2->dismissable = $useform->dismissable;
         $id = $DB->insert_record('tool_gnotify_tpl_ins', $record2);
 
         foreach ($templatevars as $v) {
