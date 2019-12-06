@@ -1,5 +1,5 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
+// This file is part of tool_gnotify for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,20 +13,27 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
- * Settings
+ * Installs the cron-tasks for this plugin
  *
- * @package     tool_gnotify
- * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
- * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package       tool
+ * @subpackage    gnotify
+ * @author        Thomas Wedekind <Thomas.Wedekind@univie.ac.at>
+ * @copyright     2019 Academic Moodle Cooperation {@link http://www.academic-moodle-cooperation.org}
+ * @since         Moodle 3.8
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
-global $ADMIN;
-if ($hassiteconfig) {
-    $temp = new admin_externalpage('gnotify_templates',
-            new lang_string('templates', 'tool_gnotify'), "$CFG->wwwroot/$CFG->admin/tool/gnotify/templates.php");
-    $ADMIN->add('server', $temp);
-}
 
+defined('MOODLE_INTERNAL') || die();
+
+$tasks = array(
+    [
+        'classname' => 'tool_gnotify\task\delete_completed_task',
+        'blocking' => 0,
+        'minute' => '37',
+        'hour' => '3',
+        'day' => '*',
+        'dayofweek' => '*',
+        'month' => '*'
+    ]
+);

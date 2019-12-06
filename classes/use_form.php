@@ -48,6 +48,9 @@ class tool_gnotify_use_form extends moodleform {
             $mform->addRule($var, get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         }
         $mform->addElement('advcheckbox', 'sticky', get_string('sticky', 'tool_gnotify'), get_string('stickyinfo', 'tool_gnotify'), array(0, 1));
+        $mform->addElement('advcheckbox', 'dismissable', get_string('dismissable', 'tool_gnotify'), get_string('dismissableinfo', 'tool_gnotify'), array(0, 1));
+        $mform->setDefault('dismissable', 1);
+        $mform->addElement('advcheckbox', 'isvisibleonlogin', get_string('isvisibleonlogin', 'tool_gnotify'), get_string('isvisibleonlogininfo', 'tool_gnotify'), array(0, 1));
         $mform->addElement('date_time_selector',
                 'fromdate',
                 get_string('fromdate', 'tool_gnotify'),
@@ -56,6 +59,8 @@ class tool_gnotify_use_form extends moodleform {
                 'todate',
                 get_string('todate', 'tool_gnotify'),
                 array('optional' => false));
+        $mform->setDefault('todate', time() + 3600 * 24);
+        
         $this->add_action_buttons();
     }
 }
