@@ -29,9 +29,11 @@ namespace tool_gnotify\task;
 defined('MOODLE_INTERNAL') || die();
 
 /**
+ * deletes all notification usages older than one week
  * @author        Thomas Wedekind <Thomas.Wedekind@univie.ac.at>
  * @copyright     2019 University of Vienna Computer Center
  * @since         Moodle 3.8+
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class delete_completed_task extends \core\task\scheduled_task {
     /**
