@@ -98,3 +98,27 @@ function tool_gnotify_before_standard_top_of_body_html() {
 
     return $html;
 }
+
+/**
+ * Add nodes to myprofile page.
+ *
+ * @param \core_user\output\myprofile\tree $tree Tree object
+ * @param stdClass $user user object
+ * @param bool $iscurrentuser
+ * @param stdClass $course Course object
+ *
+ * @return bool
+ */
+function tool_gnotify_myprofile_navigation(core_user\output\myprofile\tree $tree, $user, $iscurrentuser, $course) {
+    if (isguestuser($user)) {
+        return false;
+    }
+
+    $history = new moodle_url('/admin/tool/gnotify/history.php');
+    $string = get_string('myprofilehistory', 'tool_gnotify');
+    $node = new core_user\output\myprofile\node('miscellaneous', 'gnotifyhistory', $string, null,
+            $history);
+    $tree->add_node($node);
+
+    return true;
+}
