@@ -39,7 +39,7 @@ $functions = array(
                 'methodname' => 'acknowledge',
                 'classpath' => 'tool/gnotify/externallib.php',
                 'description' => 'Allows users to acknowledge that they have seen a notification',
-                'type' => 'write', 
+                'type' => 'write',
                 'ajax' => true,
                 'capabilities' => '',  // TODO capabilities
         )
