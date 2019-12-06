@@ -22,6 +22,7 @@
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Before footer
@@ -52,9 +53,9 @@ function tool_gnotify_before_standard_top_of_body_html() {
     $html = "";
     if (!isloggedin() || isguestuser()) {
         if ($PAGE->pagelayout == "login" || $PAGE->pagelayout == "frontpage") {
-            $sql = "SELECT g.id, l.content, g.sticky 
+            $sql = "SELECT g.id, l.content, g.sticky
             FROM   {tool_gnotify_tpl_ins} g,
-                   {tool_gnotify_tpl_lang} l 
+                   {tool_gnotify_tpl_lang} l
             WHERE  :time between fromdate AND todate
             AND    l.lang = 'en'
             AND    l.tplid = g.tplid
@@ -84,7 +85,11 @@ function tool_gnotify_before_standard_top_of_body_html() {
             $formatoptions->trusted = true;
             $formatoptions->noclean = true;
             $htmlcontent = format_text($record->content, FORMAT_HTML, $formatoptions);
-            $sql ="SELECT var.varname, content from {tool_gnotify_tpl_ins_var} ins, {tool_gnotify_tpl_var} var  WHERE var.id = ins.varid AND ins.insid = :insid";
+            $sql = "SELECT var.varname, content
+                    FROM   {tool_gnotify_tpl_ins_var} ins,
+                           {tool_gnotify_tpl_var} var
+                    WHERE  var.id = ins.varid
+                    AND    ins.insid = :insid";
             $vars = $DB->get_records_sql($sql, ['insid' => $record->id]);
             $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
             $varray = [];
@@ -92,16 +97,14 @@ function tool_gnotify_before_standard_top_of_body_html() {
                 $varray[$var->varname] = $var->content;
             }
             $htmlcontent = $renderer->render_direct($htmlcontent, $varray);
-            if(!isloggedin() || isguestuser() || !$record->dismissable) {
+            if (!isloggedin() || isguestuser() || !$record->dismissable) {
                 $dismissable = false;
             } else {
                 $dismissable = true;
             }
             $content = ['html' => $htmlcontent, 'id' => $record->id, 'dismissable' => $dismissable];
             if ($record->sticky != 1) {
-                
                 $context['non-sticky'][] = $content;
-                    
             } else {
                 $context['sticky'][] = $content;
             }

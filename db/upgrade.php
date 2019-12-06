@@ -55,7 +55,7 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
         // Define field isvisibleonlogin to be added to tool_gnotify_tpl_ins.
         $table = new xmldb_table('tool_gnotify_tpl_ins');
         $field = new xmldb_field('dismissable', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'sticky');
-        
+
         // Conditionally launch add field isvisibleonlogin.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);
