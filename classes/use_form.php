@@ -60,7 +60,7 @@ class tool_gnotify_use_form extends moodleform {
                 get_string('todate', 'tool_gnotify'),
                 array('optional' => false));
         $mform->setDefault('todate', time() + 3600 * 24);
-        
+
         $this->add_action_buttons();
     }
 }

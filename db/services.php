@@ -36,11 +36,11 @@ $services = array(
 $functions = array(
         'tool_gnotify_acknowledge_notification' => array(
                 'classname' => 'tool_gnotify_external',
-                'methodname' => 'acknowledge', // implement this function into the above class
+                'methodname' => 'acknowledge',
                 'classpath' => 'tool/gnotify/externallib.php',
                 'description' => 'Allows users to acknowledge that they have seen a notification',
-                'type' => 'write', // the value is 'write' if your function does any database change, otherwise it is 'read'.
-                'ajax' => true, // true/false if you allow this web service function to be callable via ajax
+                'type' => 'write',
+                'ajax' => true,
                 'capabilities' => '',  // TODO capabilities
         )
 );

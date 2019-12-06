@@ -13,9 +13,8 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
- *
+ * upgrade.php for tool_gnotify
  * @package    tool_gnotify
  * @copyright  2019 University of Vienna
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -56,7 +55,7 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
         // Define field isvisibleonlogin to be added to tool_gnotify_tpl_ins.
         $table = new xmldb_table('tool_gnotify_tpl_ins');
         $field = new xmldb_field('dismissable', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'sticky');
-        
+
         // Conditionally launch add field isvisibleonlogin.
         if (!$dbman->field_exists($table, $field)) {
             $dbman->add_field($table, $field);

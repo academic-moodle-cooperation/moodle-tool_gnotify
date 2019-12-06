@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * deletes all 
+ * deletes all notification usages older than one week
  *
- * @package       tool
+ * @package       tool_gnotify
  * @subpackage    gnotify
  * @author        Thomas Wedekind <Thomas.Wedekind@univie.ac.at>
  * @copyright     2019 University of Vienna Computer Center
@@ -28,12 +28,26 @@ namespace tool_gnotify\task;
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * deletes all notification usages older than one week
+ * @author        Thomas Wedekind <Thomas.Wedekind@univie.ac.at>
+ * @copyright     2019 University of Vienna Computer Center
+ * @since         Moodle 3.8+
+ * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class delete_completed_task extends \core\task\scheduled_task {
+    /**
+     * {@inheritDoc}
+     * @see \core\task\scheduled_task::get_name()
+     */
     public function get_name() {
         // Shown in admin screens.
         return get_string('deletecompletedtaskname', 'tool_gnotify');
     }
-
+    /**
+     * {@inheritDoc}
+     * @see \core\task\task_base::execute()
+     */
     public function execute() {
         global $DB;
         // Remove all template usages older than 1 week.

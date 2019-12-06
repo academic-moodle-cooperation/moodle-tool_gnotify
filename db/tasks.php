@@ -16,8 +16,6 @@
 /**
  * Installs the cron-tasks for this plugin
  *
- * @package       tool
- * @subpackage    gnotify
  * @author        Thomas Wedekind <Thomas.Wedekind@univie.ac.at>
  * @copyright     2019 Academic Moodle Cooperation {@link http://www.academic-moodle-cooperation.org}
  * @since         Moodle 3.8

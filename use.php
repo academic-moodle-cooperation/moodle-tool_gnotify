@@ -28,7 +28,7 @@ require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
 require_login();
-// TODO admin
+// TODO Admin.
 $id = required_param('templateid', PARAM_INT);
 admin_externalpage_setup('gnotify_templates');
 global $DB;
@@ -37,7 +37,7 @@ $context = context_system::instance();
 $template = $DB->get_record('tool_gnotify_tpl', ['id' => $id]);
 if ($template) {
     $templatelang = $DB->get_record('tool_gnotify_tpl_lang', ['tplid' => $template->id, 'lang' => 'en']);
-    // TODO multilang
+    // TODO Multilang.
     $templatevars = $DB->get_fieldset_select('tool_gnotify_tpl_var', 'varname', 'tplid = :templateid ORDER BY id ASC', ['templateid' => $template->id]);
     $templatecontext = array();
     $templatecontext['vars'] = $templatevars;
