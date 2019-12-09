@@ -22,6 +22,7 @@
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+$string['acknotifications'] = 'Acknowledged notifications';
 $string['createname'] = 'Name';
 $string['createtemplates'] = 'Create Notification Templates';
 $string['createtemplate'] = 'Create notification template';
@@ -34,7 +35,11 @@ $string['edittemplate'] = 'Edit';
 $string['fromdate'] = "From";
 $string['isvisibleonlogin'] = 'Visible on login page';
 $string['isvisibleonlogininfo'] = 'Whether this notification is visible on the login page';
+$string['myprofilehistory'] = "Notification history";
+$string['noacknotifications'] = 'No acknowledged notifications';
+$string['noacknotificationsinfo'] = 'You haven\'t acknowledged any notifications';
 $string['notemplates'] = "No Templates ;)";
+$string['notificationhistory'] = "Notification History";
 $string['notifyusers'] = 'Notify users';
 $string['pluginname'] = 'Global Notifications';
 $string['templates'] = 'Notification Templates';

@@ -1,27 +1,27 @@
-<div>
-    <div id="gnotify-wrapper-sticky" class="row notification-sticky">
-        {{#sticky}}
-            <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-pt">
-                <div id="{{id}}-gnotify" class="card">
-                    <div class="gnotify-notification-html card-body">
-                        {{#dismissable}}<button type="button" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});" class="close" data-dismiss="alert">&times;</button>{{/dismissable}}
-                        {{{html}}}
-                    </div>
+<div id="gnotify-wrapper-sticky" class="row notification-sticky">
+    {{#sticky}}
+        <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-pt">
+            <div id="{{id}}-gnotify" class="card">
+                <div class="gnotify-notification-html card-body">
+                    {{#dismissable}}
+                        <button type="button" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});" class="close" data-dismiss="alert">&times;</button>{{/dismissable}}
+                    {{{html}}}
                 </div>
             </div>
-        {{/sticky}}
-    </div>
-    <div id="gnotify-wrapper-non-sticky" class="row notification-relative">
-        {{#non-sticky}}
-            <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-pt">
-                <div id="{{id}}-gnotify" class="card">
-                    <div class="gnotify-notification-html card-body">
-                        {{#dismissable}}<button type="button" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});" class="close" data-dismiss="alert">&times;</button>{{/dismissable}}
-                        {{{html}}}
-                    </div>
+        </div>
+    {{/sticky}}
+</div>
+<div id="gnotify-wrapper-non-sticky" class="row notification-relative">
+    {{#non-sticky}}
+        <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-pt">
+            <div id="{{id}}-gnotify" class="card">
+                <div class="gnotify-notification-html card-body">
+                    {{#dismissable}}
+                        <button type="button" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});" class="close" data-dismiss="alert">&times;</button>{{/dismissable}}
+                    {{{html}}}
                 </div>
-    
             </div>
-        {{/non-sticky}}
-    </div>
+
+        </div>
+    {{/non-sticky}}
 </div>
