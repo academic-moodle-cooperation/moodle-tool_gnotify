@@ -53,7 +53,7 @@
         <FIELD NAME="todate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="end date"/>
         <FIELD NAME="sticky" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Defines if notification is sticky."/>
         <FIELD NAME="isvisibleonlogin" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Defines if notification is visible on login page"/>
-        <FIELD NAME="dismissable" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Defines if notification is dismissable"/>
+        <FIELD NAME="dismissable" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Defines if notification is dismissable"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

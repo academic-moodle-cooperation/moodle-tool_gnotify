@@ -36,7 +36,7 @@ require_once($CFG->dirroot . '/lib/editor/atto/lib.php');
 class tool_gnotify_use_form extends moodleform {
 
     /**
-     * Form definition. Abstract method - always override!
+     * Form definition.
      */
     protected function definition() {
         $mform =& $this->_form;
