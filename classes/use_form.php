@@ -26,6 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/formslib.php');
 require_once($CFG->dirroot . '/lib/editor/atto/lib.php');
+require_once($CFG->dirroot . '/admin/tool/gnotify/locallib.php');
 
 /**
  * Class tool_gnotify_use_form
@@ -47,6 +48,13 @@ class tool_gnotify_use_form extends moodleform {
             $mform->setType($var, PARAM_TEXT);
             $mform->addRule($var, get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         }
+        $options = array();
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_NONE]= get_string('optnone', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO]= get_string('optinfo', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN]= get_string('optwarn', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR]= get_string('opterror', 'tool_gnotify');
+
+        $mform->addElement('select', 'ntype', get_string('ntype', 'tool_gnotify'), $options);
         $mform->addElement('advcheckbox', 'sticky', get_string('sticky', 'tool_gnotify'), get_string('stickyinfo', 'tool_gnotify'), array(0, 1));
         $mform->addElement('advcheckbox', 'dismissable', get_string('dismissable', 'tool_gnotify'), get_string('dismissableinfo', 'tool_gnotify'), array(0, 1));
         $mform->setDefault('dismissable', 1);

@@ -15,16 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information
+ * Gnotify locallib
  *
  * @package     tool_gnotify
  * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2019120602;         // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires = 2019051100;         // Requires Moodle 3.7.
-$plugin->component = 'tool_gnotify'; // Full name of the plugin (used for diagnostics).
-
+define('TOOL_GNOTIFY_NOTIFICATION_TYPE_NONE', 0);
+define('TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO', 1);
+define('TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN', 2);
+define('TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR', 3);

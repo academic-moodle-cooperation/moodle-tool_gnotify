@@ -1,4 +1,3 @@
-
 .gnotify-pt {
     padding-left: 15px;
     padding-right: 15px;
@@ -8,6 +7,9 @@
 .gnotify {
     position: relative;
     width: 100%;
+}
+
+.alert-none {
 }
 
 .gnotify-close {
