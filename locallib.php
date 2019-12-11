@@ -22,6 +22,7 @@
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+defined('MOODLE_INTERNAL') || die();
 
 define('TOOL_GNOTIFY_NOTIFICATION_TYPE_NONE', 0);
 define('TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO', 1);

@@ -116,7 +116,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
                     $ntype = 'alert-danger';
                     break;
                 default:
-                    $ntype = 'alert-none'; //This is a dummy value.
+                    $ntype = 'alert-none'; // This is a dummy value.
                     break;
             }
 

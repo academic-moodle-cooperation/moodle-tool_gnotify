@@ -49,10 +49,10 @@ class tool_gnotify_use_form extends moodleform {
             $mform->addRule($var, get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         }
         $options = array();
-        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_NONE]= get_string('optnone', 'tool_gnotify');
-        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO]= get_string('optinfo', 'tool_gnotify');
-        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN]= get_string('optwarn', 'tool_gnotify');
-        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR]= get_string('opterror', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_NONE] = get_string('optnone', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO] = get_string('optinfo', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN] = get_string('optwarn', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR] = get_string('opterror', 'tool_gnotify');
 
         $mform->addElement('select', 'ntype', get_string('ntype', 'tool_gnotify'), $options);
         $mform->addElement('advcheckbox', 'sticky', get_string('sticky', 'tool_gnotify'), get_string('stickyinfo', 'tool_gnotify'), array(0, 1));
