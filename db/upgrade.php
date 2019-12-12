@@ -64,5 +64,19 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
         // Gnotify savepoint reached.
         upgrade_plugin_savepoint(true, 2019120601, 'tool', 'gnotify');
     }
+    if ($oldversion < 2019120602) {
+
+        // Define field ntype to be added to tool_gnotify_tpl_ins.
+        $table = new xmldb_table('tool_gnotify_tpl_ins');
+        $field = new xmldb_field('ntype', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'dismissable');
+
+        // Conditionally launch add field ntype.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Gnotify savepoint reached.
+        upgrade_plugin_savepoint(true, 2019120602, 'tool', 'gnotify');
+    }
     return true;
 }

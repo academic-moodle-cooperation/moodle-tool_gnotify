@@ -44,6 +44,8 @@ function tool_gnotify_before_footer() {
  * @throws moodle_exception
  */
 function tool_gnotify_before_standard_top_of_body_html() {
+    require_once(__DIR__.'/locallib.php');
+
     global $PAGE, $DB, $USER;
     if (in_array($PAGE->pagelayout, ['maintenance', 'print', 'redirect'])) {
         // Do not try to show notifications inside iframe, in maintenance mode,
@@ -102,7 +104,23 @@ function tool_gnotify_before_standard_top_of_body_html() {
             } else {
                 $dismissable = true;
             }
-            $content = ['html' => $htmlcontent, 'id' => $record->id, 'dismissable' => $dismissable];
+
+            switch ($record->ntype) {
+                case TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO:
+                    $ntype = 'alert-info';
+                    break;
+                case TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN:
+                    $ntype = 'alert-warning';
+                    break;
+                case TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR:
+                    $ntype = 'alert-danger';
+                    break;
+                default:
+                    $ntype = 'alert-none'; // This is a dummy value.
+                    break;
+            }
+
+            $content = ['html' => $htmlcontent, 'id' => $record->id, 'dismissable' => $dismissable, 'ntype' => $ntype];
             if ($record->sticky != 1) {
                 $context['non-sticky'][] = $content;
             } else {
