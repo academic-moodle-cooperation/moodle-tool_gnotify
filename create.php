@@ -29,9 +29,13 @@ require_once($CFG->libdir . '/adminlib.php');
 
 global $DB;
 
+admin_externalpage_setup('gnotify_templates');
+
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/admin/tool/gnotify/create.php'));
+$PAGE->set_pagelayout('admin');
+
 require_login();
 // TODO admin
 
