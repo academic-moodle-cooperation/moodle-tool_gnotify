@@ -27,11 +27,11 @@ require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
+admin_externalpage_setup('gnotify_templates');
+
 $action = optional_param('action', null, PARAM_ALPHANUMEXT);
 $tpltodeleteid = optional_param('templateid', null, PARAM_INT);
 $instodeleteid = optional_param('insid', null, PARAM_INT);
-
-admin_externalpage_setup('gnotify_templates');
 
 $context = context_system::instance();
 $PAGE->set_context($context);

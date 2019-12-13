@@ -24,16 +24,6 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-/**
- * Before footer
- *
- * @throws coding_exception
- * @throws dml_exception
- * @throws moodle_exception
- */
-function tool_gnotify_before_footer() {
-
-}
 
 /**
  * Before standard top of body html
@@ -55,7 +45,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
     $html = "";
     if (!isloggedin() || isguestuser()) {
         if ($PAGE->pagelayout == "login" || $PAGE->pagelayout == "frontpage") {
-            $sql = "SELECT g.id, l.content, g.sticky
+            $sql = "SELECT g.id, l.content, g.sticky, g.ntype
             FROM   {tool_gnotify_tpl_ins} g,
                    {tool_gnotify_tpl_lang} l
             WHERE  :time between fromdate AND todate

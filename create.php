@@ -27,9 +27,9 @@ require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
-global $DB;
-
 admin_externalpage_setup('gnotify_templates');
+
+global $DB;
 
 $context = context_system::instance();
 $PAGE->set_context($context);
