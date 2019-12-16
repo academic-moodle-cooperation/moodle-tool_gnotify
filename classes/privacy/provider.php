@@ -24,6 +24,11 @@
  */
 namespace tool_gnotify\privacy;
 
+use core_privacy\local\metadata\collection;
+use core_privacy\local\request\approved_contextlist;
+use core_privacy\local\request\context;
+use core_privacy\local\request\contextlist;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -33,16 +38,62 @@ defined('MOODLE_INTERNAL') || die();
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements
-        // This plugin does not store any personal user data.
-        \core_privacy\local\metadata\null_provider {
+        \core_privacy\local\metadata\provider,
+        \core_privacy\local\request\plugin\provider {
 
     /**
-     * Get the language string identifier with the component's language
-     * file to explain why this plugin stores no data.
+     * Returns meta data about this system.
      *
-     * @return  string
+     * @param collection $collection The initialised collection to add items to.
+     * @return  collection     A listing of user data stored through this system.
      */
-    public static function get_reason() : string {
-        return 'privacy:metadata';
+    public static function get_metadata(collection $collection): collection {
+        $collection->add_database_table('tool_gnotify_tpl_ins_ack',
+                [
+                        'userid' => 'privacy:metadata:tool_gnotify_tpl_ins_ack:userid',
+                        'insid' => 'privacy:metadata:tool_gnotify_tpl_ins_ack:insid',
+                ],
+                'privacy:metadata:tool_gnotify_tpl_ins_ack'
+        );
+        return $collection;
+    }
+
+    /**
+     * Get the list of contexts that contain user information for the specified user.
+     *
+     * @param int $userid The user to search.
+     * @return  contextlist   $contextlist  The contextlist containing the list of contexts used in this plugin.
+     */
+    public static function get_contexts_for_userid(int $userid): contextlist {
+        $contextlist = new \core_privacy\local\request\contextlist();
+        // TODO: Implement get_contexts_for_userid() method.
+        return $contextlist;
+    }
+
+    /**
+     * Export all user data for the specified user, in the specified contexts.
+     *
+     * @param approved_contextlist $contextlist The approved contexts to export information for.
+     */
+    public static function export_user_data(approved_contextlist $contextlist) {
+        // TODO: Implement export_user_data() method.
+    }
+
+    /**
+     * Delete all data for all users in the specified context.
+     *
+     * @param context $context The specific context to delete data for.
+     */
+    public static function delete_data_for_all_users_in_context(\context $context) {
+        // TODO: Implement delete_data_for_all_users_in_context() method.
+    }
+
+    /**
+     * Delete all user data for the specified user, in the specified contexts.
+     *
+     * @param approved_contextlist $contextlist The approved contexts and user information to delete information for.
+     */
+    public static function delete_data_for_user(approved_contextlist $contextlist) {
+        // TODO: Implement delete_data_for_user() method.
     }
 }
