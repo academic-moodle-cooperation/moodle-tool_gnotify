@@ -53,6 +53,7 @@ $string['privacy:metadata:tool_gnotify_tpl_ins_ack:insid'] = 'The ID of the noti
 $string['templates'] = 'Notification Templates';
 $string['sticky'] = 'Sticky';
 $string['stickyinfo'] = 'If this option is checked, the message remains visible during scrolling.';
+$string['templatetableheaderack'] = 'Ack';
 $string['templatetableheaderactions'] = 'Actions';
 $string['templatetableheaderfrom'] = 'From';
 $string['templatetableheadername'] = 'Name';

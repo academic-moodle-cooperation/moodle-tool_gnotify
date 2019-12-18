@@ -38,6 +38,7 @@
             <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
             <th class="header from">{{# str }} templatetableheaderfrom, tool_gnotify {{/ str }}</th>
             <th class="header to">{{# str }} templatetableheaderto, tool_gnotify {{/ str }}</th>
+            <th class="header ack">{{# str }} templatetableheaderack, tool_gnotify {{/ str }}</th>
             <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
         </tr>
         </thead>
@@ -52,6 +53,9 @@
                 </td>
                 <td class="table-cell">
                     {{todate}}
+                </td>
+                <td class="table-cell">
+                    {{ack}}
                 </td>
                 <td class="table-cell">
                     <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete-ins&insid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
