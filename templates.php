@@ -27,11 +27,11 @@ require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
+admin_externalpage_setup('gnotify_templates');
+
 $action = optional_param('action', null, PARAM_ALPHANUMEXT);
 $tpltodeleteid = optional_param('templateid', null, PARAM_INT);
 $instodeleteid = optional_param('insid', null, PARAM_INT);
-
-admin_externalpage_setup('gnotify_templates');
 
 $context = context_system::instance();
 $PAGE->set_context($context);
@@ -78,13 +78,12 @@ $sql = 'SELECT     B.id, A.name, B.fromdate, B.todate
         RIGHT JOIN {tool_gnotify_tpl_ins} B ON A.id=B.tplid';
 // Template ins
 // TODO use moodle functions
-$instemplates =
-        $DB->get_records_sql($sql);
+$instemplates = $DB->get_records_sql($sql);
 
 $readytpl = array();
 foreach ($instemplates as $value) {
-    $fromdate = (new DateTime("@$value->fromdate", core_date::get_user_timezone_object()))->format('Y-m-d H:i:s');
-    $todate = (new DateTime("@$value->todate", core_date::get_user_timezone_object()))->format('Y-m-d H:i:s');
+    $fromdate = userdate($value->fromdate);
+    $todate = userdate($value->todate);
     array_push($readytpl, ['id' => $value->id, 'name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate]);
 }
 

@@ -24,16 +24,6 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-/**
- * Before footer
- *
- * @throws coding_exception
- * @throws dml_exception
- * @throws moodle_exception
- */
-function tool_gnotify_before_footer() {
-
-}
 
 /**
  * Before standard top of body html
@@ -44,7 +34,7 @@ function tool_gnotify_before_footer() {
  * @throws moodle_exception
  */
 function tool_gnotify_before_standard_top_of_body_html() {
-    require_once(__DIR__.'/locallib.php');
+    require_once(__DIR__ . '/locallib.php');
 
     global $PAGE, $DB, $USER;
     if (in_array($PAGE->pagelayout, ['maintenance', 'print', 'redirect'])) {
@@ -55,7 +45,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
     $html = "";
     if (!isloggedin() || isguestuser()) {
         if ($PAGE->pagelayout == "login" || $PAGE->pagelayout == "frontpage") {
-            $sql = "SELECT g.id, l.content, g.sticky
+            $sql = "SELECT g.id, l.content, g.sticky, g.ntype
             FROM   {tool_gnotify_tpl_ins} g,
                    {tool_gnotify_tpl_lang} l
             WHERE  :time between fromdate AND todate
@@ -81,63 +71,71 @@ function tool_gnotify_before_standard_top_of_body_html() {
         $records = $DB->get_records_sql($sql, ['time' => time(), 'userid' => $USER->id]);
     }
     if ($records) {
-        $context = [];
-        foreach ($records as $record) {
+        try {
+            $context = [];
+            $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
             $formatoptions = new stdClass();
             $formatoptions->trusted = true;
             $formatoptions->noclean = true;
-            $htmlcontent = format_text($record->content, FORMAT_HTML, $formatoptions);
-            $sql = "SELECT var.varname, content
+
+            foreach ($records as $record) {
+                $htmlcontent = format_text($record->content, FORMAT_HTML, $formatoptions);
+                $sql = "SELECT var.varname, content
                     FROM   {tool_gnotify_tpl_ins_var} ins,
                            {tool_gnotify_tpl_var} var
                     WHERE  var.id = ins.varid
                     AND    ins.insid = :insid";
-            $vars = $DB->get_records_sql($sql, ['insid' => $record->id]);
-            $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
-            $varray = [];
-            foreach ($vars as $var) {
-                $varray[$var->varname] = $var->content;
-            }
-            $htmlcontent = $renderer->render_direct($htmlcontent, $varray);
-            if (!isloggedin() || isguestuser() || !$record->dismissable) {
-                $dismissable = false;
-            } else {
-                $dismissable = true;
+                $vars = $DB->get_records_sql($sql, ['insid' => $record->id]);
+
+                $varray = [];
+                foreach ($vars as $var) {
+                    $varray[$var->varname] = $var->content;
+                }
+
+                $htmlcontent = $renderer->render_direct($htmlcontent, $varray);
+                if (!isloggedin() || isguestuser() || !$record->dismissable) {
+                    $dismissable = false;
+                } else {
+                    $dismissable = true;
+                }
+
+                switch ($record->ntype) {
+                    case TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO:
+                        $ntype = 'alert-info';
+                        break;
+                    case TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN:
+                        $ntype = 'alert-warning';
+                        break;
+                    case TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR:
+                        $ntype = 'alert-danger';
+                        break;
+                    default:
+                        $ntype = 'alert-none'; // This is a dummy value.
+                        break;
+                }
+
+                $content = ['html' => $htmlcontent, 'id' => $record->id, 'dismissable' => $dismissable, 'ntype' => $ntype];
+                if ($record->sticky != 1) {
+                    $context['non-sticky'][] = $content;
+                } else {
+                    $context['sticky'][] = $content;
+                }
             }
 
-            switch ($record->ntype) {
-                case TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO:
-                    $ntype = 'alert-info';
-                    break;
-                case TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN:
-                    $ntype = 'alert-warning';
-                    break;
-                case TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR:
-                    $ntype = 'alert-danger';
-                    break;
-                default:
-                    $ntype = 'alert-none'; // This is a dummy value.
-                    break;
-            }
-
-            $content = ['html' => $htmlcontent, 'id' => $record->id, 'dismissable' => $dismissable, 'ntype' => $ntype];
-            if ($record->sticky != 1) {
-                $context['non-sticky'][] = $content;
-            } else {
-                $context['sticky'][] = $content;
-            }
             $uid = uniqid("gnotify");
             $attributes = array(
-                'id' => $uid,
-                'type' => 'hidden',
-                'data-gnotify' => json_encode($context));
+                    'id' => $uid,
+                    'type' => 'hidden',
+                    'data-gnotify' => json_encode($context));
             $html = html_writer::empty_tag('input', $attributes);
 
             $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', array($uid));
+        } catch (exception $e) {
+            if (is_siteadmin()) {
+                \core\notification::error('[tool_gnotify] ' . $e);
+            }
         }
-
     }
-
     return $html;
 }
 
@@ -150,6 +148,8 @@ function tool_gnotify_before_standard_top_of_body_html() {
  * @param stdClass $course Course object
  *
  * @return bool
+ * @throws coding_exception
+ * @throws moodle_exception
  */
 function tool_gnotify_myprofile_navigation(core_user\output\myprofile\tree $tree, $user, $iscurrentuser, $course) {
     if (isguestuser($user)) {
