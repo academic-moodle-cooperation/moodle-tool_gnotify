@@ -56,6 +56,7 @@ if ($template) {
         $record2->todate = $useform->todate;
         $record2->sticky = $useform->sticky;
         $record2->isvisibleonlogin = $useform->isvisibleonlogin;
+        $record2->padding = $useform->padding;
         $record2->dismissable = $useform->dismissable;
         $record2->ntype = $useform->ntype;
         $id = $DB->insert_record('tool_gnotify_tpl_ins', $record2);

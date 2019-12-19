@@ -45,7 +45,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
     $html = "";
     if (!isloggedin() || isguestuser()) {
         if ($PAGE->pagelayout == "login" || $PAGE->pagelayout == "frontpage") {
-            $sql = "SELECT g.id, l.content, g.sticky, g.ntype
+            $sql = "SELECT g.id, l.content, g.sticky, g.ntype, g.padding
             FROM   {tool_gnotify_tpl_ins} g,
                    {tool_gnotify_tpl_lang} l
             WHERE  :time between fromdate AND todate
@@ -114,7 +114,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
                         break;
                 }
 
-                $content = ['html' => $htmlcontent, 'id' => $record->id, 'dismissable' => $dismissable, 'ntype' => $ntype];
+                $content = ['html' => $htmlcontent, 'id' => $record->id, 'dismissable' => $dismissable, 'ntype' => $ntype, 'padding' => boolval($record->padding)];
                 if ($record->sticky != 1) {
                     $context['non-sticky'][] = $content;
                 } else {

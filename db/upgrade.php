@@ -78,5 +78,19 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
         // Gnotify savepoint reached.
         upgrade_plugin_savepoint(true, 2019120602, 'tool', 'gnotify');
     }
+    if ($oldversion < 2019122000) {
+
+        // Define field padding to be added to tool_gnotify_tpl_ins.
+        $table = new xmldb_table('tool_gnotify_tpl_ins');
+        $field = new xmldb_field('padding', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'ntype');
+
+        // Conditionally launch add field padding.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Gnotify savepoint reached.
+        upgrade_plugin_savepoint(true, 2019122000, 'tool', 'gnotify');
+    }
     return true;
 }
