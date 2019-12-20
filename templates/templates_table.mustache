@@ -22,7 +22,7 @@
         {{^templates}}
             <tr class="table-row">
                 <td class="table-cell" colspan="2">
-                    <p>{{# str}} notemplates, tool_gnotify {{/str}}</p>
+                    {{# str}} notemplates, tool_gnotify {{/str}}
                 </td>
             </tr>
         {{/templates}}
@@ -58,14 +58,15 @@
                     {{ack}}
                 </td>
                 <td class="table-cell">
+                    <a href="{{wwwroot}}/admin/tool/gnotify/use.php?templateid={{tplid}}&insid={{id}}">{{#pix}}i/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                     <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete-ins&insid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                 </td>
             </tr>
         {{/instemplates}}
         {{^instemplates}}
             <tr class="table-row">
-                <td class="table-cell" colspan="4" >
-                    <p>{{# str}} notemplates, tool_gnotify {{/str}}</p>
+                <td class="table-cell" colspan="5" >
+                    {{# str}} notemplates, tool_gnotify {{/str}}
                 </td>
             </tr>
         {{/instemplates}}

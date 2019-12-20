@@ -30,6 +30,8 @@ require_once($CFG->libdir . '/adminlib.php');
 require_login();
 // TODO Admin.
 $id = required_param('templateid', PARAM_INT);
+$insid = optional_param('insid', null, PARAM_INT);
+
 admin_externalpage_setup('gnotify_templates');
 global $DB;
 $context = context_system::instance();
@@ -38,11 +40,12 @@ $template = $DB->get_record('tool_gnotify_tpl', ['id' => $id]);
 if ($template) {
     $templatelang = $DB->get_record('tool_gnotify_tpl_lang', ['tplid' => $template->id, 'lang' => 'en']);
     // TODO Multilang.
-    $templatevars = $DB->get_fieldset_select('tool_gnotify_tpl_var', 'varname', 'tplid = :templateid ORDER BY id ASC', ['templateid' => $template->id]);
+    $templatevars = $DB->get_fieldset_select('tool_gnotify_tpl_var', 'varname', 'tplid = :templateid ORDER BY id ASC',
+            ['templateid' => $template->id]);
     $templatecontext = array();
     $templatecontext['vars'] = $templatevars;
     $templatecontext['lang'] = $templatelang;
-    $form = new tool_gnotify_use_form(new moodle_url('use.php', ['templateid' => $id]), $templatecontext);
+    $form = new tool_gnotify_use_form(new moodle_url('use.php', ['templateid' => $id, 'insid' => $insid]), $templatecontext);
 
     if ($form->is_cancelled()) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
@@ -59,18 +62,44 @@ if ($template) {
         $record2->padding = $useform->padding;
         $record2->dismissable = $useform->dismissable;
         $record2->ntype = $useform->ntype;
-        $id = $DB->insert_record('tool_gnotify_tpl_ins', $record2);
+
+        if ($insid) {
+            $record2->id = $insid;
+            $DB->update_record('tool_gnotify_tpl_ins', $record2);
+            $id = $insid;
+        } else {
+            $id = $DB->insert_record('tool_gnotify_tpl_ins', $record2);
+        }
 
         foreach ($templatevars as $v) {
             $recordvar = new stdClass();
             $recordvar->insid = $id;
             $recordvar->varid = $DB->get_field('tool_gnotify_tpl_var', 'id', ['varname' => $v]);
             $recordvar->content = $useform->$v;
-            $DB->insert_record('tool_gnotify_tpl_ins_var', $recordvar);
+            if ($insid) {
+                $recordvar->id = $DB->get_field('tool_gnotify_tpl_ins_var', 'id',
+                        ['varid' => $recordvar->varid, 'insid' => $recordvar->insid]);
+                $DB->update_record('tool_gnotify_tpl_ins_var', $recordvar);
+            } else {
+                $DB->insert_record('tool_gnotify_tpl_ins_var', $recordvar);
+            }
+
         }
 
         $DB->commit_delegated_transaction($trans);
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
+    } else if ($insid) {
+        $insrecord = $DB->get_record('tool_gnotify_tpl_ins', ['id' => $insid]);
+        $insvars = $DB->get_records_sql('SELECT  A.varname, B.content
+                                        FROM {tool_gnotify_tpl_var} A
+                                        LEFT JOIN {tool_gnotify_tpl_ins_var} B
+                                        ON A.id = B.varid
+                                        WHERE A.id = :tplid AND B.insid = :insid',
+                ['tplid' => $id, 'insid' => $insid]);
+        foreach ($insvars as $i) {
+            $insrecord->{$i->varname} = $i->content;
+        }
+        $form->set_data($insrecord);
     }
 
 } else {
