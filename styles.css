@@ -26,12 +26,3 @@
 .notification-relative {
     position: relative;
 }
-
-.content {
-    /*padding-right: 15px;
-    padding-left: 15px;*/
-    position: relative;
-    /*z-index: 1030;*/
-    width: 100%;
-    border: 1px black;
-}
