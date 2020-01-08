@@ -90,12 +90,12 @@ if ($template) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
     } else if ($insid) {
         $insrecord = $DB->get_record('tool_gnotify_tpl_ins', ['id' => $insid]);
-        $insvars = $DB->get_records_sql('SELECT  A.varname, B.content
-                                        FROM {tool_gnotify_tpl_var} A
-                                        LEFT JOIN {tool_gnotify_tpl_ins_var} B
-                                        ON A.id = B.varid
-                                        WHERE A.id = :tplid AND B.insid = :insid',
-                ['tplid' => $id, 'insid' => $insid]);
+        $sql = "SELECT  A.varname, B.content
+                  FROM {tool_gnotify_tpl_var} A
+             LEFT JOIN {tool_gnotify_tpl_ins_var} B
+                    ON A.id = B.varid
+                 WHERE A.id = :tplid AND B.insid = :insid";
+        $insvars = $DB->get_records_sql($sql, ['tplid' => $id, 'insid' => $insid]);
         foreach ($insvars as $i) {
             $insrecord->{$i->varname} = $i->content;
         }
