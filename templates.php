@@ -73,7 +73,7 @@ if ($templates->valid()) {
 }
 $templatestablecontext["wwwroot"] = $CFG->wwwroot;
 
-$sql = 'SELECT     B.id, A.name, B.fromdate, B.todate
+$sql = 'SELECT     B.id, A.name, A.id AS tplid,B.fromdate, B.todate, (SELECT COUNT(*) FROM {tool_gnotify_tpl_ins_ack} C WHERE B.id=C.insid) ack
         FROM       {tool_gnotify_tpl} A
         RIGHT JOIN {tool_gnotify_tpl_ins} B ON A.id=B.tplid';
 // Template ins
@@ -84,7 +84,7 @@ $readytpl = array();
 foreach ($instemplates as $value) {
     $fromdate = userdate($value->fromdate);
     $todate = userdate($value->todate);
-    array_push($readytpl, ['id' => $value->id, 'name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate]);
+    array_push($readytpl, ['id' => $value->id, 'name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate, 'ack' => $value->ack, 'tplid' => $value->tplid]);
 }
 
 $templatestablecontext['instemplates'] = $readytpl;

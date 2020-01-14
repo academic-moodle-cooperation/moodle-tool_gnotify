@@ -1,6 +1,6 @@
 <div id="gnotify-wrapper-sticky" class="row notification-sticky">
     {{#sticky}}
-        <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-pt">
+        <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-plr {{#padding}}gnotify-pt{{/padding}}">
             <div id="{{id}}-gnotify" class="card {{ntype}}">
                 <div class="gnotify-notification-html card-body">
                     {{#dismissable}}
@@ -13,7 +13,7 @@
 </div>
 <div id="gnotify-wrapper-non-sticky" class="row notification-relative">
     {{#non-sticky}}
-        <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-pt">
+        <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-plr {{#padding}}gnotify-pt{{/padding}}">
             <div id="{{id}}-gnotify" class="card {{ntype}}">
                 <div class="gnotify-notification-html card-body">
                     {{#dismissable}}

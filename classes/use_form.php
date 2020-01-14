@@ -59,6 +59,8 @@ class tool_gnotify_use_form extends moodleform {
         $mform->addElement('advcheckbox', 'dismissable', get_string('dismissable', 'tool_gnotify'), get_string('dismissableinfo', 'tool_gnotify'), array(0, 1));
         $mform->setDefault('dismissable', 1);
         $mform->addElement('advcheckbox', 'isvisibleonlogin', get_string('isvisibleonlogin', 'tool_gnotify'), get_string('isvisibleonlogininfo', 'tool_gnotify'), array(0, 1));
+        $mform->addElement('advcheckbox', 'padding', get_string('padding', 'tool_gnotify'), get_string('paddinginfo', 'tool_gnotify'), array(0, 1));
+        $mform->setDefault('padding', 1);
         $mform->addElement('date_time_selector',
                 'fromdate',
                 get_string('fromdate', 'tool_gnotify'),

@@ -76,6 +76,5 @@ class tool_gnotify_create_form extends moodleform {
         $mform->addRule('content', get_string('required'), 'required', null, 'client');
         // $mform->addElement($atto);
         $this->add_action_buttons();
-        // TODO: Implement definition() method.
     }
 }
