@@ -27,8 +27,8 @@ require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->dirroot . '/course/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
-require_login();
-// TODO Admin.
+require_admin();
+
 $id = required_param('templateid', PARAM_INT);
 $insid = optional_param('insid', null, PARAM_INT);
 
@@ -94,7 +94,7 @@ if ($template) {
                   FROM {tool_gnotify_tpl_var} A
              LEFT JOIN {tool_gnotify_tpl_ins_var} B
                     ON A.id = B.varid
-                 WHERE A.id = :tplid AND B.insid = :insid";
+                 WHERE A.tplid = :tplid AND B.insid = :insid";
         $insvars = $DB->get_records_sql($sql, ['tplid' => $id, 'insid' => $insid]);
         foreach ($insvars as $i) {
             $insrecord->{$i->varname} = $i->content;

@@ -36,8 +36,7 @@ $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/admin/tool/gnotify/create.php'));
 $PAGE->set_pagelayout('admin');
 
-require_login();
-// TODO admin
+require_admin();
 
 $cform = new tool_gnotify_create_form();
 

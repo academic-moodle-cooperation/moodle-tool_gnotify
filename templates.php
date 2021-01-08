@@ -66,7 +66,7 @@ if ($action == "delete-ins" && $instodeleteid) {
     $DB->delete_records('tool_gnotify_tpl_ins_ack', ['insid' => $instodeleteid]);
 }
 
-$templates = $DB->get_recordset('tool_gnotify_tpl', null);
+$templates = $DB->get_recordset('tool_gnotify_tpl');
 
 if ($templates->valid()) {
     $templatestablecontext = array("templates" => $templates);
@@ -91,5 +91,7 @@ $templatestablecontext['instemplates'] = $readytpl;
 
 $renderer = $PAGE->get_renderer('core');
 echo $renderer->render_from_template('tool_gnotify/templates_table', $templatestablecontext);
+
+$templates->close();
 
 echo $OUTPUT->footer();
