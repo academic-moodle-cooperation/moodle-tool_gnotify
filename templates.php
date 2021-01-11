@@ -36,11 +36,11 @@ $instodeleteid = optional_param('insid', null, PARAM_INT);
 $context = context_system::instance();
 $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/admin/tool/gnotify/templates.php'));
-$PAGE->set_title(get_string('templates', 'tool_gnotify'));
+$PAGE->set_title(get_string('gnotify', 'tool_gnotify'));
 $PAGE->set_pagelayout('admin');
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading(get_string('templates', 'tool_gnotify'));
+echo $OUTPUT->heading(get_string('gnotify', 'tool_gnotify'));
 
 global $DB;
 

@@ -4,6 +4,7 @@
 }
 
 .gnotify-pt {
+    /* stylelint-disable-next-line declaration-no-important */
     padding-top: 1rem !important;
 }
 
