@@ -23,6 +23,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['acknotifications'] = 'Acknowledged notifications';
+$string['activenotifications'] = 'Active Notifications';
 $string['createname'] = 'Name';
 $string['createtemplates'] = 'Create Notification Templates';
 $string['createtemplate'] = 'Create notification template';
@@ -33,6 +34,7 @@ $string['dismissable'] = 'Dismissable';
 $string['dismissableinfo'] = 'Defines if this message is dismissable';
 $string['edittemplate'] = 'Edit';
 $string['fromdate'] = "From";
+$string['gnotify'] = 'Global Notifications';
 $string['isvisibleonlogin'] = 'Visible on login page';
 $string['isvisibleonlogininfo'] = 'Whether this notification is visible on the login page';
 $string['myprofilehistory'] = "Notification history";
@@ -52,7 +54,7 @@ $string['pluginname'] = 'Global Notifications';
 $string['privacy:metadata:tool_gnotify_tpl_ins_ack'] = 'Information about acknowledged notifications.';
 $string['privacy:metadata:tool_gnotify_tpl_ins_ack:userid'] = 'The ID of the user.';
 $string['privacy:metadata:tool_gnotify_tpl_ins_ack:insid'] = 'The ID of the notification.';
-$string['templates'] = 'Notification Templates';
+$string['templates'] = 'Templates';
 $string['sticky'] = 'Sticky';
 $string['stickyinfo'] = 'If this option is checked, the message remains visible during scrolling.';
 $string['templatetableheaderack'] = 'Ack';

@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 global $ADMIN;
 if ($hassiteconfig) {
     $temp = new admin_externalpage('gnotify_templates',
-            new lang_string('templates', 'tool_gnotify'), "$CFG->wwwroot/$CFG->admin/tool/gnotify/templates.php");
-    $ADMIN->add('server', $temp);
+            new lang_string('gnotify', 'tool_gnotify'), "$CFG->wwwroot/$CFG->admin/tool/gnotify/templates.php");
+    $ADMIN->add('tools', $temp);
 }
 
