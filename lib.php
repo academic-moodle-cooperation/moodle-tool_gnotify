@@ -37,7 +37,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
     require_once(__DIR__ . '/locallib.php');
 
     global $PAGE, $DB, $USER;
-    if (in_array($PAGE->pagelayout, ['maintenance', 'print', 'redirect'])) {
+    if (in_array($PAGE->pagelayout, ['maintenance', 'print', 'redirect', 'embedded'])) {
         // Do not try to show notifications inside iframe, in maintenance mode,
         // when printing, or during redirects.
         return;
