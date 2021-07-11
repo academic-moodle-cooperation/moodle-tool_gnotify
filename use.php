@@ -36,16 +36,10 @@ admin_externalpage_setup('gnotify_templates');
 global $DB;
 $context = context_system::instance();
 
-$template = $DB->get_record('tool_gnotify_tpl', ['id' => $id]);
+
+$template = \tool_gnotify\template::get_record(['id' => $id]);
 if ($template) {
-    $templatelang = $DB->get_record('tool_gnotify_tpl_lang', ['tplid' => $template->id, 'lang' => 'en']);
-    // TODO Multilang.
-    $templatevars = $DB->get_fieldset_select('tool_gnotify_tpl_var', 'varname', 'tplid = :templateid ORDER BY id ASC',
-            ['templateid' => $template->id]);
-    $templatecontext = array();
-    $templatecontext['vars'] = $templatevars;
-    $templatecontext['lang'] = $templatelang;
-    $form = new tool_gnotify_use_form(new moodle_url('use.php', ['templateid' => $id, 'insid' => $insid]), $templatecontext);
+    $form = new \tool_gnotify\local\form\notification(new moodle_url('use.php', ['templateid' => $id, 'insid' => $insid]), ['persistent' => \tool_gnotify\notification::get_from_template($template)]);
 
     if ($form->is_cancelled()) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));

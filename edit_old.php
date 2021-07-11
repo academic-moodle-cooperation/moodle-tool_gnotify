@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Create templates
+ * Edit templates
  *
  * @package     tool_gnotify
  * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
@@ -31,49 +31,52 @@ admin_externalpage_setup('gnotify_templates');
 
 global $DB;
 
+$id = required_param('templateid', PARAM_INT);
+
 $context = context_system::instance();
 $PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/admin/tool/gnotify/create.php'));
-$PAGE->set_pagelayout('admin');
+$PAGE->set_url(new moodle_url('/admin/tool/gnotify/edit.php?templateid=' . $id));
 
-require_admin();
-
-$cform = new tool_gnotify_create_form();
-
-if ($cform->is_cancelled()) {
+// TODO multilang
+$form = new tool_gnotify_edit_form(new moodle_url('edit.php', ['templateid' => $id]));
+if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
-} else if ($fromform = $cform->get_data()) {
+} else if ($useform = $form->get_data()) {
 
     $trans = $DB->start_delegated_transaction();
 
-    $record = new stdClass();
-    $record->name = $fromform->template_name;
-    $id = $DB->insert_record('tool_gnotify_tpl', $record);
+    $updaterecord = new stdClass();
+    $updaterecord->id = $useform->langid;
+    $updaterecord->content = $useform->content['text'];
 
-    $recordcontent = new stdClass();
-    $recordcontent->tplid = $id;
-    $recordcontent->lang = 'en';
-    $recordcontent->content = $fromform->content['text'];
-    // TODO: lang should be not null
-    $DB->insert_record('tool_gnotify_tpl_lang', $recordcontent);
+    $DB->update_record('tool_gnotify_tpl_lang', $updaterecord);
 
-    preg_match_all('/{{\s*(.*?)\s*}}/', $fromform->content['text'], $matches);
+    preg_match_all('/{{\s*(.*?)\s*}}/', $useform->content['text'], $matches);
 
     foreach ($matches[1] as $value) {
-        $recordvar = new stdClass();
-        $recordvar->tplid = $id;
-        $recordvar->varname = $value;
-        $DB->insert_record('tool_gnotify_tpl_var', $recordvar);
+        if (!$DB->record_exists('tool_gnotify_tpl_var', ['varname' => $value])) {
+            $recordvar = new stdClass();
+            $recordvar->tplid = $id;
+            $recordvar->varname = $value;
+            $DB->insert_record('tool_gnotify_tpl_var', $recordvar);
+        }
     }
 
     $DB->commit_delegated_transaction($trans);
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
 }
 
-$PAGE->set_title(get_string('createtemplate', 'tool_gnotify'));
+if ($templatelang = $DB->get_record('tool_gnotify_tpl_lang', ['tplid' => $id])) {
+    $template = $DB->get_record('tool_gnotify_tpl', ['id' => $id]);
+    $formdata['template_name'] = $template->name;
+    $formdata['content']['text'] = $templatelang->content;
+    $form->set_data($formdata);
+}
+
+$PAGE->set_title(get_string('templates', 'tool_gnotify'));
 $PAGE->set_pagelayout('admin');
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('createtemplate', 'tool_gnotify'));
-echo $cform->render();
+echo $OUTPUT->heading(get_string('templates', 'tool_gnotify'));
+echo $form->render();
 echo $OUTPUT->footer();

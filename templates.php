@@ -38,6 +38,7 @@ $PAGE->set_context($context);
 $PAGE->set_url(new moodle_url('/admin/tool/gnotify/templates.php'));
 $PAGE->set_title(get_string('gnotify', 'tool_gnotify'));
 $PAGE->set_pagelayout('admin');
+
 echo $OUTPUT->header();
 
 echo $OUTPUT->heading(get_string('gnotify', 'tool_gnotify'));
@@ -46,18 +47,8 @@ global $DB;
 
 if ($action == "delete" && $tpltodeleteid) {
 
-    $DB->delete_records('tool_gnotify_tpl', ['id' => $tpltodeleteid]);
-    $DB->delete_records('tool_gnotify_tpl_var', ['tplid' => $tpltodeleteid]);
-    $DB->delete_records('tool_gnotify_tpl_lang', ['tplid' => $tpltodeleteid]);
-    // TODO Lets get rid of riid.
-    $riid = $DB->get_records('tool_gnotify_tpl_ins', ['tplid' => $tpltodeleteid]);
-
-    $DB->delete_records('tool_gnotify_tpl_ins', ["tplid" => $tpltodeleteid]);
-
-    foreach ($riid as $x) {
-        $DB->delete_records('tool_gnotify_tpl_ins_var', ['insid' => $x->id]);
-        $DB->delete_records('tool_gnotify_tpl_ins_ack', ['insid' => $x->id]);
-    }
+    $DB->delete_records('tool_gnotify_templates', ["id" => $tpltodeleteid]);
+    $DB->delete_records('tool_gnotify_notifications', ["templateid" => $tpltodeleteid]);
 }
 
 if ($action == "delete-ins" && $instodeleteid) {
@@ -66,12 +57,21 @@ if ($action == "delete-ins" && $instodeleteid) {
     $DB->delete_records('tool_gnotify_tpl_ins_ack', ['insid' => $instodeleteid]);
 }
 
-$templates = $DB->get_recordset('tool_gnotify_tpl');
+$renderer = $PAGE->get_renderer('core');
 
-if ($templates->valid()) {
-    $templatestablecontext = array("templates" => $templates);
+$templates = \tool_gnotify\template::get_records();
+
+$templatecontext = array();
+
+foreach ($templates as $template) {
+    $templatecontext['templates'][] = $template->export_for_template($renderer);
 }
-$templatestablecontext["wwwroot"] = $CFG->wwwroot;
+
+if (empty($templates)) {
+    $templatecontext = array("templates" => $templates);
+}
+
+$templatecontext["wwwroot"] = $CFG->wwwroot;
 
 $sql = 'SELECT     B.id, A.name, A.id AS tplid,B.fromdate, B.todate, (SELECT COUNT(*) FROM {tool_gnotify_tpl_ins_ack} C WHERE B.id=C.insid) ack
         FROM       {tool_gnotify_tpl} A
@@ -89,9 +89,7 @@ foreach ($instemplates as $value) {
 
 $templatestablecontext['instemplates'] = $readytpl;
 
-$renderer = $PAGE->get_renderer('core');
-echo $renderer->render_from_template('tool_gnotify/templates_table', $templatestablecontext);
 
-$templates->close();
+echo $renderer->render_from_template('tool_gnotify/templates_table', $templatecontext);
 
 echo $OUTPUT->footer();
