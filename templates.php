@@ -30,8 +30,8 @@ require_once($CFG->libdir . '/adminlib.php');
 admin_externalpage_setup('gnotify_templates');
 
 $action = optional_param('action', null, PARAM_ALPHANUMEXT);
-$tpltodeleteid = optional_param('templateid', null, PARAM_INT);
-$instodeleteid = optional_param('insid', null, PARAM_INT);
+$templateid = optional_param('templateid', null, PARAM_INT);
+$notificationid = optional_param('notificationid', null, PARAM_INT);
 
 $context = context_system::instance();
 $PAGE->set_context($context);
@@ -45,16 +45,13 @@ echo $OUTPUT->heading(get_string('gnotify', 'tool_gnotify'));
 
 global $DB;
 
-if ($action == "delete" && $tpltodeleteid) {
-
-    $DB->delete_records('tool_gnotify_templates', ["id" => $tpltodeleteid]);
-    $DB->delete_records('tool_gnotify_notifications', ["templateid" => $tpltodeleteid]);
-}
-
-if ($action == "delete-ins" && $instodeleteid) {
-    $DB->delete_records('tool_gnotify_tpl_ins', ["id" => $instodeleteid]);
-    $DB->delete_records('tool_gnotify_tpl_ins_var', ['insid' => $instodeleteid]);
-    $DB->delete_records('tool_gnotify_tpl_ins_ack', ['insid' => $instodeleteid]);
+if ($action == "delete") {
+    if (empty($templateid) && $notificationid) {
+        $DB->delete_records('tool_gnotify_notifications', ["id" => $notificationid]);
+    } else if ($templateid) {
+        $DB->delete_records('tool_gnotify_notifications', ["templateid" => $templateid]);
+        $DB->delete_records('tool_gnotify_templates', ["id" => $templateid]);
+    }
 }
 
 $renderer = $PAGE->get_renderer('core');
@@ -73,22 +70,24 @@ if (empty($templates)) {
 
 $templatecontext["wwwroot"] = $CFG->wwwroot;
 
-$sql = 'SELECT     B.id, A.name, A.id AS tplid,B.fromdate, B.todate, (SELECT COUNT(*) FROM {tool_gnotify_tpl_ins_ack} C WHERE B.id=C.insid) ack
-        FROM       {tool_gnotify_tpl} A
-        RIGHT JOIN {tool_gnotify_tpl_ins} B ON A.id=B.tplid';
-// Template ins
-// TODO use moodle functions
-$instemplates = $DB->get_records_sql($sql);
+$notifications = \tool_gnotify\notification::get_records();
 
 $readytpl = array();
-foreach ($instemplates as $value) {
-    $fromdate = userdate($value->fromdate);
-    $todate = userdate($value->todate);
-    array_push($readytpl, ['id' => $value->id, 'name' => $value->name, 'fromdate' => $fromdate, 'todate' => $todate, 'ack' => $value->ack, 'tplid' => $value->tplid]);
+foreach ($notifications as $value) {
+    $fromdate = userdate($value->get('fromdate'));
+    $todate = userdate($value->get('todate'));
+    $base = $value->get_template();
+
+    array_push($readytpl, [
+        'id' => $value->get('id'),
+        'name' => $base->get('name'),
+        'fromdate' => $fromdate, 'todate' => $todate,
+        'ack' => \tool_gnotify\ack::count_records(['notificationid' => $value->get('id')]),
+        'tplid' => $value->get('templateid')]
+    );
 }
 
-$templatestablecontext['instemplates'] = $readytpl;
-
+$templatecontext['instemplates'] = $readytpl;
 
 echo $renderer->render_from_template('tool_gnotify/templates_table', $templatecontext);
 

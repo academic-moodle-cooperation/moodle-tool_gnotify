@@ -1,98 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="admin/tool/gnotify/db" VERSION="20210711" COMMENT="XMLDB file for Moodle local/globalnotification"
+<XMLDB PATH="admin/tool/gnotify/db" VERSION="20210714" COMMENT="XMLDB file for Moodle local/globalnotification"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
   <TABLES>
-    <TABLE NAME="tool_gnotify_tpl" COMMENT="Gnotify Template">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="name" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false" COMMENT="Template Name"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="tpl_name" UNIQUE="true" FIELDS="name" COMMENT="Template Name Unique Index"/>
-      </INDEXES>
-    </TABLE>
-    <TABLE NAME="tool_gnotify_tpl_lang" COMMENT="Multi-Language Templates">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="lang" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="content" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Language specific content"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="tool_gnotify_tpl" REFFIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="tpl_lang_tplid" UNIQUE="true" FIELDS="lang, tplid"/>
-      </INDEXES>
-    </TABLE>
-    <TABLE NAME="tool_gnotify_tpl_var" COMMENT="Default comment for the table, please edit me">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
-        <FIELD NAME="varname" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Template variable"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="tool_gnotify_tpl" REFFIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="tpl_tplid_varname_unique" UNIQUE="true" FIELDS="tplid, varname"/>
-      </INDEXES>
-    </TABLE>
-    <TABLE NAME="tool_gnotify_tpl_ins" COMMENT="Template Instance">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="tplid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="fromdate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Start Date"/>
-        <FIELD NAME="todate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="end date"/>
-        <FIELD NAME="sticky" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Defines if notification is sticky."/>
-        <FIELD NAME="isvisibleonlogin" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Defines if notification is visible on login page"/>
-        <FIELD NAME="dismissable" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Defines if notification is dismissable"/>
-        <FIELD NAME="ntype" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Notification Type"/>
-        <FIELD NAME="padding" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1" SEQUENCE="false"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_tplid" TYPE="foreign" FIELDS="tplid" REFTABLE="tool_gnotify_tpl" REFFIELDS="id"/>
-      </KEYS>
-    </TABLE>
-    <TABLE NAME="tool_gnotify_tpl_ins_var" COMMENT="template variable instance">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="insid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="instance id"/>
-        <FIELD NAME="varid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="content" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="variable content"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_insid" TYPE="foreign" FIELDS="insid" REFTABLE="tool_gnotify_tpl_ins" REFFIELDS="id"/>
-        <KEY NAME="tpl_fk_varid" TYPE="foreign" FIELDS="varid" REFTABLE="tool_gnotify_tpl_var" REFFIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="tpl_insid_varid" UNIQUE="true" FIELDS="insid, varid"/>
-      </INDEXES>
-    </TABLE>
-    <TABLE NAME="tool_gnotify_tpl_ins_ack" COMMENT="Notification acknowledged by user">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="insid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="tpl_fk_insid" TYPE="foreign" FIELDS="insid" REFTABLE="tool_gnotify_tpl_ins" REFFIELDS="id"/>
-        <KEY NAME="tpl_fk_userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="tpl_userid_insid" UNIQUE="true" FIELDS="userid, insid"/>
-      </INDEXES>
-    </TABLE>
     <TABLE NAME="tool_gnotify_templates" COMMENT="Notification templates">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
@@ -113,6 +24,7 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="templateid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Template identifier"/>
+        <FIELD NAME="content" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Template content"/>
         <FIELD NAME="fromdate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Start date"/>
         <FIELD NAME="todate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="End date"/>
         <FIELD NAME="visibleonlogin" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Defines if the notification is visible on login page"/>
@@ -127,6 +39,25 @@
         <KEY NAME="usermodified" TYPE="foreign" FIELDS="usermodified" REFTABLE="user" REFFIELDS="id"/>
         <KEY NAME="templateid_fk" TYPE="foreign" FIELDS="templateid" REFTABLE="tool_gnotify_template" REFFIELDS="id"/>
       </KEYS>
+    </TABLE>
+    <TABLE NAME="tool_gnotify_acks" COMMENT="Notification acknowledged by user">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="User"/>
+        <FIELD NAME="notificationid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Notification"/>
+        <FIELD NAME="usermodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="usermodified" TYPE="foreign" FIELDS="usermodified" REFTABLE="user" REFFIELDS="id"/>
+        <KEY NAME="notificationid" TYPE="foreign" FIELDS="notificationid" REFTABLE="tool_gnotify_notifications" REFFIELDS="id" COMMENT="Notification fk"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="unique_acks" UNIQUE="true" FIELDS="userid, notificationid"/>
+      </INDEXES>
     </TABLE>
   </TABLES>
 </XMLDB>

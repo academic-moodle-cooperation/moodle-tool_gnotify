@@ -35,9 +35,8 @@ $services = array(
 
 $functions = array(
         'tool_gnotify_acknowledge_notification' => array(
-                'classname' => 'tool_gnotify_external',
-                'methodname' => 'acknowledge',
-                'classpath' => 'tool/gnotify/externallib.php',
+                'classname' => 'tool_gnotify\external\acknowledge',
+                'methodname' => 'execute',
                 'description' => 'Allows users to acknowledge that they have seen a notification',
                 'type' => 'write',
                 'ajax' => true,

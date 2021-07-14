@@ -31,27 +31,26 @@ admin_externalpage_setup('gnotify_templates');
 
 global $DB;
 
-$templateid = optional_param('templateid',0, PARAM_INT);
+$id = optional_param('id',null, PARAM_INT);
 
 $context = context_system::instance();
 $PAGE->set_context($context);
-$PAGE->set_url(new moodle_url('/admin/tool/gnotify/edit.php'));
+$PAGE->set_url(new moodle_url('/admin/tool/gnotify/edit.php', ['id' => $id]));
 $PAGE->set_pagelayout('admin');
 
 require_admin();
 
 $template = null;
 
-if ($templateid) {
-    $template = \tool_gnotify\template::get_record(["id" => $templateid]);
+if ($id) {
+    $template = new \tool_gnotify\template($id);
 }
 
-$form = new \tool_gnotify\local\form\template($PAGE->url->out(false),['persistent' => $template]);
+$form = new \tool_gnotify\local\form\template($PAGE->url->out(false), ['persistent' => $template]);
 
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
 } else if ($data = $form->get_data()) {
-
     $template = new \tool_gnotify\template();
     $template->from_record($data);
 

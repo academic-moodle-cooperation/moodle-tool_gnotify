@@ -55,9 +55,6 @@ class template extends \core\form\persistent
         $newerrors = [];
         //$errors = parent::validation($data, $files);
 
-        if ($data->id == 0 && !empty($data->name) && \tool_gnotify\template::template_exists($data->name)) {
-            $newerrors['name'] = 'Duplicate notification templat name';
-        }
         $renderer = new \tool_gnotify_var_renderer($PAGE, 'web');
 
         $formatoptions = new \stdClass();
@@ -92,12 +89,6 @@ class template extends \core\form\persistent
         $mform->addElement('editor', 'content', get_string('createtemplatecontent', 'tool_gnotify'), null);
         $mform->setType('content', PARAM_RAW);
         $mform->addRule('content', get_string('required'), 'required', null, 'client');
-
-        $mform->addElement('hidden', 'id');
-        $mform->setType('id', PARAM_INT);
-
-        $mform->addElement('hidden', 'datamodel', '{}');
-        $mform->setType('datamodel', PARAM_RAW);
 
         $this->add_action_buttons();
     }

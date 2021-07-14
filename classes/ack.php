@@ -15,32 +15,31 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Notification persistent
+ * Notification acknowledgement persistent
  *
  * @package     tool_gnotify
  * @author      Gregor Eichelberger
  * @copyright   2021 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 namespace tool_gnotify;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Class representing a notification
+ * Class representing an acknowledgement
  *
  * @package     tool_gnotify
  * @author      Gregor Eichelberger
  * @copyright   2021 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class notification extends \core\persistent {
+class ack extends \core\persistent {
 
     /**
      * Table name for this persistent.
      */
-    const TABLE = 'tool_gnotify_notifications';
+    const TABLE = 'tool_gnotify_acks';
 
     /**
      * Return the definition of the properties of this model.
@@ -49,47 +48,13 @@ class notification extends \core\persistent {
      */
     protected static function define_properties() {
         return array(
-            'templateid' => [
+            'userid' => [
                 'type' => PARAM_INT,
-                'description' => 'Template',
             ],
-            'content' => [
-                'type' => PARAM_TEXT,
-            ],
-            'fromdate' => [
+            'notificationid' => [
                 'type' => PARAM_INT,
-                'description' => 'Start data',
-            ],
-            'todate' => [
-                'type' => PARAM_INT,
-                'description' => 'End data',
-            ],
-            'visibleonlogin' => [
-                'type' => PARAM_INT,
-                'description' => 'Visible on login pagge',
-            ],
-            'configdata' => [
-                'type' => PARAM_RAW,
-            ],
-            'datamodel' => [
-                'type' => PARAM_RAW,
             ],
         );
     }
 
-    public function get_template() {
-        return new template($this->get('templateid'));
-    }
-
-    public function get_data_model() {
-        return json_decode($this->get('datamodel'));
-    }
-
-    public static function get_from_template(template $template) {
-        $record = new \stdClass();
-        $record->templateid = $template->get('id');
-        $record->content = $template->get('content');
-        $record->datamodel = $template->get('datamodel');
-        return new notification(0, $record);
-    }
 }

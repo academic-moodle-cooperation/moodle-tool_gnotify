@@ -26,6 +26,8 @@
  */
 namespace tool_gnotify\task;
 
+use tool_gnotify\notification;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
