@@ -67,26 +67,46 @@ class template extends \core\persistent implements \templatable {
         );
     }
 
+    /**
+     * Get template name.
+     *
+     * @return mixed|null
+     * @throws \coding_exception
+     */
     public function get_template_name() {
         return $this->get('name');
     }
 
+    /**
+     * Extract data model.
+     *
+     * @return mixed
+     * @throws \coding_exception
+     */
     public function get_data_model() {
         return json_decode($this->get('datamodel'));
     }
 
 
+    /**
+     * Check if template with name exists.
+     *
+     * @param string $name
+     * @return bool
+     * @throws \dml_exception
+     */
     public static function template_exists(string $name) : bool {
         global $DB;
         return $DB->record_exists(self::TABLE, ['name' => $name]);
     }
 
     /**
+     * Export for use in mustache templates.
+     *
      * @param renderer_base $output
      * @return array|stdClass
      */
-    public function export_for_template(renderer_base $output)
-    {
+    public function export_for_template(renderer_base $output) {
         $data = $this->to_record();
         $data->datamodel = json_decode($data->datamodel);
         return $data;

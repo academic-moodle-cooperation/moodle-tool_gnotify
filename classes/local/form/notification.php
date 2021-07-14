@@ -41,7 +41,8 @@ class notification extends \core\form\persistent {
     /** @var string Persistent class name. */
     protected static $persistentclass = 'tool_gnotify\\notification';
 
-    const prefix = 'var_';
+    /** Mustache template variable form id prefix */
+    const PREFIX = 'var_';
 
     /**
      * Form definition.
@@ -50,11 +51,12 @@ class notification extends \core\form\persistent {
         $mform =& $this->_form;
 
         foreach ($this->get_persistent()->get_data_model() as $key => $value) {
-            $fieldid = self::prefix.$key;
+            $fieldid = self::PREFIX.$key;
             $mform->addElement('text', $fieldid, $key, 'size="64"');
             $mform->addRule($fieldid, get_string('required'), 'required', null, 'client');
             $mform->setType($fieldid, PARAM_TEXT);
-            $mform->addRule($fieldid, get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+            $mform->addRule($fieldid, get_string('maximumchars', '', 255),
+                'maxlength', 255, 'client');
         }
 
         $options = array();
@@ -64,13 +66,22 @@ class notification extends \core\form\persistent {
         $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR] = get_string('opterror', 'tool_gnotify');
 
         $mform->addElement('select', 'ntype', get_string('ntype', 'tool_gnotify'), $options);
-        $mform->addElement('advcheckbox', 'sticky', get_string('sticky', 'tool_gnotify'), get_string('stickyinfo', 'tool_gnotify'), array(0, 1));
-        $mform->addElement('advcheckbox', 'dismissable', get_string('dismissable', 'tool_gnotify'), get_string('dismissableinfo', 'tool_gnotify'), array(0, 1));
+        $mform->addElement('advcheckbox', 'sticky', get_string('sticky', 'tool_gnotify'),
+            get_string('stickyinfo', 'tool_gnotify'), array(0, 1));
+
+        $mform->addElement('advcheckbox', 'dismissable',
+            get_string('dismissable', 'tool_gnotify'),
+            get_string('dismissableinfo', 'tool_gnotify'), array(0, 1));
+
         $mform->setDefault('dismissable', 1);
-        $mform->addElement('advcheckbox', 'padding', get_string('padding', 'tool_gnotify'), get_string('paddinginfo', 'tool_gnotify'), array(0, 1));
+        $mform->addElement('advcheckbox', 'padding', get_string('padding', 'tool_gnotify'),
+            get_string('paddinginfo', 'tool_gnotify'), array(0, 1));
+
         $mform->setDefault('padding', 1);
 
-        $mform->addElement('advcheckbox', 'visibleonlogin', get_string('visibleonlogin', 'tool_gnotify'), get_string('visibleonlogininfo', 'tool_gnotify'), array(0, 1));
+        $mform->addElement('advcheckbox', 'visibleonlogin',
+            get_string('visibleonlogin', 'tool_gnotify'),
+            get_string('visibleonlogininfo', 'tool_gnotify'), array(0, 1));
 
         $mform->addElement('date_time_selector',
                 'fromdate',
@@ -97,14 +108,13 @@ class notification extends \core\form\persistent {
      * @param stdClass $data
      * @return object
      */
-    protected static function convert_fields($data)
-    {
+    protected static function convert_fields($data) {
         $data = parent::convert_fields($data);
 
         $datamodel = [];
         foreach ($data as $key => $value) {
-            if (strpos($key, self::prefix) === 0) {
-                $str = substr($key, strlen(self::prefix));
+            if (strpos($key, self::PREFIX) === 0) {
+                $str = substr($key, strlen(self::PREFIX));
                 $datamodel[$str] = $value;
                 unset($data->$key);
             }
@@ -135,7 +145,7 @@ class notification extends \core\form\persistent {
         $data = parent::get_default_data();
 
         foreach (json_decode($data->datamodel) as $key => $value) {
-            $fieldid = self::prefix.$key;
+            $fieldid = self::PREFIX.$key;
             $data->$fieldid = $value;
         }
         unset($data->datamodel);
@@ -145,7 +155,7 @@ class notification extends \core\form\persistent {
         $data->ntype = $configdata->ntype;
         $data->padding = $configdata->padding;
         $data->sticky = $configdata->sticky;
-        $data->dismissable = $configdata->dismissable ;
+        $data->dismissable = $configdata->dismissable;
 
         unset($data->configdata);
 

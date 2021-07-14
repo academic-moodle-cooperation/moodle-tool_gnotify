@@ -40,6 +40,6 @@ $functions = array(
                 'description' => 'Allows users to acknowledge that they have seen a notification',
                 'type' => 'write',
                 'ajax' => true,
-                'capabilities' => '',  // TODO capabilities
+                'capabilities' => '',  // TODO capabilities.
         )
 );

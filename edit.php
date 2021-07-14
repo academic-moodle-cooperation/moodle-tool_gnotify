@@ -31,7 +31,7 @@ admin_externalpage_setup('gnotify_templates');
 
 global $DB;
 
-$id = optional_param('id',null, PARAM_INT);
+$id = optional_param('id', null, PARAM_INT);
 
 $context = context_system::instance();
 $PAGE->set_context($context);

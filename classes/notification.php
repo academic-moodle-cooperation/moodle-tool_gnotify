@@ -77,14 +77,33 @@ class notification extends \core\persistent {
         );
     }
 
-    public function get_template() {
+    /**
+     * Return corresponding template.
+     *
+     * @return template
+     * @throws \coding_exception
+     */
+    public function get_template(): template {
         return new template($this->get('templateid'));
     }
 
+    /**
+     * Extract data model.
+     *
+     * @return mixed
+     * @throws \coding_exception
+     */
     public function get_data_model() {
         return json_decode($this->get('datamodel'));
     }
 
+    /**
+     * Create notification bare bone from template.
+     *
+     * @param template $template
+     * @return notification
+     * @throws \coding_exception
+     */
     public static function get_from_template(template $template) {
         $record = new \stdClass();
         $record->templateid = $template->get('id');

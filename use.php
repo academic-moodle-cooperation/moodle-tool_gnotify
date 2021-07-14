@@ -51,7 +51,8 @@ if ($template) {
         $instance = new \tool_gnotify\notification($id);
     }
 
-    $form = new \tool_gnotify\local\form\notification(new moodle_url('use.php', ['templateid' => $templateid, 'id' => $id]), ['persistent' => $instance]);
+    $form = new \tool_gnotify\local\form\notification(new moodle_url('use.php',
+        ['templateid' => $templateid, 'id' => $id]), ['persistent' => $instance]);
 
     if ($form->is_cancelled()) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
@@ -71,7 +72,7 @@ if ($template) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
     }
 } else {
-    print_error('wrongiderror', 'tool_gnotify');
+    throw new moodle_exception('wrongiderror', 'tool_gnotify');
 }
 
 $PAGE->set_title(get_string('templates', 'tool_gnotify'));
