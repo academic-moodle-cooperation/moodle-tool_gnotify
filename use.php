@@ -58,6 +58,7 @@ if ($template) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
     } else if ($data = $form->get_data()) {
         try {
+            $data->content = $template->get('content');
             if (empty($data->id)) {
                 $persistent = new \tool_gnotify\notification(0, $data);
                 $persistent->create();

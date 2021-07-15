@@ -51,13 +51,18 @@ $form = new \tool_gnotify\local\form\template($PAGE->url->out(false), ['persiste
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
 } else if ($data = $form->get_data()) {
-    $template = new \tool_gnotify\template();
-    $template->from_record($data);
 
     if (empty($data->id)) {
+        $template = new \tool_gnotify\template(0, $data);
         $template->create();
     } else {
+        $template->from_record($data);
         $template->update();
+        $notifications = \tool_gnotify\notification::get_records(['templateid' => $template->get('id')]);
+        foreach ($notifications as $notification) {
+            $notification->patch($template);
+            $notification->update();
+        }
     }
 
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));

@@ -54,7 +54,7 @@ class notification extends \core\persistent {
                 'description' => 'Template',
             ],
             'content' => [
-                'type' => PARAM_TEXT,
+                'type' => PARAM_RAW,
             ],
             'fromdate' => [
                 'type' => PARAM_INT,
@@ -95,6 +95,24 @@ class notification extends \core\persistent {
      */
     public function get_data_model() {
         return json_decode($this->get('datamodel'));
+    }
+
+    /**
+     * Patch notification based on template
+     *
+     * @param template $template
+     * @return bool|void
+     */
+    public function patch(template $template) {
+        $this->set('content', $template->get('content'));
+        $datamodel = json_decode($template->get('datamodel'));
+        $olddatamodel = json_decode(self::get('datamodel'));
+        foreach ($datamodel as $key => $value) {
+            if (property_exists($olddatamodel, $key) && $olddatamodel->$key) {
+                $datamodel->$key = $olddatamodel->$key;
+            }
+        }
+        $this->set('datamodel', json_encode($datamodel));
     }
 
     /**

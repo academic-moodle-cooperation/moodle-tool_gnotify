@@ -97,7 +97,7 @@ class notification extends \core\form\persistent {
         $mform->setType('templateid', PARAM_INT);
 
         $mform->addElement('hidden', 'content');
-        $mform->setType('content', PARAM_TEXT);
+        $mform->setType('content', PARAM_RAW);
 
         $this->add_action_buttons();
     }
