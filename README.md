@@ -32,6 +32,18 @@ Fallback Notfication!
 {{/lang=en}}
 ```
 
+Themes and sticky notifications
+-------------------------------
+
+Use custom css to match your navigation bar hight. e.g. university_boost:
+```css
+.notification-sticky {
+    z-index: 1029;
+    position: sticky;
+    top: 40px;
+}
+```
+
 
 
 
