@@ -55,7 +55,8 @@ function tool_gnotify_before_standard_top_of_body_html() {
         }
     } else {
         $select = ":time BETWEEN fromdate AND todate AND NOT EXISTS
-                   (SELECT 1 FROM {tool_gnotify_acks} a WHERE id=a.notificationid and a.userid=:userid)";
+                   (SELECT 1 FROM {tool_gnotify_acks} a
+                   WHERE {tool_gnotify_notifications}.id=a.notificationid and a.userid=:userid)";
         $records = \tool_gnotify\notification::get_records_select($select, ['time' => time(), 'userid' => $USER->id]);
     }
     if ($records) {
@@ -74,7 +75,6 @@ function tool_gnotify_before_standard_top_of_body_html() {
                 $datamodel->$lang = true;
 
                 $htmlcontent = $renderer->render_direct($htmlcontent, $datamodel);
-
                 $config = json_decode($record->get('configdata'));
 
                 if (!isloggedin() || isguestuser()) {
