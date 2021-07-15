@@ -36,62 +36,6 @@ defined('MOODLE_INTERNAL') || die;
 function xmldb_tool_gnotify_upgrade(float $oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
-    if ($oldversion < 2019120400) {
-
-        // Define field isvisibleonlogin to be added to tool_gnotify_tpl_ins.
-        $table = new xmldb_table('tool_gnotify_tpl_ins');
-        $field = new xmldb_field('isvisibleonlogin', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'sticky');
-
-        // Conditionally launch add field isvisibleonlogin.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Gnotify savepoint reached.
-        upgrade_plugin_savepoint(true, 2019120400, 'tool', 'gnotify');
-    }
-    if ($oldversion < 2019120601) {
-
-        // Define field isvisibleonlogin to be added to tool_gnotify_tpl_ins.
-        $table = new xmldb_table('tool_gnotify_tpl_ins');
-        $field = new xmldb_field('dismissable', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'sticky');
-
-        // Conditionally launch add field isvisibleonlogin.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Gnotify savepoint reached.
-        upgrade_plugin_savepoint(true, 2019120601, 'tool', 'gnotify');
-    }
-    if ($oldversion < 2019120602) {
-
-        // Define field ntype to be added to tool_gnotify_tpl_ins.
-        $table = new xmldb_table('tool_gnotify_tpl_ins');
-        $field = new xmldb_field('ntype', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'dismissable');
-
-        // Conditionally launch add field ntype.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Gnotify savepoint reached.
-        upgrade_plugin_savepoint(true, 2019120602, 'tool', 'gnotify');
-    }
-    if ($oldversion < 2019122000) {
-
-        // Define field padding to be added to tool_gnotify_tpl_ins.
-        $table = new xmldb_table('tool_gnotify_tpl_ins');
-        $field = new xmldb_field('padding', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'ntype');
-
-        // Conditionally launch add field padding.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
-        }
-
-        // Gnotify savepoint reached.
-        upgrade_plugin_savepoint(true, 2019122000, 'tool', 'gnotify');
-    }
 
     if ($oldversion < 2021071100) {
 

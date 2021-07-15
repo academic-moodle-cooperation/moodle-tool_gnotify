@@ -105,7 +105,7 @@ class notification extends \core\form\persistent {
     /**
      * Convert some fields.
      *
-     * @param stdClass $data
+     * @param \stdClass $data
      * @return object
      */
     protected static function convert_fields($data) {
@@ -139,7 +139,7 @@ class notification extends \core\form\persistent {
     /**
      * Get the default data.
      *
-     * @return stdClass
+     * @return \stdClass
      */
     protected function get_default_data() {
         $data = parent::get_default_data();
@@ -152,11 +152,12 @@ class notification extends \core\form\persistent {
 
         $configdata = json_decode($data->configdata);
 
-        $data->ntype = $configdata->ntype;
-        $data->padding = $configdata->padding;
-        $data->sticky = $configdata->sticky;
-        $data->dismissable = $configdata->dismissable;
-
+        if ($configdata) {
+            $data->ntype = $configdata->ntype;
+            $data->padding = $configdata->padding;
+            $data->sticky = $configdata->sticky;
+            $data->dismissable = $configdata->dismissable;
+        }
         unset($data->configdata);
 
         return $data;

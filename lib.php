@@ -24,7 +24,6 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-
 /**
  * Before standard top of body html
  *
@@ -45,7 +44,12 @@ function tool_gnotify_before_standard_top_of_body_html() {
     $html = "";
     if (!isloggedin() || isguestuser()) {
         if ($PAGE->pagelayout == "login" || $PAGE->pagelayout == "frontpage") {
-            $records = \tool_gnotify\notification::get_records_select(':time between fromdate and todate', ['time' => time()]);
+            $records = \tool_gnotify\notification::get_records_select(
+                ':time between fromdate and todate and visibleonlogin = :visibleonlogin',
+                [
+                    'time' => time(),
+                    'visibleonlogin' => true,
+                ]);
         } else {
             return;
         }
@@ -99,7 +103,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
                 $config->sticky = boolval($config->sticky);
                 $config->padding = boolval($config->padding);
 
-                if ($record->sticky != 1) {
+                if ($config->sticky == false) {
                     $context['non-sticky'][] = $config;
                 } else {
                     $context['sticky'][] = $config;

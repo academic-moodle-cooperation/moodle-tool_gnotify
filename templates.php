@@ -47,8 +47,10 @@ global $DB;
 
 if ($action == "delete") {
     if (empty($templateid) && $notificationid) {
+        $DB->delete_records('tool_gnotify_acks', ["notificationid" => $notificationid]);
         $DB->delete_records('tool_gnotify_notifications', ["id" => $notificationid]);
     } else if ($templateid) {
+        $DB->delete_records('tool_gnotify_acks', ["notificationid" => $notificationid]);
         $DB->delete_records('tool_gnotify_notifications', ["templateid" => $templateid]);
         $DB->delete_records('tool_gnotify_templates', ["id" => $templateid]);
     }
