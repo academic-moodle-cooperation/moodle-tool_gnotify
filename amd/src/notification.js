@@ -1,32 +1,52 @@
-define(['jquery'], function ($) {
-    return {
-        init: function (uid) {
-            var gnotify = $('[id="' + uid + '"]');
-            var context = gnotify.data('gnotify');
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-            require(['core/templates'], function (templates) {
-                // This will be the context for our template. So {{name}} in the template will resolve to "Tweety bird".
-                // This will call the function to load and render our template.
-                templates.render('tool_gnotify/notifications', context)
-                // It returns a promise that needs to be resoved.
-                    .then(function (html, js) {
-                        // Here eventually I have my compiled template, and any javascript that it generated.
-                        // The templates object has append, prepend and replace functions.
-                        templates.prependNodeContents('#page', html, js);
-                    }).fail(function (ex) {
-                    templates.setBody(ex.message);
-                });
-            });
-            $.fn.tool_gnotify_acknowledge_notification = function ($id) {
-                var notification = document.getElementById($id + '-gnotify-wrapper');
-                notification.hidden = true;
-                require(['core/ajax'], function (ajax) {
-                    var promises = ajax.call([
-                        {methodname: 'tool_gnotify_acknowledge_notification', args: {id: $id}}
-                    ]);
-                    promises[0].done();
-                });
-            };
+import Ajax from 'core/ajax';
+import Log from 'core/log';
+import Pending from "core/pending";
+
+export const init = async(uid) => {
+    let gnotify = document.querySelector(`#${uid}`);
+    let context = JSON.parse(gnotify.dataset.gnotify);
+
+    const pendingPromise = new Pending('gnotfiy-render');
+    const Templates = await import('core/templates');
+    Templates.renderForPromise('tool_gnotify/notifications', context)
+        .then(({html, js=''}) => {
+            Templates.prependNodeContents('#page', html, js);
+        })
+        .then(pendingPromise.resolve)
+        .fail(({ex}) => {
+            Log.error(ex.message);
+        });
+};
+
+export const acknowledge = (id) => {
+    let notification = document.getElementById(id + '-gnotify-wrapper');
+    notification.hidden = true;
+    const request = {
+        methodname: 'tool_gnotify_acknowledge_notification',
+        args: {
+            id: id,
         }
     };
-});
+
+    Ajax.call([request])[0].done();
+};
+
+export default {
+    init,
+    acknowledge,
+};

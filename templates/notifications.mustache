@@ -30,7 +30,7 @@
             <div id="{{id}}-gnotify" class="card {{ntype}}">
                 <div class="gnotify-notification-html card-body">
                     {{#dismissable}}
-                        <button type="button" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});" class="close">&times;</button>{{/dismissable}}
+                        <button type="button" onclick="require(['tool_gnotify/notification'], (amd)=>{amd.acknowledge({{id}})});" class="close">&times;</button>{{/dismissable}}
                     {{{html}}}
                 </div>
             </div>
@@ -43,7 +43,7 @@
             <div id="{{id}}-gnotify" class="card {{ntype}}">
                 <div class="gnotify-notification-html card-body">
                     {{#dismissable}}
-                        <button type="button" onclick="$.fn.tool_gnotify_acknowledge_notification({{id}});" class="close">&times;</button>{{/dismissable}}
+                        <button type="button" onclick="require(['tool_gnotify/notification'], (amd)=>{amd.acknowledge({{id}})});" class="close">&times;</button>{{/dismissable}}
                     {{{html}}}
                 </div>
             </div>

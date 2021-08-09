@@ -41,7 +41,7 @@
                 </td>
                 <td class="table-cell">
                     <a href="{{wwwroot}}/admin/tool/gnotify/use.php?templateid={{id}}">{{#pix}}i/new, core, {{# str }} usetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
-                    <a href="{{wwwroot}}/admin/tool/gnotify/edit.php?templateid={{id}}">{{#pix}}t/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
+                    <a href="{{wwwroot}}/admin/tool/gnotify/edit.php?id={{id}}">{{#pix}}t/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                     <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&templateid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                 </td>
             </tr>
@@ -55,7 +55,7 @@
         {{/templates}}
         </tbody>
     </table>
-    <a class="btn btn-secondary" href="{{wwwroot}}/admin/tool/gnotify/create.php">
+    <a class="btn btn-secondary" href="{{wwwroot}}/admin/tool/gnotify/edit.php">
       {{# str }} createtemplate, tool_gnotify {{/ str }}</a>
 </div>
 <div class="box py-3 generalbox">
@@ -86,8 +86,8 @@
                     {{ack}}
                 </td>
                 <td class="table-cell">
-                    <a href="{{wwwroot}}/admin/tool/gnotify/use.php?templateid={{tplid}}&insid={{id}}">{{#pix}}i/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
-                    <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete-ins&insid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
+                    <a href="{{wwwroot}}/admin/tool/gnotify/use.php?id={{id}}&templateid={{tplid}}">{{#pix}}i/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
+                    <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&notificationid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                 </td>
             </tr>
         {{/instemplates}}

@@ -24,11 +24,10 @@
  */
 
 require_once(__DIR__ . '/../../../config.php');
-global $DB;
 
-if (!isloggedin()) {
-    require_login();
-}
+require_login();
+
+global $DB;
 
 $PAGE->set_context(context_user::instance($USER->id));
 
@@ -39,31 +38,28 @@ $user = core_user::get_user($USER->id);
 $PAGE->navigation->extend_for_user($user);
 $PAGE->navbar->add(get_string('notificationhistory', 'tool_gnotify'), $PAGE->url);
 
-$sql = "SELECT g.id, l.content, g.sticky FROM {tool_gnotify_tpl_ins} g, {tool_gnotify_tpl_lang} l " .
-        "WHERE :time between fromdate AND todate AND l.lang = 'en' AND l.tplid = g.tplid AND EXISTS " .
-        "(SELECT 1 FROM {tool_gnotify_tpl_ins_ack} a WHERE g.id=a.insid AND a.userid = :userid)";
-$records = $DB->get_records_sql($sql, ['time' => time(), 'userid' => $USER->id]);
+
+$acks = \tool_gnotify\ack::get_records(['userid' => $USER->id]);
 
 $notifications = [];
 
-if ($records) {
-    foreach ($records as $record) {
-        $formatoptions = new stdClass();
-        $formatoptions->trusted = true;
-        $formatoptions->noclean = true;
-        $htmlcontent = format_text($record->content, FORMAT_HTML, $formatoptions);
-        $sql =
-                'SELECT var.varname, content from {tool_gnotify_tpl_ins_var} ins, {tool_gnotify_tpl_var} var  WHERE var.id = ins.varid AND ins.insid = :insid';
-        $vars = $DB->get_records_sql($sql, ['insid' => $record->id]);
-        $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
-        $varray = [];
-        foreach ($vars as $var) {
-            $varray[$var->varname] = $var->content;
-        }
-        $htmlcontent = $renderer->render_direct($htmlcontent, $varray);
+foreach ($acks as $ack) {
+    $notification = \tool_gnotify\notification::get_record(['id' => $ack->get('notificationid')]);
 
-        $notifications['ack'][] = ['html' => $htmlcontent, 'id' => $record->id];
-    }
+    $formatoptions = new stdClass();
+    $formatoptions->trusted = true;
+    $formatoptions->noclean = true;
+
+    $htmlcontent = format_text($notification->get('content'), FORMAT_HTML, $formatoptions);
+
+    $datamodel = $notification->get_data_model();
+    $lang = 'lang='.current_language();
+    $datamodel->$lang = true;
+
+    $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
+    $htmlcontent = $renderer->render_direct($htmlcontent, $datamodel);
+
+    $notifications['ack'][] = ['html' => $htmlcontent, 'id' => $notification->get('id')];
 }
 
 echo $OUTPUT->header();

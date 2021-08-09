@@ -26,6 +26,9 @@
  */
 namespace tool_gnotify\task;
 
+use tool_gnotify\ack;
+use tool_gnotify\notification;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -51,21 +54,12 @@ class delete_completed_task extends \core\task\scheduled_task {
     public function execute() {
         global $DB;
         // Remove all template usages older than 1 week.
-        $timenow = time();
-        $sql = "SELECT id
-              FROM {tool_gnotify_tpl_ins}
-             WHERE todate < :expiretime";
-        $params = array('expiretime' => (int) $timenow);
+        $params = array('expiretime' => (int) time());
+        $notifications = notification::get_records_select('todate < :expiretime', $params);
 
-        // First we get the different IDs.
-        $ids = $DB->get_fieldset_sql($sql, $params);
-
-        if (!empty($ids)) {
-            foreach ($ids as $id) {
-                $DB->delete_records('tool_gnotify_tpl_ins', ["id" => $id]);
-                $DB->delete_records('tool_gnotify_tpl_ins_var', ['insid' => $id]);
-                $DB->delete_records('tool_gnotify_tpl_ins_ack', ['insid' => $id]);
-            }
+        foreach ($notifications as $notification) {
+            $DB->delete_records('tool_gnotify_acks', ['notificationid' => $notification->get('id')]);
+            $notification->delete();
         }
     }
 }

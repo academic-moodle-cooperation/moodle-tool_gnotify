@@ -24,7 +24,6 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-
 /**
  * Before standard top of body html
  *
@@ -36,7 +35,7 @@ defined('MOODLE_INTERNAL') || die();
 function tool_gnotify_before_standard_top_of_body_html() {
     require_once(__DIR__ . '/locallib.php');
 
-    global $PAGE, $DB, $USER;
+    global $PAGE, $USER;
     if (in_array($PAGE->pagelayout, ['maintenance', 'print', 'redirect', 'embedded'])) {
         // Do not try to show notifications inside iframe, in maintenance mode,
         // when printing, or during redirects.
@@ -45,30 +44,20 @@ function tool_gnotify_before_standard_top_of_body_html() {
     $html = "";
     if (!isloggedin() || isguestuser()) {
         if ($PAGE->pagelayout == "login" || $PAGE->pagelayout == "frontpage") {
-            $sql = "SELECT g.id, l.content, g.sticky, g.ntype, g.padding
-            FROM   {tool_gnotify_tpl_ins} g,
-                   {tool_gnotify_tpl_lang} l
-            WHERE  :time between fromdate AND todate
-            AND    l.lang = 'en'
-            AND    l.tplid = g.tplid
-            AND    g.isvisibleonlogin = 1";
-            $records = $DB->get_records_sql($sql, ['time' => time(), 'userid' => $USER->id]);
+            $records = \tool_gnotify\notification::get_records_select(
+                ':time between fromdate and todate and visibleonlogin = :visibleonlogin',
+                [
+                    'time' => time(),
+                    'visibleonlogin' => true,
+                ]);
         } else {
             return;
         }
     } else {
-        $sql = "SELECT g.*, l.content
-                FROM   {tool_gnotify_tpl_ins} g,
-                       {tool_gnotify_tpl_lang} l
-                WHERE  :time between fromdate AND todate
-                AND    l.lang = 'en'
-                AND    l.tplid = g.tplid
-                AND NOT EXISTS
-                   (SELECT 1
-                    FROM   {tool_gnotify_tpl_ins_ack} a
-                    WHERE  g.id=a.insid
-                    AND    a.userid = :userid)";
-        $records = $DB->get_records_sql($sql, ['time' => time(), 'userid' => $USER->id]);
+        $select = ":time BETWEEN fromdate AND todate AND NOT EXISTS
+                   (SELECT 1 FROM {tool_gnotify_acks} a
+                   WHERE {tool_gnotify_notifications}.id=a.notificationid and a.userid=:userid)";
+        $records = \tool_gnotify\notification::get_records_select($select, ['time' => time(), 'userid' => $USER->id]);
     }
     if ($records) {
         try {
@@ -79,46 +68,45 @@ function tool_gnotify_before_standard_top_of_body_html() {
             $formatoptions->noclean = true;
 
             foreach ($records as $record) {
-                $htmlcontent = format_text($record->content, FORMAT_HTML, $formatoptions);
-                $sql = "SELECT var.varname, content
-                    FROM   {tool_gnotify_tpl_ins_var} ins,
-                           {tool_gnotify_tpl_var} var
-                    WHERE  var.id = ins.varid
-                    AND    ins.insid = :insid";
-                $vars = $DB->get_records_sql($sql, ['insid' => $record->id]);
+                $htmlcontent = format_text($record->get('content'), FORMAT_HTML, $formatoptions);
 
-                $varray = [];
-                foreach ($vars as $var) {
-                    $varray[$var->varname] = $var->content;
-                }
+                $datamodel = $record->get_data_model();
+                $lang = 'lang='.current_language();
+                $datamodel->$lang = true;
 
-                $htmlcontent = $renderer->render_direct($htmlcontent, $varray);
-                if (!isloggedin() || isguestuser() || !$record->dismissable) {
-                    $dismissable = false;
+                $htmlcontent = $renderer->render_direct($htmlcontent, $datamodel);
+                $config = json_decode($record->get('configdata'));
+
+                if (!isloggedin() || isguestuser()) {
+                    $config->dismissable = false;
                 } else {
-                    $dismissable = true;
+                    $config->dismissable = boolval($config->dismissable);
                 }
 
-                switch ($record->ntype) {
+                switch ($config->ntype) {
                     case TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO:
-                        $ntype = 'alert-info';
+                        $config->ntype = 'alert-info';
                         break;
                     case TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN:
-                        $ntype = 'alert-warning';
+                        $config->ntype = 'alert-warning';
                         break;
                     case TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR:
-                        $ntype = 'alert-danger';
+                        $config->ntype = 'alert-danger';
                         break;
                     default:
-                        $ntype = 'alert-none'; // This is a dummy value.
+                        $config->ntype = 'alert-none'; // This is a dummy value.
                         break;
                 }
 
-                $content = ['html' => $htmlcontent, 'id' => $record->id, 'dismissable' => $dismissable, 'ntype' => $ntype, 'padding' => boolval($record->padding)];
-                if ($record->sticky != 1) {
-                    $context['non-sticky'][] = $content;
+                $config->html = $htmlcontent;
+                $config->id = $record->get('id');
+                $config->sticky = boolval($config->sticky);
+                $config->padding = boolval($config->padding);
+
+                if ($config->sticky == false) {
+                    $context['non-sticky'][] = $config;
                 } else {
-                    $context['sticky'][] = $content;
+                    $context['sticky'][] = $config;
                 }
             }
 

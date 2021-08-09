@@ -36,61 +36,151 @@ defined('MOODLE_INTERNAL') || die;
 function xmldb_tool_gnotify_upgrade(float $oldversion) {
     global $DB;
     $dbman = $DB->get_manager();
-    if ($oldversion < 2019120400) {
 
-        // Define field isvisibleonlogin to be added to tool_gnotify_tpl_ins.
-        $table = new xmldb_table('tool_gnotify_tpl_ins');
-        $field = new xmldb_field('isvisibleonlogin', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'sticky');
+    if ($oldversion < 2021071100) {
 
-        // Conditionally launch add field isvisibleonlogin.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
+        // Define table tool_gnotify_templates to be created.
+        $table = new xmldb_table('tool_gnotify_templates');
+
+        // Adding fields to table tool_gnotify_templates.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('name', XMLDB_TYPE_CHAR, '64', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('content', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $table->add_field('contentformat', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('datamodel', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
+        $table->add_field('usermodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+        // Adding keys to table tool_gnotify_templates.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('usermodified', XMLDB_KEY_FOREIGN, ['usermodified'], 'user', ['id']);
+
+        // Conditionally launch create table for tool_gnotify_templates.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
         }
 
         // Gnotify savepoint reached.
-        upgrade_plugin_savepoint(true, 2019120400, 'tool', 'gnotify');
+        upgrade_plugin_savepoint(true, 2021071100, 'tool', 'gnotify');
     }
-    if ($oldversion < 2019120601) {
 
-        // Define field isvisibleonlogin to be added to tool_gnotify_tpl_ins.
-        $table = new xmldb_table('tool_gnotify_tpl_ins');
-        $field = new xmldb_field('dismissable', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'sticky');
+    if ($oldversion < 2021071200) {
 
-        // Conditionally launch add field isvisibleonlogin.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
+        // Define table tool_gnotify_notifications to be created.
+        $table = new xmldb_table('tool_gnotify_notifications');
+
+        // Adding fields to table tool_gnotify_notifications.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('templateid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('content', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
+        $table->add_field('fromdate', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('todate', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('visibleonlogin', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('configdata', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $table->add_field('datamodel', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $table->add_field('usermodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+        // Adding keys to table tool_gnotify_notifications.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('usermodified', XMLDB_KEY_FOREIGN, ['usermodified'], 'user', ['id']);
+        $table->add_key('templateid_fk', XMLDB_KEY_FOREIGN, ['templateid'], 'tool_gnotify_template', ['id']);
+
+        // Conditionally launch create table for tool_gnotify_notifications.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
         }
 
         // Gnotify savepoint reached.
-        upgrade_plugin_savepoint(true, 2019120601, 'tool', 'gnotify');
+        upgrade_plugin_savepoint(true, 2021071200, 'tool', 'gnotify');
     }
-    if ($oldversion < 2019120602) {
 
-        // Define field ntype to be added to tool_gnotify_tpl_ins.
-        $table = new xmldb_table('tool_gnotify_tpl_ins');
-        $field = new xmldb_field('ntype', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'dismissable');
+    if ($oldversion < 2021071300) {
 
-        // Conditionally launch add field ntype.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
+        // Define table tool_gnotify_acks to be created.
+        $table = new xmldb_table('tool_gnotify_acks');
+
+        // Adding fields to table tool_gnotify_acks.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('userid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('notificationid', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('usermodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+        // Adding keys to table tool_gnotify_acks.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $table->add_key('usermodified', XMLDB_KEY_FOREIGN, ['usermodified'], 'user', ['id']);
+        $table->add_key('notificationid', XMLDB_KEY_FOREIGN, ['notificationid'], 'tool_gnotify_notifications', ['id']);
+        $table->add_key('userid', XMLDB_KEY_FOREIGN, ['userid'], 'user', ['id']);
+
+        // Adding indexes to table tool_gnotify_acks.
+        $table->add_index('unique_acks', XMLDB_INDEX_UNIQUE, ['userid', 'notificationid']);
+
+        // Conditionally launch create table for tool_gnotify_acks.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
         }
 
         // Gnotify savepoint reached.
-        upgrade_plugin_savepoint(true, 2019120602, 'tool', 'gnotify');
+        upgrade_plugin_savepoint(true, 2021071300, 'tool', 'gnotify');
     }
-    if ($oldversion < 2019122000) {
 
-        // Define field padding to be added to tool_gnotify_tpl_ins.
+    if ($oldversion < 2021071400) {
+
+        // Define table tool_gnotify_tpl to be dropped.
+        $table = new xmldb_table('tool_gnotify_tpl');
+
+        // Conditionally launch drop table for tool_gnotify_tpl.
+        if ($dbman->table_exists($table)) {
+            $dbman->drop_table($table);
+        }
+
+        // Define table tool_gnotify_tpl to be dropped.
         $table = new xmldb_table('tool_gnotify_tpl_ins');
-        $field = new xmldb_field('padding', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '1', 'ntype');
 
-        // Conditionally launch add field padding.
-        if (!$dbman->field_exists($table, $field)) {
-            $dbman->add_field($table, $field);
+        // Conditionally launch drop table for tool_gnotify_tpl_ins.
+        if ($dbman->table_exists($table)) {
+            $dbman->drop_table($table);
+        }
+
+        // Define table tool_gnotify_tpl_ins_ack to be dropped.
+        $table = new xmldb_table('tool_gnotify_tpl_ins_ack');
+
+        // Conditionally launch drop table for tool_gnotify_tpl_ins_ack.
+        if ($dbman->table_exists($table)) {
+            $dbman->drop_table($table);
+        }
+
+        // Define table tool_gnotify_tpl_ins_var to be dropped.
+        $table = new xmldb_table('tool_gnotify_tpl_ins_var');
+
+        // Conditionally launch drop table for tool_gnotify_tpl_ins_var.
+        if ($dbman->table_exists($table)) {
+            $dbman->drop_table($table);
+        }
+
+        // Define table tool_gnotify_tpl_lang to be dropped.
+        $table = new xmldb_table('tool_gnotify_tpl_lang');
+
+        // Conditionally launch drop table for tool_gnotify_tpl_lang.
+        if ($dbman->table_exists($table)) {
+            $dbman->drop_table($table);
+        }
+
+        // Define table tool_gnotify_tpl_var to be dropped.
+        $table = new xmldb_table('tool_gnotify_tpl_var');
+
+        // Conditionally launch drop table for tool_gnotify_tpl_var.
+        if ($dbman->table_exists($table)) {
+            $dbman->drop_table($table);
         }
 
         // Gnotify savepoint reached.
-        upgrade_plugin_savepoint(true, 2019122000, 'tool', 'gnotify');
+        upgrade_plugin_savepoint(true, 2021071400, 'tool', 'gnotify');
     }
+
     return true;
 }

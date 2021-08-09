@@ -24,6 +24,8 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2021042000;         // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires = 2019051100;         // Requires Moodle 3.7.
-$plugin->component = 'tool_gnotify'; // Full name of the plugin (used for diagnostics).
+$plugin->component = 'tool_gnotify';
+$plugin->release = '1.0';
+$plugin->version = 2021071600;
+$plugin->requires = 2019051100;
+$plugin->maturity = MATURITY_STABLE;

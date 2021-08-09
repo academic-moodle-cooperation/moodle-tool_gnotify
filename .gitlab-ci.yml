@@ -51,4 +51,3 @@ test:
 
       - DB: mariadb
         DB_HOST: mariadb
-

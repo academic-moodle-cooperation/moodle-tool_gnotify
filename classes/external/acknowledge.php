@@ -22,6 +22,10 @@
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace tool_gnotify\external;
+
+use tool_gnotify\ack;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -30,7 +34,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class tool_gnotify_external extends external_api {
+class acknowledge extends \external_api {
 
     /**
      * Acknowledge
@@ -38,17 +42,15 @@ class tool_gnotify_external extends external_api {
      * @param int $id Template instance
      * @throws dml_exception
      */
-    public static function acknowledge($id) {
-        global $USER, $DB;
+    public static function execute($id) {
+        global $USER;
         if ($USER) {
-            if ($USER->id) {
-                if ($DB->get_record('tool_gnotify_tpl_ins', ['id' => $id]) &&
-                        !$DB->get_record('tool_gnotify_tpl_ins_ack', ['insid' => $id, 'userid' => $USER->id])) {
-                    $dataobject = new stdClass();
-                    $dataobject->insid = $id;
-                    $dataobject->userid = $USER->id;
-                    $DB->insert_record('tool_gnotify_tpl_ins_ack', $dataobject);
-                }
+            if ($USER->id && \tool_gnotify\notification::record_exists($id)) {
+                $record = new \stdClass();
+                $record->userid = $USER->id;
+                $record->notificationid = $id;
+                $ack = new ack(0, $record);
+                $ack->create();
             }
         }
     }
@@ -56,12 +58,12 @@ class tool_gnotify_external extends external_api {
     /**
      * Acknowledge parameters
      *
-     * @return external_function_parameters
+     * @return \external_function_parameters
      */
-    public static function acknowledge_parameters() {
-        return new external_function_parameters(
+    public static function execute_parameters() {
+        return new \external_function_parameters(
                 array(
-                        'id' => new external_value(PARAM_INT, 'id of notificationtemplate')
+                        'id' => new \external_value(PARAM_INT, 'id of notificationtemplate')
                 )
         );
     }
@@ -71,7 +73,7 @@ class tool_gnotify_external extends external_api {
      *
      * @return |null
      */
-    public static function acknowledge_returns() {
+    public static function execute_returns() {
         return null;
     }
 
