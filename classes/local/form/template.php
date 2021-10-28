@@ -100,9 +100,9 @@ class template extends \core\form\persistent {
 
         preg_match_all('/{{\s*([a-zA-Z0-9_]+?)\s*}}/', $data->content, $matches);
 
-        $datamodel = [];
+        $datamodel = new \stdClass();
         foreach ($matches[1] as $value) {
-            $datamodel[$value] = ''; // TODO Introduce default value.
+            $datamodel->$value = ''; // TODO Introduce default value.
         }
 
         $data->datamodel = json_encode($datamodel);
