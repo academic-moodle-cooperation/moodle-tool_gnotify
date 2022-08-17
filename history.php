@@ -57,7 +57,7 @@ foreach ($allnotifications as $notification) {
     $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
     $htmlcontent = $renderer->render_direct($htmlcontent, $datamodel);
 
-    $ack = tool_gnotify\ack::get_record(['notificationid' => $notification->get('id')]);
+    $ack = tool_gnotify\ack::get_record(['notificationid' => $notification->get('id'), 'userid' => $USER->id]);
 
     $notifications['ack'][] = [
             'html' => $htmlcontent, 'id' => $notification->get('id'),
