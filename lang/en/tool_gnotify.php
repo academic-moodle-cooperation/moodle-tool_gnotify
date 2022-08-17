@@ -23,6 +23,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['acknotifications'] = 'Acknowledged notifications';
+$string['acknowledgedon'] = 'Acknowledged on';
 $string['activenotifications'] = 'Active Notifications';
 $string['createname'] = 'Name';
 $string['createtemplates'] = 'Create Notification Templates';
@@ -37,9 +38,11 @@ $string['fromdate'] = "From";
 $string['gnotify'] = 'Global Notifications';
 $string['myprofilehistory'] = "Notification history";
 $string['noacknotifications'] = 'No acknowledged notifications';
-$string['noacknotificationsinfo'] = 'You haven\'t acknowledged any notifications';
+$string['noacknotificationsinfo'] = 'You haven\'t acknowledged any notifications.';
 $string['notemplates'] = "No Templates ;)";
+$string['nonotificationhistoryinfo'] = 'You have no notifications.';
 $string['notificationhistory'] = "Notification History";
+$string['notifications'] = "Notifications";
 $string['notifyusers'] = 'Notify users';
 $string['ntype'] = 'Notification Type';
 $string['optnone'] = 'None';
@@ -62,6 +65,7 @@ $string['templatetableheadername'] = 'Name';
 $string['templatetableheaderto'] = 'To';
 $string['todate'] = "To";
 $string['usetemplate'] = "Use";
+$string['visiblefromto'] = 'Visible from {$a->fromdate} to {$a->todate}';
 $string['visibleonlogin'] = 'Visible on login page';
 $string['visibleonlogininfo'] = 'Whether this notification is visible on the login page';
 $string['wrongiderror'] = "Wrong id given in parameters";

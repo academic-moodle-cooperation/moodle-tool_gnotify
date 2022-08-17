@@ -111,11 +111,11 @@ class notification extends \core\form\persistent {
     protected static function convert_fields($data) {
         $data = parent::convert_fields($data);
 
-        $datamodel = [];
+        $datamodel = new \stdClass();
         foreach ($data as $key => $value) {
             if (strpos($key, self::PREFIX) === 0) {
                 $str = substr($key, strlen(self::PREFIX));
-                $datamodel[$str] = $value;
+                $datamodel->$str = $value;
                 unset($data->$key);
             }
         }

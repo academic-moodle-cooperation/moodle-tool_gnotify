@@ -25,9 +25,25 @@
     }
   }}
 <div class="course-content">
-    <ul class="topics">
+    <table id="gnotifications-{{uniqid}}" class="generaltable fullwidth topics">
+        <tbody class="table">
         {{#ack}}
-        <li id="gnotification-{{ id }}" class="section main clearfix">{{{ html }}}</li>
+            <tr class="table-row {{ntype}}">
+                <td class="table-cell">
+                    {{{ html }}}
+                </td>
+                <td class="table-cell" style="text-align: right;">
+                    <ul class="topics">
+                        {{#ackdate}}
+                        <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}</li>
+                        {{/ackdate}}
+                        {{^ackdate}}
+                        <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }}  {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}</li>
+                        {{/ackdate}}
+                    </ul>
+                </td>
+            </tr>
         {{/ack}}
-    </ul>
+        </tbody>
+    </table>
 </div>
