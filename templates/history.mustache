@@ -25,25 +25,76 @@
     }
   }}
 <div class="course-content">
-    <table id="gnotifications-{{uniqid}}" class="generaltable fullwidth topics">
-        <tbody class="table">
-        {{#ack}}
-            <tr class="table-row {{ntype}}">
-                <td class="table-cell">
-                    {{{ html }}}
-                </td>
-                <td class="table-cell" style="text-align: right;">
-                    <ul class="topics">
-                        {{#ackdate}}
-                        <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}</li>
-                        {{/ackdate}}
-                        {{^ackdate}}
-                        <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }}  {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}</li>
-                        {{/ackdate}}
-                    </ul>
-                </td>
-            </tr>
-        {{/ack}}
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table id="gnotifications-{{uniqid}}" class="fullwidth topics table">
+            <col style="min-width: 60%;" />
+
+                        <!-- Assigning width of second
+                             column of each row as 60% -->
+            <col style="max-width: 40%;" />
+            <caption>
+                {{# str }} activenotifications, tool_gnotify {{/ str }}
+            </caption>
+            <tbody>
+            {{#active}}
+                <tr class="{{ntype}}">
+                    <td>
+                        {{{ html }}}
+                    </td>
+                    <td style="text-align: right;">
+                        <ul class="topics">
+                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }}  {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}</li>
+                            {{#ackdate}}
+                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}</li>
+                            {{/ackdate}}
+                        </ul>
+                    </td>
+                </tr>
+            {{/active}}
+            {{^active}}
+               <tr>
+                   <td>
+                        {{# str}} noactivenotifications, tool_gnotify {{/str}}
+                   </td>
+               </tr>
+            {{/active}}
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table id="gnotifications-{{uniqid}}" class="fullwidth topics table">
+            <col style="min-width: 60%;" />
+
+                        <!-- Assigning width of second
+                             column of each row as 60% -->
+            <col style="max-width: 40%;" />
+            <caption title="{{# str }} expirednotificationstooltip, tool_gnotify, {{ retentionperiod }} {{/ str }}">
+                {{# str }} expirednotifications, tool_gnotify {{/ str }}
+            </caption>
+            <tbody>
+            {{#expired}}
+                <tr class="{{ntype}}">
+                    <td>
+                        {{{ html }}}
+                    </td>
+                    <td style="text-align: right;">
+                        <ul class="topics">
+                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }}  {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}</li>
+                            {{#ackdate}}
+                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}</li>
+                            {{/ackdate}}
+                        </ul>
+                    </td>
+                </tr>
+            {{/expired}}
+            {{^expired}}
+                   <tr>
+                       <td>
+                            {{# str}} noexpirednotifications, tool_gnotify {{/str}}
+                       </td>
+                   </tr>
+            {{/expired}}
+            </tbody>
+        </table>
+    </div>
 </div>

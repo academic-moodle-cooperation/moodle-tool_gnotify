@@ -24,6 +24,7 @@
  */
 
 require_once(__DIR__ . '/../../../config.php');
+require_once(__DIR__ . '/locallib.php');
 
 require_login();
 
@@ -41,7 +42,7 @@ $PAGE->set_pagelayout('standard');
 
 $notifications = [];
 
-$allnotifications = $notification = \tool_gnotify\notification::get_records();
+$allnotifications = $notification = \tool_gnotify\notification::get_records([], 'fromdate', 'DESC');
 foreach ($allnotifications as $notification) {
     $formatoptions = new stdClass();
     $formatoptions->trusted = true;
@@ -59,17 +60,42 @@ foreach ($allnotifications as $notification) {
 
     $ack = tool_gnotify\ack::get_record(['notificationid' => $notification->get('id'), 'userid' => $USER->id]);
 
-    $notifications['ack'][] = [
+    $config = json_decode($notification->get('configdata'));
+
+    switch ($config->ntype) {
+        case TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO:
+            $config->ntype = 'alert-info';
+            break;
+        case TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN:
+            $config->ntype = 'alert-warning';
+            break;
+        case TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR:
+            $config->ntype = 'alert-danger';
+            break;
+        default:
+            $config->ntype = 'alert-none'; // This is a dummy value.
+            break;
+    }
+
+    $nbody = [
             'html' => $htmlcontent, 'id' => $notification->get('id'),
             'fromdate' => userdate($notification->get('fromdate')),
             'todate' => userdate($notification->get('todate')),
-            'ackdate' => $ack ? userdate($ack->get('timecreated')) : null
+            'ackdate' => $ack ? userdate($ack->get('timecreated')) : null,
+            'ntype' => $config->ntype
     ];
+
+    if ($notification->get('todate') > time()) {
+        $notifications['active'][] = $nbody;
+    } else {
+        $notifications['expired'][] = $nbody;
+    }
+
+    $notifications['retentionperiod'] = intval(get_config('tool_gnotify', 'retentionperiod')) / 86400;
 
 }
 
 echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('notifications', 'tool_gnotify'));
 
 if (!$notifications) {
     echo $OUTPUT->notification(get_string('nonotificationhistoryinfo', 'tool_gnotify'));

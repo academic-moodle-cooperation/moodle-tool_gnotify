@@ -72,7 +72,7 @@ if (empty($templates)) {
 
 $templatecontext["wwwroot"] = $CFG->wwwroot;
 
-$activenotifications = \tool_gnotify\notification::get_records_select('todate >= :expiretime', ['expiretime' => time()]);
+$activenotifications = \tool_gnotify\notification::get_records_select('todate >= :expiretime', ['expiretime' => time()], 'fromdate DESC');
 
 $readytpl = array();
 foreach ($activenotifications as $value) {
@@ -90,7 +90,7 @@ foreach ($activenotifications as $value) {
 
 $templatecontext['activenotifications'] = $readytpl;
 
-$expirednotifications = \tool_gnotify\notification::get_records_select('todate < :expiretime', ['expiretime' => time()]);
+$expirednotifications = \tool_gnotify\notification::get_records_select('todate < :expiretime', ['expiretime' => time()], 'fromdate DESC');
 
 $expiredtpl = array();
 foreach ($expirednotifications as $value) {
