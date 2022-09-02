@@ -22,9 +22,9 @@
 }
 
 .notification-sticky {
-    z-index: 1029;
+    z-index: 998;
     position: sticky;
-    top: 50px;
+    top: 0;
 }
 
 .notification-relative {
