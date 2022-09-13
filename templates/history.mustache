@@ -27,14 +27,11 @@
 <div class="course-content">
     <div class="table-responsive">
         <table id="gnotifications-{{uniqid}}" class="fullwidth topics table">
-            <col style="min-width: 60%;" />
-
-                        <!-- Assigning width of second
-                             column of each row as 60% -->
-            <col style="max-width: 40%;" />
-            <caption>
-                {{# str }} activenotifications, tool_gnotify {{/ str }}
-            </caption>
+            <caption>{{# str }} activenotifications, tool_gnotify {{/ str }}</caption>
+            <colgroup>
+                <col style="min-width: 60%;" >
+                <col style="max-width: 40%;" >
+            </colgroup>
             <tbody>
             {{#active}}
                 <tr class="{{ntype}}">
@@ -56,21 +53,19 @@
                    <td>
                         {{# str}} noactivenotifications, tool_gnotify {{/str}}
                    </td>
+                   <td></td>
                </tr>
             {{/active}}
             </tbody>
         </table>
     </div>
     <div class="table-responsive">
-        <table id="gnotifications-{{uniqid}}" class="fullwidth topics table">
-            <col style="min-width: 60%;" />
-
-                        <!-- Assigning width of second
-                             column of each row as 60% -->
-            <col style="max-width: 40%;" />
-            <caption title="{{# str }} expirednotificationstooltip, tool_gnotify, {{ retentionperiod }} {{/ str }}">
-                {{# str }} expirednotifications, tool_gnotify {{/ str }}
-            </caption>
+        <table id="gnotifications-expired-{{uniqid}}" class="fullwidth topics table">
+            <caption title="{{# str }} expirednotificationstooltip, tool_gnotify, {{ retentionperiod }} {{/ str }}">{{# str }} expirednotifications, tool_gnotify {{/ str }}</caption>
+            <colgroup>
+                <col style="min-width: 60%;" >
+                <col style="max-width: 40%;" >
+            </colgroup>
             <tbody>
             {{#expired}}
                 <tr class="{{ntype}}">
@@ -92,6 +87,7 @@
                        <td>
                             {{# str}} noexpirednotifications, tool_gnotify {{/str}}
                        </td>
+                       <td></td>
                    </tr>
             {{/expired}}
             </tbody>
