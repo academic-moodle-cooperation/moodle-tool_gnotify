@@ -28,8 +28,8 @@ $tasks = array(
     [
         'classname' => 'tool_gnotify\task\delete_completed_task',
         'blocking' => 0,
-        'minute' => '37',
-        'hour' => '3',
+        'minute' => '*',
+        'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
         'month' => '*'

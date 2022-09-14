@@ -25,9 +25,72 @@
     }
   }}
 <div class="course-content">
-    <ul class="topics">
-        {{#ack}}
-        <li id="gnotification-{{ id }}" class="section main clearfix">{{{ html }}}</li>
-        {{/ack}}
-    </ul>
+    <div class="table-responsive">
+        <table id="gnotifications-{{uniqid}}" class="fullwidth topics table">
+            <caption>{{# str }} activenotifications, tool_gnotify {{/ str }}</caption>
+            <colgroup>
+                <col style="min-width: 60%;" >
+                <col style="max-width: 40%;" >
+            </colgroup>
+            <tbody>
+            {{#active}}
+                <tr class="{{ntype}}">
+                    <td>
+                        {{{ html }}}
+                    </td>
+                    <td style="text-align: right;">
+                        <ul class="topics">
+                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }}  {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}</li>
+                            {{#ackdate}}
+                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}</li>
+                            {{/ackdate}}
+                        </ul>
+                    </td>
+                </tr>
+            {{/active}}
+            {{^active}}
+               <tr>
+                   <td>
+                        {{# str}} noactivenotifications, tool_gnotify {{/str}}
+                   </td>
+                   <td></td>
+               </tr>
+            {{/active}}
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table id="gnotifications-expired-{{uniqid}}" class="fullwidth topics table">
+            <caption title="{{# str }} expirednotificationstooltip, tool_gnotify, {{ retentionperiod }} {{/ str }}">{{# str }} expirednotifications, tool_gnotify {{/ str }}</caption>
+            <colgroup>
+                <col style="min-width: 60%;" >
+                <col style="max-width: 40%;" >
+            </colgroup>
+            <tbody>
+            {{#expired}}
+                <tr class="{{ntype}}">
+                    <td>
+                        {{{ html }}}
+                    </td>
+                    <td style="text-align: right;">
+                        <ul class="topics">
+                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }}  {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}</li>
+                            {{#ackdate}}
+                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}</li>
+                            {{/ackdate}}
+                        </ul>
+                    </td>
+                </tr>
+            {{/expired}}
+            {{^expired}}
+                   <tr>
+                       <td>
+                            {{# str}} noexpirednotifications, tool_gnotify {{/str}}
+                       </td>
+                       <td></td>
+                   </tr>
+            {{/expired}}
+            </tbody>
+        </table>
+    </div>
 </div>

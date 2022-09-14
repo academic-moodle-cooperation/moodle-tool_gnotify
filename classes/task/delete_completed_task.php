@@ -53,8 +53,8 @@ class delete_completed_task extends \core\task\scheduled_task {
      */
     public function execute() {
         global $DB;
-        // Remove all template usages older than 1 week.
-        $params = array('expiretime' => (int) time());
+        // Remove all template usages older than configured.
+        $params = array('expiretime' => time() - intval(get_config('tool_gnotify', 'retentionperiod')));
         $notifications = notification::get_records_select('todate < :expiretime', $params);
 
         foreach ($notifications as $notification) {

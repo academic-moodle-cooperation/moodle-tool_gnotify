@@ -23,10 +23,23 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 defined('MOODLE_INTERNAL') || die();
-global $ADMIN;
+global $ADMIN, $CFG;
 if ($hassiteconfig) {
-    $temp = new admin_externalpage('gnotify_templates',
-            new lang_string('gnotify', 'tool_gnotify'), "$CFG->wwwroot/$CFG->admin/tool/gnotify/templates.php");
-    $ADMIN->add('tools', $temp);
+
+    $ADMIN->add(
+            'tools',
+            new admin_category('gnotifyfolder', new lang_string('gnotify', 'tool_gnotify'))
+    );
+
+    $managegnotify = new admin_externalpage('gnotify_templates',
+            new lang_string('managegnotify', 'tool_gnotify'), "$CFG->wwwroot/$CFG->admin/tool/gnotify/templates.php");
+    $ADMIN->add('gnotifyfolder', $managegnotify);
+
+    $settings = new admin_settingpage('tool_gnotify', new lang_string('settings', 'tool_gnotify'));
+    $settings->add(new admin_setting_configduration('tool_gnotify/retentionperiod',
+            new lang_string('retentionperiod', 'tool_gnotify'),
+            new lang_string('retentionperioddesc', 'tool_gnotify'),
+            30 * DAYSECS));
+    $ADMIN->add('gnotifyfolder', $settings);
 }
 
