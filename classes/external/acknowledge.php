@@ -47,7 +47,8 @@ class acknowledge extends \external_api {
         if ($USER) {
             if ($USER->id
                     && \tool_gnotify\notification::record_exists($id)
-                    && \tool_gnotify\ack::record_exists_select('userid = :userid', [ 'userid' => $USER->id ])) {
+                    && !(\tool_gnotify\ack::record_exists_select('userid = :userid and notificationid = :id',
+                            [ 'userid' => $USER->id, 'id' => $id ]))) {
                 $record = new \stdClass();
                 $record->userid = $USER->id;
                 $record->notificationid = $id;
