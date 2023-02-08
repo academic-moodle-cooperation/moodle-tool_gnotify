@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.11.1
+
+## Bug Fixes
+
+- #7322 Resolves a problem in which it was impossible to dismiss the notification under certain circumstances.
+
 ## 3.11.0
 
 ### Features
