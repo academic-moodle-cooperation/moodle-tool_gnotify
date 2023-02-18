@@ -181,6 +181,33 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
         // Gnotify savepoint reached.
         upgrade_plugin_savepoint(true, 2021071400, 'tool', 'gnotify');
     }
+    if ($oldversion < 2022083102) {
 
+        // Rename field visibleonlogin on table tool_gnotify_notifications to visibleon.
+        $table = new xmldb_table('tool_gnotify_notifications');
+        $field = new xmldb_field('visibleonlogin', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'todate');
+
+        // Launch rename field visibleonlogin.
+        $dbman->rename_field($table, $field, 'visibleon');
+
+        // Changing type of field visibleon on table tool_gnotify_notifications to char.
+        $table = new xmldb_table('tool_gnotify_notifications');
+        $field = new xmldb_field('visibleon', XMLDB_TYPE_CHAR, '128', null, XMLDB_NOTNULL, null, null, 'todate');
+
+        // Launch change of type for field visibleon.
+        $dbman->change_field_type($table, $field);
+
+        // Define field visiblefor to be added to tool_gnotify_notifications.
+        $table = new xmldb_table('tool_gnotify_notifications');
+        $field = new xmldb_field('visiblefor', XMLDB_TYPE_CHAR, '64', null, XMLDB_NOTNULL, null, null, 'visibleon');
+
+        // Conditionally launch add field visiblefor.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Gnotify savepoint reached.
+        upgrade_plugin_savepoint(true, 2022083102, 'tool', 'gnotify');
+    }
     return true;
 }

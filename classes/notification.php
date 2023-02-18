@@ -64,9 +64,13 @@ class notification extends \core\persistent {
                 'type' => PARAM_INT,
                 'description' => 'End data',
             ],
-            'visibleonlogin' => [
-                'type' => PARAM_INT,
-                'description' => 'Visible on login pagge',
+            'visibleon' => [
+                'type' => PARAM_RAW,
+                'description' => 'Visible on page',
+            ],
+            'visiblefor' => [
+                'type' => PARAM_RAW,
+                'description' => 'Visible for role',
             ],
             'configdata' => [
                 'type' => PARAM_RAW,
@@ -95,6 +99,44 @@ class notification extends \core\persistent {
      */
     public function get_data_model() {
         return json_decode($this->get('datamodel'));
+    }
+
+    /**
+     * Check if notification is visible for page
+     *
+     * @param string $pagelayout
+     * @return bool
+     * @throws \coding_exception
+     */
+    public function is_visible_on_page($pagelayout) : bool {
+        $visibleon = $this->get("visibleon");
+        if (empty($visibleon) || (strpos($this->get('visibleon'), $pagelayout) !== false)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Check if notification is visible for role
+     *
+     * @param \context $context
+     * @return bool
+     * @throws \coding_exception
+     */
+    public function is_visible_for_role(\context $context) : bool {
+        $visiblefor = $this->get("visiblefor");
+        if (empty($visiblefor)) {
+            return true;
+        } else {
+            $roles = get_user_roles($context);
+            foreach ($roles as $role) {
+                if (strpos($visiblefor, $role->roleid) !== false) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

@@ -43,16 +43,11 @@ function tool_gnotify_before_standard_top_of_body_html() {
     }
     $html = "";
     if (!isloggedin() || isguestuser()) {
-        if ($PAGE->pagelayout == "login" || $PAGE->pagelayout == "frontpage") {
-            $records = \tool_gnotify\notification::get_records_select(
-                ':time between fromdate and todate and visibleonlogin = :visibleonlogin',
-                [
-                    'time' => time(),
-                    'visibleonlogin' => true,
-                ]);
-        } else {
-            return;
-        }
+        $records = \tool_gnotify\notification::get_records_select(
+            ':time between fromdate and todate',
+            [
+                'time' => time()
+            ]);
     } else {
         $select = ":time BETWEEN fromdate AND todate AND NOT EXISTS
                    (SELECT 1 FROM {tool_gnotify_acks} a
@@ -68,6 +63,15 @@ function tool_gnotify_before_standard_top_of_body_html() {
             $formatoptions->noclean = true;
 
             foreach ($records as $record) {
+
+                if (!$record->is_visible_on_page($PAGE->pagelayout)) {
+                    continue;
+                }
+
+                if (!$record->is_visible_for_role($PAGE->context)) {
+                    continue;
+                }
+
                 $htmlcontent = format_text($record->get('content'), FORMAT_HTML, $formatoptions);
 
                 $datamodel = $record->get_data_model();
