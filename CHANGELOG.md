@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 3.11.2
+
+### Features
+
+- #7376 Restrict visibility based on page layout.
+- #7217 Restrict visibility based on user roles.
+
 ## 3.11.1
 
 ## Bug Fixes
