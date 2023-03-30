@@ -29,6 +29,7 @@
         <FIELD NAME="todate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="End date"/>
         <FIELD NAME="visibleon" TYPE="char" LENGTH="128" NOTNULL="true" SEQUENCE="false" COMMENT="Defines if the notification is visible on page"/>
         <FIELD NAME="visiblefor" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false" COMMENT="Defines if the notification is visible for role"/>
+        <FIELD NAME="visibleforprofile" TYPE="char" LENGTH="128" NOTNULL="true" SEQUENCE="false" COMMENT="Defines if the notification is visible for profile"/>
         <FIELD NAME="configdata" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Notification configuration"/>
         <FIELD NAME="datamodel" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Notification datamodel"/>
         <FIELD NAME="usermodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>

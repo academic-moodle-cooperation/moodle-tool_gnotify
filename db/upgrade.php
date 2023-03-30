@@ -209,5 +209,20 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
         // Gnotify savepoint reached.
         upgrade_plugin_savepoint(true, 2022083102, 'tool', 'gnotify');
     }
+    if ($oldversion < 2022083103) {
+
+        // Define field visibleforprofile to be added to tool_gnotify_notifications.
+        $table = new xmldb_table('tool_gnotify_notifications');
+        $field = new xmldb_field('visibleforprofile', XMLDB_TYPE_CHAR, '128', null, XMLDB_NOTNULL, null, null, 'visiblefor');
+
+        // Conditionally launch add field visibleforprofile.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Gnotify savepoint reached.
+        upgrade_plugin_savepoint(true, 2022083103, 'tool', 'gnotify');
+    }
+
     return true;
 }

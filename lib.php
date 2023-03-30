@@ -54,6 +54,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
                    WHERE {tool_gnotify_notifications}.id=a.notificationid and a.userid=:userid)";
         $records = \tool_gnotify\notification::get_records_select($select, ['time' => time(), 'userid' => $USER->id]);
     }
+
     if ($records) {
         try {
             $context = [];
@@ -71,6 +72,11 @@ function tool_gnotify_before_standard_top_of_body_html() {
                 if (!$record->is_visible_for_role($PAGE->context)) {
                     continue;
                 }
+
+                if (!$record->is_visible_for_profile($USER)) {
+                    continue;
+                }
+
 
                 $htmlcontent = format_text($record->get('content'), FORMAT_HTML, $formatoptions);
 

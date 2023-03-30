@@ -115,6 +115,10 @@ class notification extends \core\form\persistent {
         $mform->hideif('visiblefor', 'visibleforany', 'checked');
         $mform->hideif('visiblefor', 'visibleon', 'in', 'course');
 
+        $mform->addElement('text', 'visibleforprofile', get_string('visibleforprofile', 'tool_gnotify'),
+                'maxlength="128" size="64"');
+        $mform->setType('visibleforprofile', PARAM_TEXT);
+
         $mform->addElement('date_time_selector',
                 'fromdate',
                 get_string('fromdate', 'tool_gnotify'),
@@ -216,4 +220,25 @@ class notification extends \core\form\persistent {
         return $data;
     }
 
+    protected function extra_validation($data, $files, array &$errors) {
+        if ($data->fromdate > $data->todate) {
+            $errors['todate'] = get_string('todateerror', 'tool_gnotify');
+        }
+        if($data->visibleforprofile) {
+            $expressions = explode(',', $data->visibleforprofile);
+            foreach ($expressions as $expression) {
+                $rule = explode(':', $expression);
+                if (count($rule) != 2) {
+                    $errors['visibleforprofile'] = get_string('visibleforprofileerrorrule', 'tool_gnotify')
+                            . " [{$expression}]";
+                    break;
+                } else {
+                    if (preg_match("/$rule[1]/", '') === false) {
+                        $errors['visibleforprofile'] = get_string('visibleforprofileerrorregex', 'tool_gnotify')
+                                . " [{$rule[1]}]" . preg_last_error();
+                    }
+                }
+            }
+        }
+    }
 }

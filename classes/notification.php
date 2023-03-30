@@ -72,6 +72,10 @@ class notification extends \core\persistent {
                 'type' => PARAM_RAW,
                 'description' => 'Visible for role',
             ],
+            'visibleforprofile' => [
+                    'type' => PARAM_TEXT,
+                    'description' => 'Visible for profile',
+            ],
             'configdata' => [
                 'type' => PARAM_RAW,
             ],
@@ -133,6 +137,27 @@ class notification extends \core\persistent {
             foreach ($roles as $role) {
                 if (strpos($visiblefor, $role->roleid) !== false) {
                     return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function is_visible_for_profile(\stdClass $user) : bool {
+        $visibleforprofile = $this->get("visibleforprofile");
+
+        if (empty($visibleforprofile)) {
+            return true;
+        } else {
+            $profilefields = explode(',', $visibleforprofile);
+            foreach ($profilefields as $profilefield) {
+                $profilefield = explode(':', $profilefield);
+                if (count($profilefield) == 2) {
+                    $profilefield[0] = trim($profilefield[0]);
+                    $profilefield[1] = trim($profilefield[1]);
+                    if (property_exists($user, $profilefield[0]) && preg_match("/$profilefield[1]/", $user->{$profilefield[0]})) {
+                        return true;
+                    }
                 }
             }
         }
