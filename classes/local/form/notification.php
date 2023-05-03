@@ -224,7 +224,7 @@ class notification extends \core\form\persistent {
         if ($data->fromdate > $data->todate) {
             $errors['todate'] = get_string('todateerror', 'tool_gnotify');
         }
-        if($data->visibleforprofile) {
+        if ($data->visibleforprofile) {
             $expressions = explode(',', $data->visibleforprofile);
             foreach ($expressions as $expression) {
                 $rule = explode(':', $expression);
