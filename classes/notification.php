@@ -143,6 +143,13 @@ class notification extends \core\persistent {
         return false;
     }
 
+    /**
+     * Check if notification is visible for profile
+     *
+     * @param \stdClass $user
+     * @return bool
+     * @throws \coding_exception
+     */
     public function is_visible_for_profile(\stdClass $user) : bool {
         $visibleforprofile = $this->get("visibleforprofile");
 

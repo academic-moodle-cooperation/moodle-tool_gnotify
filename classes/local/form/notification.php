@@ -220,11 +220,19 @@ class notification extends \core\form\persistent {
         return $data;
     }
 
+    /**
+     * Validate form data.
+     *
+     * @param  stdClass $data Data to validate.
+     * @param  array $files Array of files.
+     * @param  array $errors Currently reported errors.
+     * @return array of additional errors, or overridden errors.
+     */
     protected function extra_validation($data, $files, array &$errors) {
         if ($data->fromdate > $data->todate) {
             $errors['todate'] = get_string('todateerror', 'tool_gnotify');
         }
-        if($data->visibleforprofile) {
+        if ($data->visibleforprofile) {
             $expressions = explode(',', $data->visibleforprofile);
             foreach ($expressions as $expression) {
                 $rule = explode(':', $expression);
@@ -240,5 +248,6 @@ class notification extends \core\form\persistent {
                 }
             }
         }
+        return $errors;
     }
 }

@@ -77,7 +77,6 @@ function tool_gnotify_before_standard_top_of_body_html() {
                     continue;
                 }
 
-
                 $htmlcontent = format_text($record->get('content'), FORMAT_HTML, $formatoptions);
 
                 $datamodel = $record->get_data_model();
