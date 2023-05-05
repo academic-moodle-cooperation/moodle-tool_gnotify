@@ -117,6 +117,9 @@ class notification extends \core\form\persistent {
 
         $mform->addElement('text', 'visibleforprofile', get_string('visibleforprofile', 'tool_gnotify'),
                 'maxlength="128" size="64"');
+
+        $mform->addHelpButton('visibleforprofile', 'visibleforprofile', 'tool_gnotify');
+
         $mform->setType('visibleforprofile', PARAM_TEXT);
 
         $mform->addElement('date_time_selector',
