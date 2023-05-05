@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 3.11.3
+
+### Features
+
+- #7216 Restrict visibility based on profile fields.
+
 ## 3.11.2
 
 ### Features
