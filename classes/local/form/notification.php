@@ -190,15 +190,16 @@ class notification extends \core\form\persistent {
         }
         unset($data->datamodel);
 
-        $configdata = json_decode($data->configdata);
+        if ($data->configdata) {
+            $configdata = json_decode($data->configdata);
 
-        if ($configdata) {
             $data->ntype = $configdata->ntype;
             $data->padding = $configdata->padding;
             $data->sticky = $configdata->sticky;
             $data->dismissable = $configdata->dismissable;
+
+            unset($data->configdata);
         }
-        unset($data->configdata);
 
         if (!$data->visibleon) {
             $data->visibleon = '';
