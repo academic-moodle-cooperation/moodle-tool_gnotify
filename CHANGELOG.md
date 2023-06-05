@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 4.2.0
+
+### Bug Fixes
+
+- #7609 Fix json_decode passing null to parameter #1 of type string deprecation warning.
+
+### Chores
+
+- Moodle 4.2.0 compatible version
+
 ## 3.11.3
 
 ### Features
