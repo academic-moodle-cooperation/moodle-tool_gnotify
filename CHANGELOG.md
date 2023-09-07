@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.2.1
+
+### Bug Fixes
+
+- #7694 Update uses of external_* classes
+
 ## 4.2.0
 
 ### Bug Fixes
