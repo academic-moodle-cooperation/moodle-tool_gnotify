@@ -25,6 +25,10 @@
 namespace tool_gnotify\external;
 
 use tool_gnotify\ack;
+use core_external\external_api;
+use core_external\external_function_parameters;
+use core_external\external_value;
+
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -34,7 +38,7 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class acknowledge extends \external_api {
+class acknowledge extends external_api {
 
     /**
      * Acknowledge
@@ -61,12 +65,12 @@ class acknowledge extends \external_api {
     /**
      * Acknowledge parameters
      *
-     * @return \external_function_parameters
+     * @return external_function_parameters
      */
     public static function execute_parameters() {
-        return new \external_function_parameters(
+        return new external_function_parameters(
                 array(
-                        'id' => new \external_value(PARAM_INT, 'id of notificationtemplate')
+                        'id' => new external_value(PARAM_INT, 'id of notificationtemplate')
                 )
         );
     }
