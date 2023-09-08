@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'tool_gnotify';
-$plugin->release = 'v4.2.0';
-$plugin->version = 2023060500;
+$plugin->release = 'v4.2.1';
+$plugin->version = 2023060501;
 $plugin->requires = 2023042400;
 $plugin->maturity = MATURITY_STABLE;
