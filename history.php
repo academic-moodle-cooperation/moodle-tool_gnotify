@@ -72,6 +72,15 @@ foreach ($allnotifications as $notification) {
         case TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR:
             $config->ntype = 'alert-danger';
             break;
+        case TOOL_GNOTIFY_NOTIFICATION_TYPE_SUCCESS:
+            $config->ntype = 'alert-success';
+            break;
+        case TOOL_GNOTIFY_NOTIFICATION_TYPE_PRIMARY:
+            $config->ntype = 'alert-primary';
+            break;
+        case TOOL_GNOTIFY_NOTIFICATION_TYPE_SECONDARY:
+            $config->ntype = 'alert-secondary';
+            break;
         default:
             $config->ntype = 'alert-none'; // This is a dummy value.
             break;
