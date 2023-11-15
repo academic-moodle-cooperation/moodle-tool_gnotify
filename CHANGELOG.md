@@ -6,6 +6,16 @@
 
 - #7693 Add additional notification types
 
+### Bug fixes
+
+- #7786 Change settings validation messages
+- #7788 Remove broken sticky notification option
+- #7789 Correct notification history filter
+
+### Chores
+
+- Moodle 4.3.0 compatible version
+
 ## 4.2.1
 
 ### Bug Fixes
