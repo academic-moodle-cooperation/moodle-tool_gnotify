@@ -250,7 +250,7 @@ class notification extends \core\form\persistent {
                 } else {
                     if (preg_match("/$rule[1]/", '') === false) {
                         $errors['visibleforprofile'] = get_string('visibleforprofileerrorregex', 'tool_gnotify')
-                                . " [{$rule[1]}]" . preg_last_error();
+                                . " [{$rule[1]}]";
                     }
                 }
             }
