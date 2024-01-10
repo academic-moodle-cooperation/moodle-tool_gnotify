@@ -64,6 +64,9 @@ class notification extends \core\form\persistent {
         $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO] = get_string('optinfo', 'tool_gnotify');
         $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN] = get_string('optwarn', 'tool_gnotify');
         $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_ERROR] = get_string('opterror', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_SUCCESS] = get_string('optsuccess', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_PRIMARY] = get_string('optprimary', 'tool_gnotify');
+        $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_SECONDARY] = get_string('optsecondary', 'tool_gnotify');
 
         $mform->addElement('select', 'ntype', get_string('ntype', 'tool_gnotify'), $options);
         $mform->addElement('advcheckbox', 'sticky', get_string('sticky', 'tool_gnotify'),

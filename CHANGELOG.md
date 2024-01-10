@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.3.0
+
+#### Features
+
+- #7693 Add additional notification types
+
 ## 4.2.1
 
 ### Bug Fixes
