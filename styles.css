@@ -21,12 +21,6 @@
     background-color: white;
 }
 
-.notification-sticky {
-    z-index: 998;
-    position: sticky;
-    top: 0;
-}
-
 .notification-relative {
     position: relative;
 }
