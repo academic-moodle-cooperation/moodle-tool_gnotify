@@ -29,9 +29,6 @@ use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_value;
 
-
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class tool_gnotify_external
  *
@@ -69,9 +66,9 @@ class acknowledge extends external_api {
      */
     public static function execute_parameters() {
         return new external_function_parameters(
-                array(
-                        'id' => new external_value(PARAM_INT, 'id of notificationtemplate')
-                )
+                [
+                        'id' => new external_value(PARAM_INT, 'id of notificationtemplate'),
+                ]
         );
     }
 

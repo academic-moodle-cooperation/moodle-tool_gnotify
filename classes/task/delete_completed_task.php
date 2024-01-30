@@ -29,8 +29,6 @@ namespace tool_gnotify\task;
 use tool_gnotify\ack;
 use tool_gnotify\notification;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * deletes all notification usages older than one week
  * @author        Thomas Wedekind <Thomas.Wedekind@univie.ac.at>
@@ -54,7 +52,7 @@ class delete_completed_task extends \core\task\scheduled_task {
     public function execute() {
         global $DB;
         // Remove all template usages older than configured.
-        $params = array('expiretime' => time() - intval(get_config('tool_gnotify', 'retentionperiod')));
+        $params = ['expiretime' => time() - intval(get_config('tool_gnotify', 'retentionperiod'))];
         $notifications = notification::get_records_select('todate < :expiretime', $params);
 
         foreach ($notifications as $notification) {

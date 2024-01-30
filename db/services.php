@@ -24,22 +24,22 @@
  */
 defined('MOODLE_INTERNAL') || die();
 
-$services = array(
-        'tool_gnotify_services' => array(
-                'functions' => array('tool_gnotify_acknowledge_notification'),
+$services = [
+        'tool_gnotify_services' => [
+                'functions' => ['tool_gnotify_acknowledge_notification'],
                 'requiredcapability' => '',
                 'restrictedusers' => 0,
                 'enabled' => 1,
-        )
-);
+        ],
+];
 
-$functions = array(
-        'tool_gnotify_acknowledge_notification' => array(
+$functions = [
+        'tool_gnotify_acknowledge_notification' => [
                 'classname' => 'tool_gnotify\external\acknowledge',
                 'methodname' => 'execute',
                 'description' => 'Allows users to acknowledge that they have seen a notification',
                 'type' => 'write',
                 'ajax' => true,
                 'capabilities' => '',  // TODO capabilities.
-        )
-);
+        ],
+];

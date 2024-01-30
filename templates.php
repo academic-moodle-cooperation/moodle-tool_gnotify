@@ -60,21 +60,25 @@ $renderer = $PAGE->get_renderer('core');
 
 $templates = \tool_gnotify\template::get_records();
 
-$templatecontext = array();
+$templatecontext = [];
 
 foreach ($templates as $template) {
     $templatecontext['templates'][] = $template->export_for_template($renderer);
 }
 
 if (empty($templates)) {
-    $templatecontext = array("templates" => $templates);
+    $templatecontext = ["templates" => $templates];
 }
 
 $templatecontext["wwwroot"] = $CFG->wwwroot;
 
-$activenotifications = \tool_gnotify\notification::get_records_select('todate >= :expiretime', ['expiretime' => time()], 'fromdate DESC');
+$activenotifications = \tool_gnotify\notification::get_records_select(
+        'todate >= :expiretime',
+        ['expiretime' => time()],
+        'fromdate DESC'
+);
 
-$readytpl = array();
+$readytpl = [];
 foreach ($activenotifications as $value) {
     $fromdate = userdate($value->get('fromdate'));
     $todate = userdate($value->get('todate'));
@@ -85,14 +89,19 @@ foreach ($activenotifications as $value) {
             'name' => $base->get('name'),
             'fromdate' => $fromdate, 'todate' => $todate,
             'ack' => \tool_gnotify\ack::count_records(['notificationid' => $value->get('id')]),
-            'tplid' => $value->get('templateid')];
+            'tplid' => $value->get('templateid'),
+    ];
 }
 
 $templatecontext['activenotifications'] = $readytpl;
 
-$expirednotifications = \tool_gnotify\notification::get_records_select('todate < :expiretime', ['expiretime' => time()], 'fromdate DESC');
+$expirednotifications = \tool_gnotify\notification::get_records_select(
+        'todate < :expiretime',
+        ['expiretime' => time()],
+        'fromdate DESC'
+);
 
-$expiredtpl = array();
+$expiredtpl = [];
 foreach ($expirednotifications as $value) {
     $fromdate = userdate($value->get('fromdate'));
     $todate = userdate($value->get('todate'));
@@ -103,7 +112,8 @@ foreach ($expirednotifications as $value) {
             'name' => $base->get('name'),
             'fromdate' => $fromdate, 'todate' => $todate,
             'ack' => \tool_gnotify\ack::count_records(['notificationid' => $value->get('id')]),
-            'tplid' => $value->get('templateid')];
+            'tplid' => $value->get('templateid'),
+    ];
 }
 
 $templatecontext['expirednotifications'] = $expiredtpl;

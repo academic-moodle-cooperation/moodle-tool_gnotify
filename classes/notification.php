@@ -25,8 +25,6 @@
 
 namespace tool_gnotify;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class representing a notification
  *
@@ -48,7 +46,7 @@ class notification extends \core\persistent {
      * @return array
      */
     protected static function define_properties() {
-        return array(
+        return [
             'templateid' => [
                 'type' => PARAM_INT,
                 'description' => 'Template',
@@ -82,7 +80,7 @@ class notification extends \core\persistent {
             'datamodel' => [
                 'type' => PARAM_RAW,
             ],
-        );
+        ];
     }
 
     /**

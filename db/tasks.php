@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$tasks = array(
+$tasks = [
     [
         'classname' => 'tool_gnotify\task\delete_completed_task',
         'blocking' => 0,
@@ -32,6 +32,6 @@ $tasks = array(
         'hour' => '*',
         'day' => '*',
         'dayofweek' => '*',
-        'month' => '*'
-    ]
-);
+        'month' => '*',
+    ],
+];

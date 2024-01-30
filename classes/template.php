@@ -27,8 +27,6 @@ namespace tool_gnotify;
 use renderer_base;
 use stdClass;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class representing a notification template
  *
@@ -50,7 +48,7 @@ class template extends \core\persistent implements \templatable {
      * @return array
      */
     protected static function define_properties() {
-        return array(
+        return [
             'name' => [
                 'type' => PARAM_TEXT,
                 'description' => 'Template name',
@@ -64,7 +62,7 @@ class template extends \core\persistent implements \templatable {
             'datamodel' => [
                 'type' => PARAM_RAW,
             ],
-        );
+        ];
     }
 
     /**
