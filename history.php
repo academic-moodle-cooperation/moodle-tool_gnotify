@@ -44,6 +44,19 @@ $notifications = [];
 
 $allnotifications = $notification = \tool_gnotify\notification::get_records([], 'fromdate', 'DESC');
 foreach ($allnotifications as $notification) {
+
+    if (!$notification->is_visible_on_page($PAGE->pagelayout)) {
+        continue;
+    }
+
+    if (!$notification->is_visible_for_role($PAGE->context)) {
+        continue;
+    }
+
+    if (!$notification->is_visible_for_profile($USER)) {
+        continue;
+    }
+
     $formatoptions = new stdClass();
     $formatoptions->trusted = true;
     $formatoptions->noclean = true;
