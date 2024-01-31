@@ -104,7 +104,7 @@ foreach ($allnotifications as $notification) {
             'fromdate' => userdate($notification->get('fromdate')),
             'todate' => userdate($notification->get('todate')),
             'ackdate' => $ack ? userdate($ack->get('timecreated')) : null,
-            'ntype' => $config->ntype
+            'ntype' => $config->ntype,
     ];
 
     if ($notification->get('todate') > time()) {

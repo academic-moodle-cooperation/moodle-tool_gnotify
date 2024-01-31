@@ -24,8 +24,6 @@
  */
 namespace tool_gnotify;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Class representing an acknowledgement
  *
@@ -47,14 +45,14 @@ class ack extends \core\persistent {
      * @return array
      */
     protected static function define_properties() {
-        return array(
+        return [
             'userid' => [
                 'type' => PARAM_INT,
             ],
             'notificationid' => [
                 'type' => PARAM_INT,
             ],
-        );
+        ];
     }
 
 }

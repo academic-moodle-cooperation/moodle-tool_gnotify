@@ -22,7 +22,6 @@
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Before standard top of body html
@@ -46,7 +45,7 @@ function tool_gnotify_before_standard_top_of_body_html() {
         $records = \tool_gnotify\notification::get_records_select(
             ':time between fromdate and todate',
             [
-                'time' => time()
+                'time' => time(),
             ]);
     } else {
         $select = ":time BETWEEN fromdate AND todate AND NOT EXISTS
@@ -124,13 +123,14 @@ function tool_gnotify_before_standard_top_of_body_html() {
             }
 
             $uid = uniqid("gnotify");
-            $attributes = array(
+            $attributes = [
                     'id' => $uid,
                     'type' => 'hidden',
-                    'data-gnotify' => json_encode($context));
+                    'data-gnotify' => json_encode($context),
+            ];
             $html = html_writer::empty_tag('input', $attributes);
 
-            $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', array($uid));
+            $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', [$uid]);
         } catch (exception $e) {
             if (is_siteadmin()) {
                 \core\notification::error('[tool_gnotify] ' . $e);

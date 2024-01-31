@@ -20,8 +20,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
 /**
  * xmldb_tool_gnotify_upgrade is the function that upgrades
  * the gnotify tool database when is needed

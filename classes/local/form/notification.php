@@ -59,7 +59,7 @@ class notification extends \core\form\persistent {
                 'maxlength', 255, 'client');
         }
 
-        $options = array();
+        $options = [];
         $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_NONE] = get_string('optnone', 'tool_gnotify');
         $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_INFO] = get_string('optinfo', 'tool_gnotify');
         $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_WARN] = get_string('optwarn', 'tool_gnotify');
@@ -72,34 +72,34 @@ class notification extends \core\form\persistent {
 
         $mform->addElement('advcheckbox', 'dismissable',
             get_string('dismissable', 'tool_gnotify'),
-            get_string('dismissableinfo', 'tool_gnotify'), array(0, 1));
+            get_string('dismissableinfo', 'tool_gnotify'), [0, 1]);
 
         $mform->setDefault('dismissable', 1);
         $mform->addElement('advcheckbox', 'padding', get_string('padding', 'tool_gnotify'),
-            get_string('paddinginfo', 'tool_gnotify'), array(0, 1));
+            get_string('paddinginfo', 'tool_gnotify'), [0, 1]);
 
         $mform->setDefault('padding', 1);
 
         $mform->addElement('advcheckbox', 'visibleonany', get_string('visibleon', 'tool_gnotify'),
-            get_string('visibleoninfo', 'tool_gnotify'), array(0, 1));
+            get_string('visibleoninfo', 'tool_gnotify'), [0, 1]);
         $mform->setDefault('visibleonany', 1);
 
-        $options = array(
+        $options = [
             'mydashboard' => get_string('myhome', 'core', null, false),
             'mycourses' => get_string('mycourses', 'core', null, false),
             'frontpage' => get_string('sitehome', 'core', null, false),
             'course' => get_string('course', 'core', null, false),
             'incourse' => get_string('incourse', 'tool_gnotify', null, false),
             'login' => get_string('login', 'core', null, false),
-            'standard' => get_string('standard', 'core', null, false)
-        );
+            'standard' => get_string('standard', 'core', null, false),
+        ];
 
         $mform->addElement('select', 'visibleon', null, $options);
         $mform->getElement('visibleon')->setMultiple(true);
         $mform->hideif('visibleon', 'visibleonany', 'checked');
 
         $mform->addElement('advcheckbox', 'visibleforany', get_string('visiblefor', 'tool_gnotify'),
-            get_string('visibleforinfo', 'tool_gnotify'), array(0, 1));
+            get_string('visibleforinfo', 'tool_gnotify'), [0, 1]);
 
         $mform->setDefault('visibleforany', 1);
 
@@ -126,11 +126,11 @@ class notification extends \core\form\persistent {
         $mform->addElement('date_time_selector',
                 'fromdate',
                 get_string('fromdate', 'tool_gnotify'),
-                array('optional' => false));
+                ['optional' => false]);
         $mform->addElement('date_time_selector',
                 'todate',
                 get_string('todate', 'tool_gnotify'),
-                array('optional' => false));
+                ['optional' => false]);
 
         $mform->addElement('hidden', 'templateid');
         $mform->setType('templateid', PARAM_INT);

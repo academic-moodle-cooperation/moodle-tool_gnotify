@@ -61,7 +61,7 @@ class template extends \core\form\persistent {
         $htmlcontent = format_text($data->content, FORMAT_HTML, $formatoptions);
 
         try {
-            $renderer->render_direct($htmlcontent, array());
+            $renderer->render_direct($htmlcontent, []);
         } catch (Exception $e) {
             $newerrors['content'] = $e->getMessage();
         }
