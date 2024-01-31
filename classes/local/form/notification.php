@@ -69,8 +69,6 @@ class notification extends \core\form\persistent {
         $options[TOOL_GNOTIFY_NOTIFICATION_TYPE_SECONDARY] = get_string('optsecondary', 'tool_gnotify');
 
         $mform->addElement('select', 'ntype', get_string('ntype', 'tool_gnotify'), $options);
-        $mform->addElement('advcheckbox', 'sticky', get_string('sticky', 'tool_gnotify'),
-            get_string('stickyinfo', 'tool_gnotify'), array(0, 1));
 
         $mform->addElement('advcheckbox', 'dismissable',
             get_string('dismissable', 'tool_gnotify'),
@@ -166,8 +164,6 @@ class notification extends \core\form\persistent {
         unset($data->ntype);
         $configdata->padding = $data->padding;
         unset($data->padding);
-        $configdata->sticky = $data->sticky;
-        unset($data->sticky);
         $configdata->dismissable = $data->dismissable;
         unset($data->dismissable);
 
@@ -198,7 +194,6 @@ class notification extends \core\form\persistent {
 
             $data->ntype = $configdata->ntype;
             $data->padding = $configdata->padding;
-            $data->sticky = $configdata->sticky;
             $data->dismissable = $configdata->dismissable;
 
             unset($data->configdata);

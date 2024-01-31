@@ -24,23 +24,6 @@
 
     }
   }}
-<div id="gnotify-wrapper-sticky" class="row notification-sticky">
-    {{#sticky}}
-        <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-plr {{#padding}}gnotify-pt{{/padding}}">
-            <div id="{{id}}-gnotify" class="card {{ntype}}">
-                <div class="gnotify-notification-html card-body">
-                    {{#dismissable}}
-                        <button type="button" onclick="require(['tool_gnotify/notification'], (amd)=>{amd.acknowledge({{id}})});" class="close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Dismiss this notification</span>
-                        </button>
-                    {{/dismissable}}
-                    {{{html}}}
-                </div>
-            </div>
-        </div>
-    {{/sticky}}
-</div>
 <div id="gnotify-wrapper-non-sticky" class="row notification-relative">
     {{#non-sticky}}
         <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-plr {{#padding}}gnotify-pt{{/padding}}">
@@ -54,7 +37,6 @@
                     {{{html}}}
                 </div>
             </div>
-
         </div>
     {{/non-sticky}}
 </div>

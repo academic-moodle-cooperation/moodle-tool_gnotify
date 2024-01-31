@@ -118,14 +118,9 @@ function tool_gnotify_before_standard_top_of_body_html() {
 
                 $config->html = $htmlcontent;
                 $config->id = $record->get('id');
-                $config->sticky = boolval($config->sticky);
                 $config->padding = boolval($config->padding);
 
-                if ($config->sticky == false) {
-                    $context['non-sticky'][] = $config;
-                } else {
-                    $context['sticky'][] = $config;
-                }
+                $context['non-sticky'][] = $config;
             }
 
             $uid = uniqid("gnotify");
