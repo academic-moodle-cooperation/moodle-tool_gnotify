@@ -23,7 +23,6 @@ variables:
     - eval $(failed setup-command)
   script:
     - moodle-plugin-ci phplint || failed
-    - moodle-plugin-ci phpcpd || failed
     - moodle-plugin-ci phpmd || failed
     - moodle-plugin-ci phpcs
     - moodle-plugin-ci validate
@@ -39,7 +38,7 @@ variables:
   parallel:
     matrix:
       - MOODLE_BRANCH: [ "MOODLE_403_STABLE" ]
-        PHP_VERSION: [ "8.0", "8.1", "8.2" ]
+        PHP_VERSION: [ "8.0", "8.1", "8.2", "8.3" ]
 
 test:postgres:
   <<: *job_configuration
