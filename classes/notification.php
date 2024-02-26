@@ -110,7 +110,7 @@ class notification extends \core\persistent {
      * @return bool
      * @throws \coding_exception
      */
-    public function is_visible_on_page($pagelayout) : bool {
+    public function is_visible_on_page($pagelayout): bool {
         $visibleon = $this->get("visibleon");
         if (empty($visibleon) || (strpos($this->get('visibleon'), $pagelayout) !== false)) {
             return true;
@@ -126,7 +126,7 @@ class notification extends \core\persistent {
      * @return bool
      * @throws \coding_exception
      */
-    public function is_visible_for_role(\context $context) : bool {
+    public function is_visible_for_role(\context $context): bool {
         $visiblefor = $this->get("visiblefor");
         if (empty($visiblefor)) {
             return true;
@@ -148,7 +148,7 @@ class notification extends \core\persistent {
      * @return bool
      * @throws \coding_exception
      */
-    public function is_visible_for_profile(\stdClass $user) : bool {
+    public function is_visible_for_profile(\stdClass $user): bool {
         $visibleforprofile = $this->get("visibleforprofile");
 
         if (empty($visibleforprofile)) {
