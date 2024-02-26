@@ -93,7 +93,7 @@ class template extends \core\persistent implements \templatable {
      * @return bool
      * @throws \dml_exception
      */
-    public static function template_exists(string $name) : bool {
+    public static function template_exists(string $name): bool {
         global $DB;
         return $DB->record_exists(self::TABLE, ['name' => $name]);
     }
