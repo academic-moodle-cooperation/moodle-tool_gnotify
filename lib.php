@@ -15,6 +15,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Gnotify magic happens here
+ *
+ * @package     tool_gnotify
+ * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
+ * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/**
  * Add nodes to myprofile page.
  *
  * @param \core_user\output\myprofile\tree $tree Tree object

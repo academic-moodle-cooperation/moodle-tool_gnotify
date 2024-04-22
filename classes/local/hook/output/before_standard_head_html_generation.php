@@ -41,7 +41,6 @@ class before_standard_head_html_generation {
         // Require local library.
         require_once($CFG->dirroot.'/admin/tool/gnotify/locallib.php');
 
-
         if (in_array($PAGE->pagelayout, ['maintenance', 'print', 'redirect', 'embedded'])) {
             // Do not try to show notifications inside iframe, in maintenance mode,
             // when printing, or during redirects.
