@@ -113,9 +113,9 @@ foreach ($allnotifications as $notification) {
         $notifications['expired'][] = $nbody;
     }
 
-    $notifications['retentionperiod'] = intval(get_config('tool_gnotify', 'retentionperiod')) / 86400;
-
 }
+
+$notifications['retentionperiod'] = intval(get_config('tool_gnotify', 'retentionperiod')) / 86400;
 
 echo $OUTPUT->header();
 
