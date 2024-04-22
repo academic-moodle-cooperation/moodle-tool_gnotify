@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 4.4.0
+
+### Bug fixes
+
+- #7903 Fix history expired notification header tooltip
+
+### Chores
+
+- Moodle 4.4.0 compatible version
+
 ## 4.3.0
 
 #### Features
