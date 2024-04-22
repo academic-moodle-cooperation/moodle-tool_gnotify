@@ -15,17 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version information
+ * Tool Gnotify - Hook callbacks
  *
- * @package     tool_gnotify
- * @author      Angela Baier, Gregor Eichelberger, Thomas Wedekind
- * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    tool_gnotify
+ * @copyright  2024 Gregor Eichelberger <gregor.eichelberger@tuwien.ac.at>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+use core\hook\output\before_standard_head_html_generation;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'tool_gnotify';
-$plugin->release = 'v4.4.0-rc.1';
-$plugin->version = 2024042200.01;
-$plugin->maturity = MATURITY_STABLE;
-$plugin->requires = 2024042200;
+$callbacks = [
+    [
+        'hook' => before_standard_head_html_generation::class,
+        'callback' => 'tool_gnotify\local\hook\output\before_standard_head_html_generation::callback',
+        'priority' => 0,
+    ],
+];
