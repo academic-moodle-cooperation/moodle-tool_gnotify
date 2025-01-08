@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 4.5.0
+
+### Chores
+
+- Moodle 4.5.0 compatible version
+
 ## 4.4.0
 
 ### Bug fixes
