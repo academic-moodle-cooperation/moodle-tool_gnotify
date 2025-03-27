@@ -17,6 +17,3 @@ include:
   - component: $CI_SERVER_FQDN/amc/moodle/moodle-ci/moodle-plugin-ci@4.5
   - component: $CI_SERVER_FQDN/amc/moodle/moodle-ci/moodle-devil-app@4.5
 
-moodle-devil-app:
-  variables:
-    DEVIL_BRANCH_TOOL_GNOTIFY: $CI_COMMIT_REF_NAME
