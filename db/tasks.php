@@ -13,15 +13,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 /**
  * Installs the cron-tasks for this plugin
  *
  * @author        Thomas Wedekind <Thomas.Wedekind@univie.ac.at>
  * @copyright     2019 Academic Moodle Cooperation {@link http://www.academic-moodle-cooperation.org}
  * @since         Moodle 3.8
+ * @package       tool_gnotify
  * @license       http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die();
 
 $tasks = [
