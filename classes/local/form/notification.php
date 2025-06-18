@@ -27,7 +27,6 @@ namespace tool_gnotify\local\form;
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/formslib.php');
-require_once($CFG->dirroot . '/lib/editor/atto/lib.php');
 require_once($CFG->dirroot . '/admin/tool/gnotify/locallib.php');
 
 /**
