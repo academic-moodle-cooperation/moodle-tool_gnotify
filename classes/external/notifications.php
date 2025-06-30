@@ -24,14 +24,13 @@
  */
 namespace tool_gnotify\external;
 
-use context_system;
+use coding_exception;
 use core_external\external_multiple_structure;
 use core_external\external_single_structure;
-use dml_exception;
-use stdClass;
 use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_value;
+use moodle_exception;
 use tool_gnotify\notification;
 use tool_gnotify_var_renderer;
 
@@ -46,7 +45,11 @@ class notifications extends external_api {
     /**
      * Notifications
      *
-     * @throws dml_exception
+     * @param int $contextid
+     * @param string $pagelayout
+     * @return array
+     * @throws coding_exception
+     * @throws moodle_exception
      */
     public static function execute(int $contextid, string $pagelayout) {
         global $CFG, $PAGE, $USER;;
