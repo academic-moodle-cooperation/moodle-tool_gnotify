@@ -42,4 +42,13 @@ $functions = [
                 'ajax' => true,
                 'capabilities' => '',  // TODO capabilities.
         ],
+        'tool_gnotify_get_notifications' => [
+                'classname' => 'tool_gnotify\external\notifications',
+                'methodname' => 'execute',
+                'description' => 'Returns a list of notifications for the current user',
+                'type' => 'read',
+                'ajax' => true,
+                'loginrequired' => false,
+                'capabilities' => '',  // TODO capabilities.
+        ],
 ];

@@ -46,7 +46,6 @@ class tool_gnotify_var_renderer extends renderer_base {
         $rendered = $this->render_from_template($html, $vars);
         $mustache->setLoader($tmploader);
         return $rendered;
-
     }
 
 }

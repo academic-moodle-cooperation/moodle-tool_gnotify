@@ -201,4 +201,6 @@ class notification extends \core\persistent {
         $record->datamodel = $template->get('datamodel');
         return new notification(0, $record);
     }
+
+
 }

@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 $callbacks = [
     [
         'hook' => before_standard_head_html_generation::class,
-        'callback' => 'tool_gnotify\local\hook\output\before_standard_head_html_generation::callback',
+        'callback' => [tool_gnotify\local\hook_callbacks::class, 'before_standard_head_html_generation'],
         'priority' => 0,
     ],
 ];
