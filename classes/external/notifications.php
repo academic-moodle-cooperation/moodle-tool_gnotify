@@ -139,7 +139,7 @@ class notifications extends external_api {
 
                     $config->html = $htmlcontent;
                     $config->id = $record->get('id');
-                    $config->padding = boolval(get_config('tool_gnotify', 'notificationpadding'));
+                    $result['padding'] = boolval(get_config('tool_gnotify', 'notificationpadding'));
                     $result['notifications'][] = $config;
                 }
         }
@@ -166,13 +166,13 @@ class notifications extends external_api {
     public static function execute_returns() {
         return new external_single_structure([
                 'template' => new external_value(PARAM_PATH, 'Template name'),
+                'padding' => new external_value(PARAM_BOOL, 'Padding flag'),
                 'notifications' => new external_multiple_structure(
                         new external_single_structure([
                             'id' => new external_value(PARAM_INT, 'Notification id'),
                             'html' => new external_value(PARAM_RAW, 'HTML content'),
                             'ntype' => new external_value(PARAM_TEXT, 'Notification type', VALUE_OPTIONAL),
                             'dismissable' => new external_value(PARAM_BOOL, 'Dismissable flag'),
-                            'padding' => new external_value(PARAM_BOOL, 'Padding flag'),
                         ])
                 ),
                 'javascript' => new external_value(PARAM_RAW, 'JavaScript fragment'),
