@@ -139,7 +139,7 @@ class notifications extends external_api {
 
                     $config->html = $htmlcontent;
                     $config->id = $record->get('id');
-                    $config->padding = boolval($config->padding);
+                    $config->padding = boolval(get_config('tool_gnotify', 'notificationpadding'));
                     $result['notifications'][] = $config;
                 }
         }

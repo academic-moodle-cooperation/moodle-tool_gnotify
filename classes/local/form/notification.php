@@ -72,12 +72,7 @@ class notification extends \core\form\persistent {
         $mform->addElement('advcheckbox', 'dismissable',
             get_string('dismissable', 'tool_gnotify'),
             get_string('dismissableinfo', 'tool_gnotify'), [0, 1]);
-
         $mform->setDefault('dismissable', 1);
-        $mform->addElement('advcheckbox', 'padding', get_string('padding', 'tool_gnotify'),
-            get_string('paddinginfo', 'tool_gnotify'), [0, 1]);
-
-        $mform->setDefault('padding', 1);
 
         $mform->addElement('advcheckbox', 'visibleonany', get_string('visibleon', 'tool_gnotify'),
             get_string('visibleoninfo', 'tool_gnotify'), [0, 1]);
@@ -161,8 +156,7 @@ class notification extends \core\form\persistent {
         $configdata = new \stdClass;
         $configdata->ntype = $data->ntype;
         unset($data->ntype);
-        $configdata->padding = $data->padding;
-        unset($data->padding);
+        unset($data->padding); // Deprecated, but kept for compatibility.
         $configdata->dismissable = $data->dismissable;
         unset($data->dismissable);
 
@@ -192,7 +186,6 @@ class notification extends \core\form\persistent {
             $configdata = json_decode($data->configdata);
 
             $data->ntype = $configdata->ntype;
-            $data->padding = $configdata->padding;
             $data->dismissable = $configdata->dismissable;
 
             unset($data->configdata);
