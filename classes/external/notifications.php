@@ -60,6 +60,7 @@ class notifications extends external_api {
         require_once($CFG->dirroot.'/admin/tool/gnotify/locallib.php');
         $result = [
                 'template' => 'tool_gnotify/notifications',
+                'padding' => boolval(get_config('tool_gnotify', 'notificationpadding')),
                 'notifications' => [],
                 'javascript' => null,
         ];
@@ -139,7 +140,6 @@ class notifications extends external_api {
 
                     $config->html = $htmlcontent;
                     $config->id = $record->get('id');
-                    $result['padding'] = boolval(get_config('tool_gnotify', 'notificationpadding'));
                     $result['notifications'][] = $config;
                 }
         }
