@@ -39,10 +39,10 @@
 
     }
   }}
-<div id="gnotify-wrapper-non-sticky" class="row notification-relative">
+<div id="gnotify-wrapper-non-sticky" class="row notification-relative {{#padding}}gnotify-pt{{/padding}}">
     {{#notifications}}
-    <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-plr {{#padding}}gnotify-pt{{/padding}}">
-        <div id="{{id}}-gnotify" class="{{#ntype}}alert {{ntype}}{{/ntype}}{{^ntype}}card{{/ntype}}">
+    <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-plr ">
+        <div id="{{id}}-gnotify" class="{{#ntype}}alert {{ntype}}{{/ntype}}{{^ntype}}gnotify-alert-none{{/ntype}}{{^padding}} gnotify-pnone{{/padding}}">
             <div class="gnotify-notification-html{{^ntype}} card-body{{/ntype}}">
                 {{#dismissable}}
                     <button type="button" onclick="require(['tool_gnotify/notification'], (amd)=>{amd.acknowledge({{id}})});" class="close">

@@ -40,6 +40,14 @@ if ($hassiteconfig) {
             new lang_string('retentionperiod', 'tool_gnotify'),
             new lang_string('retentionperioddesc', 'tool_gnotify'),
             30 * DAYSECS));
+
+    $settings->add(new admin_setting_configcheckbox(
+            'tool_gnotify/notificationpadding',
+            get_string('padding', 'tool_gnotify'),
+            get_string('paddinginfo', 'tool_gnotify'),
+    1)
+    );
+
     $ADMIN->add('gnotifyfolder', $settings);
 }
 

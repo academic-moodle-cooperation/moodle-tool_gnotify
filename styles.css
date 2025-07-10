@@ -8,6 +8,11 @@
     padding-top: 1rem !important;
 }
 
+.gnotify-pnone {
+    /* stylelint-disable-next-line declaration-no-important */
+    --bs-alert-margin-bottom: 0 !important;
+}
+
 .gnotify {
     position: relative;
     width: 100%;
@@ -19,6 +24,25 @@
     right: 0;
     /*z-index: 1031;*/
     background-color: white;
+}
+
+.gnotify-alert-none {
+    --bs-alert-bg: transparent;
+    --bs-alert-padding-x: 1rem;
+    --bs-alert-padding-y: 1rem;
+    --bs-alert-margin-bottom: 1rem;
+    --bs-alert-color: inherit;
+    --bs-alert-border-color: var(--bs-light-border-subtle);
+    --bs-alert-border: var(--bs-border-width) solid var(--bs-alert-border-color);
+    --bs-alert-border-radius: var(--bs-border-radius);
+    --bs-alert-link-color: inherit;
+    position: relative;
+    padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
+    margin-bottom: var(--bs-alert-margin-bottom);
+    color: var(--bs-alert-color);
+    background-color: var(--bs-alert-bg);
+    border: var(--bs-alert-border);
+    border-radius: var(--bs-alert-border-radius);
 }
 
 .notification-relative {

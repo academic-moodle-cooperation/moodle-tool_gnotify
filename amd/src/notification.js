@@ -14,20 +14,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 import Ajax from 'core/ajax';
-import Log from 'core/log';
 import * as Templates from "core/templates";
 import Notification from "core/notification";
 
-export const init = async (contextid, pagelayout) => {
+export const init = async(contextid, pagelayout) => {
     const request = {
         methodname: 'tool_gnotify_get_notifications',
-        args: { contextid, pagelayout }
+        args: {contextid, pagelayout}
     };
 
     try {
         const gnotify = await Ajax.call([request])[0];
-        Log.info(gnotify.notifications);
-        const { html, js } = await Templates.renderForPromise(gnotify.template, { notifications: gnotify.notifications });
+        const {html, js} = await Templates.renderForPromise(gnotify.template,
+            {padding: gnotify.padding, notifications: gnotify.notifications});
         Templates.prependNodeContents('#page', html, js);
     } catch (error) {
         Notification.exception(error);
