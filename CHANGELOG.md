@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 5.0.0
+
+### Bug fixes
+
+- #8395 Error on creating a notification template
+- #8417 Incorrect notification padding
+
+### Chores
+
+- Moodle 5.0.0 compatible version
+
 ## 4.5.0
 
 ### Chores
