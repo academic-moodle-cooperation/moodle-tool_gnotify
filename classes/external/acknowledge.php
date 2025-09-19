@@ -42,23 +42,21 @@ class acknowledge extends external_api {
      * @param int $id Template instance
      * @throws dml_exception
      */
-    public static function execute($id) {
+    public static function execute(int $id) {
         global $USER;
-        if ($USER) {
-            if (
-                $USER->id
-                    && \tool_gnotify\notification::record_exists($id)
-                    && !(\tool_gnotify\ack::record_exists_select(
-                        'userid = :userid and notificationid = :id',
-                        [ 'userid' => $USER->id, 'id' => $id ]
-                    ))
-            ) {
-                $record = new \stdClass();
-                $record->userid = $USER->id;
-                $record->notificationid = $id;
-                $ack = new ack(0, $record);
-                $ack->create();
-            }
+        if (
+            $USER && $USER->id
+            && \tool_gnotify\notification::record_exists($id)
+            && !(\tool_gnotify\ack::record_exists_select(
+                'userid = :userid and notificationid = :id',
+                [ 'userid' => $USER->id, 'id' => $id ]
+            ))
+        ) {
+            $record = new \stdClass();
+            $record->userid = $USER->id;
+            $record->notificationid = $id;
+            $ack = new ack(0, $record);
+            $ack->create();
         }
     }
 

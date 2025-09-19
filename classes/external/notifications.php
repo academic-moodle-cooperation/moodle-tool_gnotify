@@ -53,8 +53,10 @@ class notifications extends external_api {
     public static function execute(int $contextid, string $pagelayout) {
         global $CFG, $PAGE, $USER;
         $context = \context::instance_by_id($contextid);
-        $PAGE->set_pagelayout('course');
-        $PAGE->set_context($context);
+        self::validate_context($context);
+
+        $PAGE->set_pagelayout('base');
+
         // Require local library.
         require_once($CFG->dirroot . '/admin/tool/gnotify/locallib.php');
         $result = [
