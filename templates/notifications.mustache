@@ -39,9 +39,9 @@
 
     }
   }}
-<div id="gnotify-wrapper-non-sticky" class="row notification-relative {{#padding}}gnotify-pt{{/padding}}">
+<div id="gnotify-wrapper-non-sticky" class="row notification-relative gnotify-pt">
     {{#notifications}}
-    <div id="{{id}}-gnotify-wrapper" class="gnotify gnotify-plr ">
+    <div id="{{id}}-gnotify-wrapper" class="gnotify">
         <div id="{{id}}-gnotify" class="{{#ntype}}alert {{ntype}}{{/ntype}}{{^ntype}}gnotify-alert-none{{/ntype}}{{^padding}} gnotify-pnone{{/padding}}">
             <div class="gnotify-notification-html{{^ntype}} card-body{{/ntype}}">
                 {{#dismissable}}

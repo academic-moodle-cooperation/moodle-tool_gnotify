@@ -24,10 +24,12 @@ export const init = async(contextid, pagelayout) => {
     };
 
     try {
-        const gnotify = await Ajax.call([request])[0];
-        const {html, js} = await Templates.renderForPromise(gnotify.template,
-            {padding: gnotify.padding, notifications: gnotify.notifications});
-        Templates.prependNodeContents('#page', html, js);
+        const gnotify = await Ajax.call([request], true, pagelayout !== "login")[0];
+        if (Array.isArray(gnotify.notifications) && gnotify.notifications.length) {
+            const {html, js} = await Templates.renderForPromise(gnotify.template,
+                {padding: gnotify.padding, notifications: gnotify.notifications});
+            Templates.prependNodeContents('#page', html, js);
+        }
     } catch (error) {
         Notification.exception(error);
     }
