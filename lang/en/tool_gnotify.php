@@ -50,6 +50,7 @@ $string['nonotifications'] = "No notifications ;)";
 $string['notemplates'] = "No Templates ;)";
 $string['notificationhistory'] = "Notification History";
 $string['notifications'] = "Notifications";
+$string['notification:dismiss'] = 'Dismiss this notification';
 $string['notifyusers'] = 'Notify users';
 $string['ntype'] = 'Notification Type';
 $string['opterror'] = 'Error';
