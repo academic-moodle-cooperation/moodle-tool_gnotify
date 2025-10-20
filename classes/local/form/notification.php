@@ -36,7 +36,6 @@ require_once($CFG->dirroot . '/admin/tool/gnotify/locallib.php');
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class notification extends \core\form\persistent {
-
     /** @var string Persistent class name. */
     protected static $persistentclass = 'tool_gnotify\\notification';
 
@@ -50,12 +49,17 @@ class notification extends \core\form\persistent {
         $mform =& $this->_form;
 
         foreach ($this->get_persistent()->get_data_model() as $key => $value) {
-            $fieldid = self::PREFIX.$key;
+            $fieldid = self::PREFIX . $key;
             $mform->addElement('text', $fieldid, $key, 'size="64"');
             $mform->addRule($fieldid, get_string('required'), 'required', null, 'client');
             $mform->setType($fieldid, PARAM_TEXT);
-            $mform->addRule($fieldid, get_string('maximumchars', '', 255),
-                'maxlength', 255, 'client');
+            $mform->addRule(
+                $fieldid,
+                get_string('maximumchars', '', 255),
+                'maxlength',
+                255,
+                'client'
+            );
         }
 
         $options = [];
@@ -69,13 +73,22 @@ class notification extends \core\form\persistent {
 
         $mform->addElement('select', 'ntype', get_string('ntype', 'tool_gnotify'), $options);
 
-        $mform->addElement('advcheckbox', 'dismissable',
+        $mform->addElement(
+            'advcheckbox',
+            'dismissable',
             get_string('dismissable', 'tool_gnotify'),
-            get_string('dismissableinfo', 'tool_gnotify'), [0, 1]);
+            get_string('dismissableinfo', 'tool_gnotify'),
+            [0, 1]
+        );
         $mform->setDefault('dismissable', 1);
 
-        $mform->addElement('advcheckbox', 'visibleonany', get_string('visibleon', 'tool_gnotify'),
-            get_string('visibleoninfo', 'tool_gnotify'), [0, 1]);
+        $mform->addElement(
+            'advcheckbox',
+            'visibleonany',
+            get_string('visibleon', 'tool_gnotify'),
+            get_string('visibleoninfo', 'tool_gnotify'),
+            [0, 1]
+        );
         $mform->setDefault('visibleonany', 1);
 
         $options = [
@@ -92,8 +105,13 @@ class notification extends \core\form\persistent {
         $mform->getElement('visibleon')->setMultiple(true);
         $mform->hideif('visibleon', 'visibleonany', 'checked');
 
-        $mform->addElement('advcheckbox', 'visibleforany', get_string('visiblefor', 'tool_gnotify'),
-            get_string('visibleforinfo', 'tool_gnotify'), [0, 1]);
+        $mform->addElement(
+            'advcheckbox',
+            'visibleforany',
+            get_string('visiblefor', 'tool_gnotify'),
+            get_string('visibleforinfo', 'tool_gnotify'),
+            [0, 1]
+        );
 
         $mform->setDefault('visibleforany', 1);
 
@@ -102,29 +120,40 @@ class notification extends \core\form\persistent {
         foreach (role_fix_names(get_all_roles($context)) as $role) {
             $roles[$role->id] = $role->localname;
         }
-        $mform->addElement('select', 'visiblefor',
+        $mform->addElement(
+            'select',
+            'visiblefor',
             null,
-            $roles);
+            $roles
+        );
         $mform->getElement('visiblefor')->setMultiple(true);
         $mform->setDefault('visiblefor', $roles);
         $mform->hideif('visiblefor', 'visibleforany', 'checked');
         $mform->hideif('visiblefor', 'visibleon', 'in', 'course');
 
-        $mform->addElement('text', 'visibleforprofile', get_string('visibleforprofile', 'tool_gnotify'),
-                'maxlength="128" size="64"');
+        $mform->addElement(
+            'text',
+            'visibleforprofile',
+            get_string('visibleforprofile', 'tool_gnotify'),
+            'maxlength="128" size="64"'
+        );
 
         $mform->addHelpButton('visibleforprofile', 'visibleforprofile', 'tool_gnotify');
 
         $mform->setType('visibleforprofile', PARAM_TEXT);
 
-        $mform->addElement('date_time_selector',
-                'fromdate',
-                get_string('fromdate', 'tool_gnotify'),
-                ['optional' => false]);
-        $mform->addElement('date_time_selector',
-                'todate',
-                get_string('todate', 'tool_gnotify'),
-                ['optional' => false]);
+        $mform->addElement(
+            'date_time_selector',
+            'fromdate',
+            get_string('fromdate', 'tool_gnotify'),
+            ['optional' => false]
+        );
+        $mform->addElement(
+            'date_time_selector',
+            'todate',
+            get_string('todate', 'tool_gnotify'),
+            ['optional' => false]
+        );
 
         $mform->addElement('hidden', 'templateid');
         $mform->setType('templateid', PARAM_INT);
@@ -153,7 +182,7 @@ class notification extends \core\form\persistent {
         }
         $data->datamodel = json_encode($datamodel);
 
-        $configdata = new \stdClass;
+        $configdata = new \stdClass();
         $configdata->ntype = $data->ntype;
         unset($data->ntype);
         unset($data->padding); // Deprecated, but kept for compatibility.
@@ -177,7 +206,7 @@ class notification extends \core\form\persistent {
         $data = parent::get_default_data();
 
         foreach (json_decode($data->datamodel) as $key => $value) {
-            $fieldid = self::PREFIX.$key;
+            $fieldid = self::PREFIX . $key;
             $data->$fieldid = $value;
         }
         unset($data->datamodel);
