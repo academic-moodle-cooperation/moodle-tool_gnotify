@@ -25,29 +25,32 @@
 defined('MOODLE_INTERNAL') || die();
 global $ADMIN, $CFG;
 if ($hassiteconfig) {
-
     $ADMIN->add(
-            'tools',
-            new admin_category('gnotifyfolder', new lang_string('gnotify', 'tool_gnotify'))
+        'tools',
+        new admin_category('gnotifyfolder', new lang_string('gnotify', 'tool_gnotify'))
     );
 
-    $managegnotify = new admin_externalpage('gnotify_templates',
-            new lang_string('managegnotify', 'tool_gnotify'), "$CFG->wwwroot/$CFG->admin/tool/gnotify/templates.php");
+    $managegnotify = new admin_externalpage(
+        'gnotify_templates',
+        new lang_string('managegnotify', 'tool_gnotify'),
+        "$CFG->wwwroot/$CFG->admin/tool/gnotify/templates.php"
+    );
     $ADMIN->add('gnotifyfolder', $managegnotify);
 
     $settings = new admin_settingpage('tool_gnotify', new lang_string('settings', 'tool_gnotify'));
-    $settings->add(new admin_setting_configduration('tool_gnotify/retentionperiod',
-            new lang_string('retentionperiod', 'tool_gnotify'),
-            new lang_string('retentionperioddesc', 'tool_gnotify'),
-            30 * DAYSECS));
+    $settings->add(new admin_setting_configduration(
+        'tool_gnotify/retentionperiod',
+        new lang_string('retentionperiod', 'tool_gnotify'),
+        new lang_string('retentionperioddesc', 'tool_gnotify'),
+        30 * DAYSECS
+    ));
 
     $settings->add(new admin_setting_configcheckbox(
-            'tool_gnotify/notificationpadding',
-            get_string('padding', 'tool_gnotify'),
-            get_string('paddinginfo', 'tool_gnotify'),
-    1)
-    );
+        'tool_gnotify/notificationpadding',
+        get_string('padding', 'tool_gnotify'),
+        get_string('paddinginfo', 'tool_gnotify'),
+        1
+    ));
 
     $ADMIN->add('gnotifyfolder', $settings);
 }
-

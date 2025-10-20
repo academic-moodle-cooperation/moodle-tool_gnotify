@@ -36,10 +36,10 @@ use tool_gnotify\ack;
  * @copyright   2025 Technische Universität Wien {@link http://www.tuwien.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements \core_privacy\local\metadata\provider,
-        \core_privacy\local\request\plugin\provider,
-        core_userlist_provider {
-
+class provider implements
+    core_userlist_provider,
+    \core_privacy\local\metadata\provider,
+    \core_privacy\local\request\plugin\provider {
     /**
      * Description of the metadata stored for users in tool_gnotify.
      *
@@ -48,14 +48,14 @@ class provider implements \core_privacy\local\metadata\provider,
      */
     public static function get_metadata(collection $collection): collection {
         $collection->add_database_table(
-                'tool_gnotify_acks',
-                [
+            'tool_gnotify_acks',
+            [
                     'userid' => 'privacy:metadata:tool_gnotify_acks:userid',
                     'notificationid' => 'privacy:metadata:tool_gnotify_acks:notificationid',
                     'timecreated' => 'privacy:metadata:tool_gnotify_acks:timecreated',
                     'timemodified' => 'privacy:metadata:tool_gnotify_acks:timemodified',
                 ],
-                'privacy:metadata:tool_gnotify_acks'
+            'privacy:metadata:tool_gnotify_acks'
         );
         return $collection;
     }
@@ -94,8 +94,8 @@ class provider implements \core_privacy\local\metadata\provider,
                     'timemodified' => transform::datetime($ack->get('timemodified')),
             ];
             writer::with_context(\context_user::instance($user->id))->export_data(
-                    [get_string('privacy:metadata:tool_gnotify_acks', 'tool_gnotify')],
-                    $data
+                [get_string('privacy:metadata:tool_gnotify_acks', 'tool_gnotify')],
+                $data
             );
         }
     }

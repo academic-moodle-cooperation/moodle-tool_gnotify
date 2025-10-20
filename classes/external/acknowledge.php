@@ -36,7 +36,6 @@ use core_external\external_value;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class acknowledge extends external_api {
-
     /**
      * Acknowledge
      *
@@ -46,10 +45,14 @@ class acknowledge extends external_api {
     public static function execute($id) {
         global $USER;
         if ($USER) {
-            if ($USER->id
+            if (
+                $USER->id
                     && \tool_gnotify\notification::record_exists($id)
-                    && !(\tool_gnotify\ack::record_exists_select('userid = :userid and notificationid = :id',
-                            [ 'userid' => $USER->id, 'id' => $id ]))) {
+                    && !(\tool_gnotify\ack::record_exists_select(
+                        'userid = :userid and notificationid = :id',
+                        [ 'userid' => $USER->id, 'id' => $id ]
+                    ))
+            ) {
                 $record = new \stdClass();
                 $record->userid = $USER->id;
                 $record->notificationid = $id;
@@ -66,7 +69,7 @@ class acknowledge extends external_api {
      */
     public static function execute_parameters() {
         return new external_function_parameters(
-                [
+            [
                         'id' => new external_value(PARAM_INT, 'id of notificationtemplate'),
                 ]
         );
@@ -80,5 +83,4 @@ class acknowledge extends external_api {
     public static function execute_returns() {
         return null;
     }
-
 }

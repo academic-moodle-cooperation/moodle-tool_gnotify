@@ -34,7 +34,6 @@ namespace tool_gnotify;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class notification extends \core\persistent {
-
     /**
      * Table name for this persistent.
      */
@@ -201,6 +200,4 @@ class notification extends \core\persistent {
         $record->datamodel = $template->get('datamodel');
         return new notification(0, $record);
     }
-
-
 }

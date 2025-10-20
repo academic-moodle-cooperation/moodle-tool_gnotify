@@ -40,7 +40,7 @@ $functions = [
                 'description' => 'Allows users to acknowledge that they have seen a notification',
                 'type' => 'write',
                 'ajax' => true,
-                'capabilities' => '',  // TODO capabilities.
+                'capabilities' => '', // TODO capabilities.
         ],
         'tool_gnotify_get_notifications' => [
                 'classname' => 'tool_gnotify\external\notifications',
@@ -49,6 +49,6 @@ $functions = [
                 'type' => 'read',
                 'ajax' => true,
                 'loginrequired' => false,
-                'capabilities' => '',  // TODO capabilities.
+                'capabilities' => '', // TODO capabilities.
         ],
 ];

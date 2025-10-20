@@ -30,7 +30,6 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_gnotify_var_renderer extends renderer_base {
-
     /**
      * Render direct
      *
@@ -47,5 +46,4 @@ class tool_gnotify_var_renderer extends renderer_base {
         $mustache->setLoader($tmploader);
         return $rendered;
     }
-
 }
