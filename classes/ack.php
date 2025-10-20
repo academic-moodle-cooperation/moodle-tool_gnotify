@@ -40,6 +40,18 @@ class ack extends \core\persistent {
     const TABLE = 'tool_gnotify_acks';
 
     /**
+     * Delete all acknowledgements for a user.
+     *
+     * @param int $userid
+     * @return void
+     * @throws \dml_exception
+     */
+    public static function delete_all_by_user(int $userid): void {
+        global $DB;
+        $DB->delete_records('tool_gnotify_acks', ['userid' => $userid]);
+    }
+
+    /**
      * Return the definition of the properties of this model.
      *
      * @return array
