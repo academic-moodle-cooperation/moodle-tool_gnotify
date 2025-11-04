@@ -52,7 +52,7 @@ class notifications extends external_api {
      * @throws moodle_exception
      */
     public static function execute(int $contextid, string $pagelayout) {
-        global $CFG, $PAGE, $USER;;
+        global $CFG, $PAGE, $USER;
         $context = \context::instance_by_id($contextid);
         $PAGE->set_pagelayout('course');
         $PAGE->set_context($context);
