@@ -42,8 +42,13 @@ function tool_gnotify_myprofile_navigation(core_user\output\myprofile\tree $tree
 
     $history = new moodle_url('/admin/tool/gnotify/history.php');
     $string = get_string('myprofilehistory', 'tool_gnotify');
-    $node = new core_user\output\myprofile\node('miscellaneous', 'gnotifyhistory', $string, null,
-            $history);
+    $node = new core_user\output\myprofile\node(
+        'miscellaneous',
+        'gnotifyhistory',
+        $string,
+        null,
+        $history
+    );
     $tree->add_node($node);
 
     return true;

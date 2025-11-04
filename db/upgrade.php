@@ -37,7 +37,6 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2021071100) {
-
         // Define table tool_gnotify_templates to be created.
         $table = new xmldb_table('tool_gnotify_templates');
 
@@ -65,7 +64,6 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
     }
 
     if ($oldversion < 2021071200) {
-
         // Define table tool_gnotify_notifications to be created.
         $table = new xmldb_table('tool_gnotify_notifications');
 
@@ -97,7 +95,6 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
     }
 
     if ($oldversion < 2021071300) {
-
         // Define table tool_gnotify_acks to be created.
         $table = new xmldb_table('tool_gnotify_acks');
 
@@ -128,7 +125,6 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
     }
 
     if ($oldversion < 2021071400) {
-
         // Define table tool_gnotify_tpl to be dropped.
         $table = new xmldb_table('tool_gnotify_tpl');
 
@@ -181,7 +177,6 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
         upgrade_plugin_savepoint(true, 2021071400, 'tool', 'gnotify');
     }
     if ($oldversion < 2022083102) {
-
         // Rename field visibleonlogin on table tool_gnotify_notifications to visibleon.
         $table = new xmldb_table('tool_gnotify_notifications');
         $field = new xmldb_field('visibleonlogin', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'todate');
@@ -209,7 +204,6 @@ function xmldb_tool_gnotify_upgrade(float $oldversion) {
         upgrade_plugin_savepoint(true, 2022083102, 'tool', 'gnotify');
     }
     if ($oldversion < 2022083103) {
-
         // Define field visibleforprofile to be added to tool_gnotify_notifications.
         $table = new xmldb_table('tool_gnotify_notifications');
         $field = new xmldb_field('visibleforprofile', XMLDB_TYPE_CHAR, '128', null, XMLDB_NOTNULL, null, null, 'visiblefor');

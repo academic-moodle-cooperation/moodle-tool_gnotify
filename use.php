@@ -44,15 +44,16 @@ $PAGE->set_url(new moodle_url('/admin/tool/gnotify/use.php', ['id' => $id, 'temp
 
 $template = \tool_gnotify\template::get_record(['id' => $templateid]);
 if ($template) {
-
     if (empty($id)) {
         $instance = \tool_gnotify\notification::get_from_template($template);
     } else {
         $instance = new \tool_gnotify\notification($id);
     }
 
-    $form = new \tool_gnotify\local\form\notification(new moodle_url('use.php',
-        ['templateid' => $templateid, 'id' => $id]), ['persistent' => $instance]);
+    $form = new \tool_gnotify\local\form\notification(new moodle_url(
+        'use.php',
+        ['templateid' => $templateid, 'id' => $id]
+    ), ['persistent' => $instance]);
 
     if ($form->is_cancelled()) {
         redirect(new moodle_url('/admin/tool/gnotify/templates.php'));

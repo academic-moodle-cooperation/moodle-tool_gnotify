@@ -33,11 +33,22 @@ namespace tool_gnotify;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class ack extends \core\persistent {
-
     /**
      * Table name for this persistent.
      */
     const TABLE = 'tool_gnotify_acks';
+
+    /**
+     * Delete all acknowledgements for a user.
+     *
+     * @param int $userid
+     * @return void
+     * @throws \dml_exception
+     */
+    public static function delete_all_by_user(int $userid): void {
+        global $DB;
+        $DB->delete_records('tool_gnotify_acks', ['userid' => $userid]);
+    }
 
     /**
      * Return the definition of the properties of this model.
@@ -54,5 +65,4 @@ class ack extends \core\persistent {
             ],
         ];
     }
-
 }
