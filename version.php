@@ -28,4 +28,4 @@ $plugin->component = 'tool_gnotify';
 $plugin->release = 'v5.1.0dev (Build: 20251105)';
 $plugin->version = 2025110500.01;
 $plugin->maturity = MATURITY_ALPHA;
-$plugin->requires = 2024100700;
+$plugin->requires = 2025100600;
