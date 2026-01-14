@@ -15,23 +15,21 @@
 
 import Ajax from 'core/ajax';
 import * as Templates from "core/templates";
-import Notification from "core/notification";
 
-export const init = async(contextid, pagelayout) => {
+export const init = async(contextid, pagelayout, loggedin) => {
     const request = {
         methodname: 'tool_gnotify_get_notifications',
         args: {contextid, pagelayout}
     };
 
     try {
-        const gnotify = await Ajax.call([request], true, pagelayout !== "login")[0];
+        const gnotify = await Ajax.call([request], true, loggedin)[0];
         if (Array.isArray(gnotify.notifications) && gnotify.notifications.length) {
             const {html, js} = await Templates.renderForPromise(gnotify.template,
                 {padding: gnotify.padding, notifications: gnotify.notifications});
             Templates.prependNodeContents('#page', html, js);
         }
     } catch (error) {
-        Notification.exception(error);
     }
 };
 

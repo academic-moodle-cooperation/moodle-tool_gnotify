@@ -40,6 +40,7 @@ $functions = [
                 'description' => 'Allows users to acknowledge that they have seen a notification',
                 'type' => 'write',
                 'ajax' => true,
+                'loginrequired' => true,
                 'capabilities' => '',
         ],
         'tool_gnotify_get_notifications' => [

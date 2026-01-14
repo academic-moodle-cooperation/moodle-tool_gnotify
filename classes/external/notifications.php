@@ -30,6 +30,7 @@ use core_external\external_single_structure;
 use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_value;
+use invalid_parameter_exception;
 use moodle_exception;
 use tool_gnotify\notification;
 use tool_gnotify_var_renderer;
@@ -48,12 +49,24 @@ class notifications extends external_api {
      * @param string $pagelayout
      * @return array
      * @throws coding_exception
-     * @throws moodle_exception
+     * @throws moodle_exception|invalid_parameter_exception
      */
     public static function execute(int $contextid, string $pagelayout) {
         global $CFG, $PAGE, $USER;
-        $context = \context::instance_by_id($contextid);
-        self::validate_context($context);
+
+        $params = self::validate_parameters(self::execute_parameters(), [
+                'contextid' => $contextid,
+                'pagelayout' => $pagelayout,
+        ]);
+        $context = self::get_context_from_params($params);
+
+        if (isloggedin()) {
+            self::validate_context($context);
+        } else {
+            if (WS_SERVER) {
+                throw new \core\exception\coding_exception("no WS!");
+            }
+        }
 
         $PAGE->set_pagelayout('base');
 
@@ -87,11 +100,11 @@ class notifications extends external_api {
                 'noclean' => false,
             ];
             foreach ($records as $record) {
-                if (!$record->is_visible_on_page($pagelayout)) {
+                if (!$record->is_visible_on_page($params['pagelayout'])) {
                     continue;
                 }
 
-                if (!$record->is_visible_for_role($PAGE->context)) {
+                if (!$record->is_visible_for_role($context)) {
                     continue;
                 }
 
