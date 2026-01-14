@@ -49,6 +49,7 @@ $string['nonotificationhistoryinfo'] = 'You have no notifications.';
 $string['nonotifications'] = "No notifications ;)";
 $string['notemplates'] = "No Templates ;)";
 $string['notification:dismiss'] = 'Dismiss this notification';
+$string['notification:label'] = 'Global Notifications';
 $string['notificationhistory'] = "Notification History";
 $string['notifications'] = "Notifications";
 $string['notifyusers'] = 'Notify users';

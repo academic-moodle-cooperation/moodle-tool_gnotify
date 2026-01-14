@@ -39,19 +39,19 @@
 
     }
   }}
-<div id="gnotify-wrapper-non-sticky" class="row notification-relative gnotify-pt">
+<section id="gnotify-wrapper-non-sticky" class="row notification-relative gnotify-pt" aria-label="{{#str}}notification:label, tool_gnotify{{/str}}">
     {{#notifications}}
     <div id="{{id}}-gnotify-wrapper" class="gnotify">
         <div id="{{id}}-gnotify" class="{{#ntype}}alert {{ntype}}{{/ntype}}{{^ntype}}gnotify-alert-none{{/ntype}}{{^padding}} gnotify-pnone{{/padding}}">
-            <div class="gnotify-notification-html{{^ntype}} card-body{{/ntype}}">
-                {{#dismissable}}
-                    <button type="button" onclick="require(['tool_gnotify/notification'], (amd)=>{amd.acknowledge({{id}})});" class="close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">{{#str}}notification:dismiss, tool_gnotify{{/str}}</span>
-                    </button>{{/dismissable}}
+            <div class="gnotify-notification-html{{^ntype}} card-body{{/ntype}} alert-dismissible" role="status" aria-live="polite">
                 {{{html}}}
+                {{#dismissable}}
+                <button type="button" class="btn-close" onclick="require(['tool_gnotify/notification'], (amd)=>{amd.acknowledge({{id}})});">
+                    <span class="visually-hidden">{{#str}}notification:dismiss, tool_gnotify{{/str}}</span>
+                </button>
+                {{/dismissable}}
             </div>
         </div>
     </div>
     {{/notifications}}
-</div>
+</section>
