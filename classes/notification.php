@@ -129,12 +129,20 @@ class notification extends \core\persistent {
         $visiblefor = $this->get("visiblefor");
         if (empty($visiblefor)) {
             return true;
-        } else {
-            $roles = get_user_roles_with_special($context);
-            foreach ($roles as $role) {
-                if (strpos($visiblefor, $role->roleid) !== false) {
-                    return true;
-                }
+        }
+
+        $roles = get_user_roles_with_special($context);
+
+        foreach ($roles as $role) {
+            if (strpos($visiblefor, $role->roleid) !== false) {
+                return true;
+            }
+        }
+
+        if (isguestuser()) {
+            $guestrole = get_guest_role()->id;
+            if (strpos($visiblefor, $guestrole) !== false) {
+                return true;
             }
         }
         return false;
