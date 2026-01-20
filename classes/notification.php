@@ -130,7 +130,7 @@ class notification extends \core\persistent {
         if (empty($visiblefor)) {
             return true;
         } else {
-            $roles = get_user_roles($context);
+            $roles = get_user_roles_with_special($context);
             foreach ($roles as $role) {
                 if (strpos($visiblefor, $role->roleid) !== false) {
                     return true;

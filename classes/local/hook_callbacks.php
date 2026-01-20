@@ -43,6 +43,7 @@ class hook_callbacks {
         $PAGE->requires->js_call_amd('tool_gnotify/notification', 'init', [
                 $PAGE->context->id,
                 $PAGE->pagelayout,
+                isloggedin(),
         ]);
     }
 }

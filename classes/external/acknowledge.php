@@ -24,6 +24,7 @@
  */
 namespace tool_gnotify\external;
 
+use dml_exception;
 use tool_gnotify\ack;
 use core_external\external_api;
 use core_external\external_function_parameters;
@@ -44,6 +45,10 @@ class acknowledge extends external_api {
      */
     public static function execute(int $id) {
         global $USER;
+
+        ['id' => $id] = self::validate_parameters(self::execute_parameters(), ['id' => $id]);
+        self::validate_context(\context_user::instance($USER->id));
+
         if (
             $USER && $USER->id
             && \tool_gnotify\notification::record_exists($id)
