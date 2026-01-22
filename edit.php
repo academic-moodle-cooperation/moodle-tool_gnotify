@@ -51,7 +51,6 @@ $form = new \tool_gnotify\local\form\template($PAGE->url->out(false), ['persiste
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/admin/tool/gnotify/templates.php'));
 } else if ($data = $form->get_data()) {
-
     if (empty($data->id)) {
         $template = new \tool_gnotify\template(0, $data);
         $template->create();

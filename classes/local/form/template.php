@@ -35,7 +35,6 @@ require_once($CFG->libdir . '/formslib.php');
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class template extends \core\form\persistent {
-
     /** @var string Persistent class name. */
     protected static $persistentclass = 'tool_gnotify\\template';
 

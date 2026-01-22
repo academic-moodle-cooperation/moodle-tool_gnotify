@@ -44,7 +44,6 @@ $notifications = [];
 
 $allnotifications = $notification = \tool_gnotify\notification::get_records([], 'fromdate', 'DESC');
 foreach ($allnotifications as $notification) {
-
     if (!$notification->is_visible_on_page($PAGE->pagelayout)) {
         continue;
     }
@@ -65,7 +64,7 @@ foreach ($allnotifications as $notification) {
 
     $datamodel = $notification->get_data_model();
 
-    $lang = 'lang='.current_language();
+    $lang = 'lang=' . current_language();
     $datamodel->$lang = true;
 
     $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
@@ -112,7 +111,6 @@ foreach ($allnotifications as $notification) {
     } else {
         $notifications['expired'][] = $nbody;
     }
-
 }
 
 $notifications['retentionperiod'] = intval(get_config('tool_gnotify', 'retentionperiod')) / 86400;
