@@ -84,6 +84,7 @@ $string['todateerror'] = "To date must be greater than from date";
 $string['usetemplate'] = "Use";
 $string['visiblefor'] = 'Visible for roles';
 $string['visibleforinfo'] = 'Visible for any role';
+$string['visiblefor_help'] = 'The notifications will be displayed on different pages, depending on whether or not the role(s) are given system or course-wide.<ul><li><b>System-wide</b> (usually manager, course creator, guest, authenticated user, authenticated user on site home) => as specified in "Visible on page"</li><li><b>Course-wide</b> (usually manager, teacher, non-editing teacher, student) => exclusively on course level ("course" and/or "incourse")</li></ul>';
 $string['visibleforprofile'] = 'Visible for profile';
 $string['visibleforprofile_help'] = 'Visible for profiles matching one of the rules (e.g. email:.*@example.org), multiple rules can be separated by a comma.';
 $string['visibleforprofileerrorregex'] = 'Visible for profile must be a valid regular expression';

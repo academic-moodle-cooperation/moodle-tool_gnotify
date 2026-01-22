@@ -126,6 +126,7 @@ class notification extends \core\form\persistent {
             null,
             $roles
         );
+        $mform->addHelpButton('visiblefor', 'visiblefor', 'tool_gnotify');
         $mform->getElement('visiblefor')->setMultiple(true);
         $mform->setDefault('visiblefor', $roles);
         $mform->hideif('visiblefor', 'visibleforany', 'checked');
