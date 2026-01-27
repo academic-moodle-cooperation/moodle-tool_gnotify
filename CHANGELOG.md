@@ -1,3 +1,14 @@
+### Version 5.1.0 (2026-01-26)
+
+* **[FIXED]** #8513 Remove hard-coded language strings
+* **[FIXED]** #8514 Fix incorrect database name in `install.xml`
+* **[FIXED]** #8515 Add missing parameters, context and capability validation in external service
+* **[FIXED]** #8516 Implement Privacy API
+* **[FIXED]** #8606 Fix frontpage error message
+* **[FIXED]** #8623 Ensure notifications are shown when a role is selected at system level
+
+---
+
 ### Version 5.0.1
 
 * **[FIXED]** #8493 Fix minor rendering issue
