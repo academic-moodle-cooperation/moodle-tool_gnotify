@@ -37,9 +37,9 @@ use tool_gnotify\ack;
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements
-    core_userlist_provider,
     \core_privacy\local\metadata\provider,
-    \core_privacy\local\request\plugin\provider {
+    \core_privacy\local\request\plugin\provider,
+    core_userlist_provider {
     /**
      * Description of the metadata stored for users in tool_gnotify.
      *
