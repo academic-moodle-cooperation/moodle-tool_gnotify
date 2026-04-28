@@ -99,10 +99,14 @@ foreach ($allnotifications as $notification) {
     }
 
     $nbody = [
-            'html' => $htmlcontent, 'id' => $notification->get('id'),
+            'html' => $htmlcontent,
+            'id' => $notification->get('id'),
             'fromdate' => userdate($notification->get('fromdate')),
+            'fromdateshort' => userdate($notification->get('fromdate'), get_string('strftimedate', 'langconfig')),
             'todate' => userdate($notification->get('todate')),
+            'todateshort' => userdate($notification->get('todate'), get_string('strftimedate', 'langconfig')),
             'ackdate' => $ack ? userdate($ack->get('timecreated')) : null,
+            'dismissable' => !isset($config->dismissable) || (bool) $config->dismissable,
             'ntype' => $config->ntype,
     ];
 

@@ -45,6 +45,90 @@
     border-radius: var(--bs-alert-border-radius);
 }
 
+.gnotify-history {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.gnotify-history-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.gnotify-history-item {
+    margin-bottom: 0;
+}
+
+.gnotify-history-content {
+    margin-bottom: 1rem;
+}
+
+.gnotify-history-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.gnotify-history-badge {
+    white-space: normal;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.gnotify-history-badge.alert-info {
+    background-color: var(--bs-info);
+    color: var(--bs-white);
+}
+
+.gnotify-history-badge.alert-warning {
+    background-color: var(--bs-warning);
+    color: var(--bs-dark);
+}
+
+.gnotify-history-badge.alert-danger {
+    background-color: var(--bs-danger);
+    color: var(--bs-white);
+}
+
+.gnotify-history-badge.alert-success {
+    background-color: var(--bs-success);
+    color: var(--bs-white);
+}
+
+.gnotify-history-badge.alert-primary {
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+}
+
+.gnotify-history-badge.alert-secondary {
+    background-color: var(--bs-secondary);
+    color: var(--bs-white);
+}
+
+.gnotify-history-badge.alert-none {
+    background-color: var(--bs-light);
+    color: var(--bs-dark);
+}
+
+.gnotify-history-item.alert-none {
+    --bs-alert-bg: transparent;
+    --bs-alert-padding-x: 1rem;
+    --bs-alert-padding-y: 1rem;
+    --bs-alert-margin-bottom: 0;
+    --bs-alert-color: inherit;
+    --bs-alert-border-color: var(--bs-light-border-subtle);
+    --bs-alert-border: var(--bs-border-width) solid var(--bs-alert-border-color);
+    --bs-alert-border-radius: var(--bs-border-radius);
+    --bs-alert-link-color: inherit;
+    position: relative;
+    padding: var(--bs-alert-padding-y) var(--bs-alert-padding-x);
+    color: var(--bs-alert-color);
+    background-color: var(--bs-alert-bg);
+    border: var(--bs-alert-border);
+    border-radius: var(--bs-alert-border-radius);
+}
+
 .notification-relative {
     position: relative;
 }

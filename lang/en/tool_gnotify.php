@@ -23,6 +23,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['acknotifications'] = 'Acknowledged notifications';
+$string['acknowledged'] = 'Acknowledged';
 $string['acknowledgedon'] = 'Acknowledged on';
 $string['activenotifications'] = 'Active Notifications';
 $string['createname'] = 'Name';
@@ -47,6 +48,7 @@ $string['noactivenotifications'] = 'No active notifications.';
 $string['noexpirednotifications'] = 'No expired notifications.';
 $string['nonotificationhistoryinfo'] = 'You have no notifications.';
 $string['nonotifications'] = "No notifications ;)";
+$string['notdismissable'] = 'Not dismissable';
 $string['notemplates'] = "No Templates ;)";
 $string['notification:dismiss'] = 'Dismiss this notification';
 $string['notification:label'] = 'Global Notifications';
