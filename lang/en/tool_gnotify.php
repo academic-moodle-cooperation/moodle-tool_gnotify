@@ -23,6 +23,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['acknotifications'] = 'Acknowledged notifications';
+$string['acknowledged'] = 'Acknowledged';
 $string['acknowledgedon'] = 'Acknowledged on';
 $string['activenotifications'] = 'Active Notifications';
 $string['createname'] = 'Name';
@@ -47,6 +48,7 @@ $string['noactivenotifications'] = 'No active notifications.';
 $string['noexpirednotifications'] = 'No expired notifications.';
 $string['nonotificationhistoryinfo'] = 'You have no notifications.';
 $string['nonotifications'] = "No notifications ;)";
+$string['notdismissable'] = 'Not dismissable';
 $string['notemplates'] = "No Templates ;)";
 $string['notification:dismiss'] = 'Dismiss this notification';
 $string['notification:label'] = 'Global Notifications';
@@ -83,8 +85,8 @@ $string['todate'] = "To";
 $string['todateerror'] = "To date must be greater than from date";
 $string['usetemplate'] = "Use";
 $string['visiblefor'] = 'Visible for roles';
-$string['visibleforinfo'] = 'Visible for any role';
 $string['visiblefor_help'] = 'The notifications will be displayed on different pages, depending on whether or not the role(s) are given system or course-wide.<ul><li><b>System-wide</b> (usually manager, course creator, guest, authenticated user, authenticated user on site home) => as specified in "Visible on page"</li><li><b>Course-wide</b> (usually manager, teacher, non-editing teacher, student) => exclusively on course level ("course" and/or "incourse")</li></ul>';
+$string['visibleforinfo'] = 'Visible for any role';
 $string['visibleforprofile'] = 'Visible for profile';
 $string['visibleforprofile_help'] = 'Visible for profiles matching one of the rules (e.g. email:.*@example.org), multiple rules can be separated by a comma.';
 $string['visibleforprofileerrorregex'] = 'Visible for profile must be a valid regular expression';

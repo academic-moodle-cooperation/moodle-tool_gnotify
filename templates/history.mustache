@@ -24,73 +24,80 @@
 
     }
   }}
-<div class="course-content">
-    <div class="table-responsive">
-        <table id="gnotifications-{{uniqid}}" class="fullwidth topics table">
-            <caption>{{# str }} activenotifications, tool_gnotify {{/ str }}</caption>
-            <colgroup>
-                <col style="min-width: 60%;" >
-                <col style="max-width: 40%;" >
-            </colgroup>
-            <tbody>
+<div class="course-content gnotify-history">
+    <section class="gnotify-history-section" aria-labelledby="gnotifications-active-{{uniqid}}">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+            <h3 id="gnotifications-active-{{uniqid}}" class="h5 mb-0">{{# str }} activenotifications, tool_gnotify {{/ str }}</h3>
+        </div>
+
+        <div class="gnotify-history-list">
             {{#active}}
-                <tr class="{{ntype}}">
-                    <td>
-                        {{{ html }}}
-                    </td>
-                    <td style="text-align: right;">
-                        <ul class="topics">
-                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }}  {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}</li>
-                            {{#ackdate}}
-                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}</li>
-                            {{/ackdate}}
-                        </ul>
-                    </td>
-                </tr>
+            <article class="alert {{ntype}} gnotify-history-item mb-0">
+                <div class="gnotify-history-content">
+                    {{{ html }}}
+                </div>
+
+                <div class="gnotify-history-meta">
+                    <span class="badge rounded-pill gnotify-history-badge {{ntype}}" title="{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }} {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}">
+                        {{fromdateshort}} – {{todateshort}}
+                    </span>
+                    {{^dismissable}}
+                    <span class="badge rounded-pill gnotify-history-badge {{ntype}}" title="{{# str }} dismissableinfo, tool_gnotify {{/ str }}">
+                        {{# str }} notdismissable, tool_gnotify {{/ str }}
+                    </span>
+                    {{/dismissable}}
+                    {{#ackdate}}
+                    <span class="badge rounded-pill gnotify-history-badge {{ntype}}" title="{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}">
+                        <i class="icon fa fa-check me-1" aria-hidden="true"></i>{{# str }} acknowledged, tool_gnotify {{/ str }}
+                    </span>
+                    {{/ackdate}}
+                </div>
+            </article>
             {{/active}}
             {{^active}}
-               <tr>
-                   <td>
-                        {{# str}} noactivenotifications, tool_gnotify {{/str}}
-                   </td>
-                   <td></td>
-               </tr>
+            <div class="alert alert-light mb-0" role="status">
+                {{# str}} noactivenotifications, tool_gnotify {{/str}}
+            </div>
             {{/active}}
-            </tbody>
-        </table>
-    </div>
-    <div class="table-responsive">
-        <table id="gnotifications-expired-{{uniqid}}" class="fullwidth topics table">
-            <caption title="{{# str }} expirednotificationstooltip, tool_gnotify, {{ retentionperiod }} {{/ str }}">{{# str }} expirednotifications, tool_gnotify {{/ str }}</caption>
-            <colgroup>
-                <col style="min-width: 60%;" >
-                <col style="max-width: 40%;" >
-            </colgroup>
-            <tbody>
+        </div>
+    </section>
+
+    <section class="gnotify-history-section" aria-labelledby="gnotifications-expired-{{uniqid}}">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+            <h3 id="gnotifications-expired-{{uniqid}}" class="h5 mb-0" title="{{# str }} expirednotificationstooltip, tool_gnotify, {{ retentionperiod }} {{/ str }}">
+                {{# str }} expirednotifications, tool_gnotify {{/ str }}
+            </h3>
+        </div>
+
+        <div class="gnotify-history-list">
             {{#expired}}
-                <tr class="{{ntype}}">
-                    <td>
-                        {{{ html }}}
-                    </td>
-                    <td style="text-align: right;">
-                        <ul class="topics">
-                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} visiblefromto, tool_gnotify, { "fromdate": {{#quote}} {{ fromdate }}  {{/quote}}, "todate": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}</li>
-                            {{#ackdate}}
-                            <li id="gndetail-{{ uniqid }}" class="main clearfix">{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}</li>
-                            {{/ackdate}}
-                        </ul>
-                    </td>
-                </tr>
+            <article class="alert {{ntype}} gnotify-history-item mb-0">
+                <div class="gnotify-history-content">
+                    {{{ html }}}
+                </div>
+
+                <div class="gnotify-history-meta">
+                    <span class="badge rounded-pill gnotify-history-badge {{ntype}}" title="{{# str }} visiblefromto, tool_gnotify, { \"fromdate\": {{#quote}} {{ fromdate }} {{/quote}}, \"todate\": {{#quote}} {{ todate }} {{/quote}} }{{/ str }}">
+                        {{fromdateshort}} – {{todateshort}}
+                    </span>
+                    {{^dismissable}}
+                    <span class="badge rounded-pill gnotify-history-badge {{ntype}}" title="{{# str }} dismissableinfo, tool_gnotify {{/ str }}">
+                        {{# str }} notdismissable, tool_gnotify {{/ str }}
+                    </span>
+                    {{/dismissable}}
+                    {{#ackdate}}
+                    <span class="badge rounded-pill gnotify-history-badge {{ntype}}" title="{{# str }} acknowledgedon, tool_gnotify {{/ str }} {{ackdate}}">
+                        <i class="icon fa fa-check me-1" aria-hidden="true"></i>{{# str }} acknowledged, tool_gnotify {{/ str }}
+                    </span>
+                    {{/ackdate}}
+                </div>
+            </article>
             {{/expired}}
             {{^expired}}
-                   <tr>
-                       <td>
-                            {{# str}} noexpirednotifications, tool_gnotify {{/str}}
-                       </td>
-                       <td></td>
-                   </tr>
+            <div class="alert alert-light mb-0" role="status">
+                {{# str}} noexpirednotifications, tool_gnotify {{/str}}
+            </div>
             {{/expired}}
-            </tbody>
-        </table>
-    </div>
+        </div>
+    </section>
 </div>
