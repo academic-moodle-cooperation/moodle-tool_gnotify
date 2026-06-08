@@ -33,7 +33,7 @@ use core_external\external_value;
 use invalid_parameter_exception;
 use moodle_exception;
 use tool_gnotify\notification;
-use tool_gnotify_var_renderer;
+use tool_gnotify\var_renderer;
 
 /**
  * Class notifications
@@ -94,7 +94,7 @@ class notifications extends external_api {
         }
 
         if ($records) {
-            $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
+            $renderer = new var_renderer($PAGE, 'web');
             $formatoptions = (object)[
                 'trusted' => true,
                 'noclean' => false,

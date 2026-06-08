@@ -24,6 +24,8 @@
  */
 namespace tool_gnotify\local\form;
 
+use tool_gnotify\var_renderer;
+
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/formslib.php');
@@ -51,7 +53,7 @@ class template extends \core\form\persistent {
         global $PAGE;
         $newerrors = [];
 
-        $renderer = new \tool_gnotify_var_renderer($PAGE, 'web');
+        $renderer = new var_renderer($PAGE, 'web');
 
         $formatoptions = new \stdClass();
         $formatoptions->trusted = true;

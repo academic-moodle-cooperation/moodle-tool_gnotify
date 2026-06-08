@@ -23,6 +23,8 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use tool_gnotify\var_renderer;
+
 require_once(__DIR__ . '/../../../config.php');
 require_once(__DIR__ . '/locallib.php');
 
@@ -67,7 +69,7 @@ foreach ($allnotifications as $notification) {
     $lang = 'lang=' . current_language();
     $datamodel->$lang = true;
 
-    $renderer = new tool_gnotify_var_renderer($PAGE, 'web');
+    $renderer = new var_renderer($PAGE, 'web');
     $htmlcontent = $renderer->render_direct($htmlcontent, $datamodel);
 
     $ack = tool_gnotify\ack::get_record(['notificationid' => $notification->get('id'), 'userid' => $USER->id]);
