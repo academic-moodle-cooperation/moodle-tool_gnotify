@@ -115,28 +115,28 @@
         </thead>
         <tbody>
         {{#expirednotifications}}
-            <tr class="table-row">
-                <td class="table-cell">
+            <tr>
+                <td>
                     {{name}}
                 </td>
-                <td class="table-cell">
+                <td>
                     {{fromdate}}
                 </td>
-                <td class="table-cell">
+                <td>
                     {{todate}}
                 </td>
-                <td class="table-cell">
+                <td>
                     {{ack}}
                 </td>
-                <td class="table-cell">
+                <td>
                     <a href="{{wwwroot}}/admin/tool/gnotify/use.php?id={{id}}&templateid={{tplid}}">{{#pix}}i/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                     <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&notificationid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                 </td>
             </tr>
         {{/expirednotifications}}
         {{^expirednotifications}}
-            <tr class="table-row">
-                <td class="table-cell" colspan="5" >
+            <tr>
+                <td colspan="5">
                     {{# str}} nonotifications, tool_gnotify {{/str}}
                 </td>
             </tr>
