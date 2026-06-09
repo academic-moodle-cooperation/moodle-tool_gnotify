@@ -132,3 +132,12 @@
 .notification-relative {
     position: relative;
 }
+
+.notification-absolute {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
