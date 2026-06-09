@@ -41,8 +41,7 @@ export const init = async(contextid, pagelayout, loggedin) => {
             }
             Templates.prependNodeContents('#page', html, js);
         }
-    } catch (error) {
-    }
+    } catch (error) { /* Empty */ }
 };
 
 export const acknowledge = (id) => {
