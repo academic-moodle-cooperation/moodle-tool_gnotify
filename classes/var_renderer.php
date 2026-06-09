@@ -14,8 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+namespace tool_gnotify;
+
+use Mustache\Loader\StringLoader;
+use renderer_base;
+
 /**
- * Render  in Moodle directly from strings
+ * Render in Moodle directly from strings
  *
  * @package     tool_gnotify
  * @author      Philipp Hager <philipp.hager@edaktik.at>
@@ -24,12 +29,12 @@
  */
 
 /**
- * Class tool_gnotify_var_renderer
+ * Class var_renderer
  *
  * @copyright   2019 University of Vienna {@link http://www.univie.ac.at}
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class tool_gnotify_var_renderer extends renderer_base {
+class var_renderer extends renderer_base {
     /**
      * Render direct
      *
@@ -41,7 +46,7 @@ class tool_gnotify_var_renderer extends renderer_base {
     public function render_direct($html, $vars) {
         $mustache = $this->get_mustache();
         $tmploader = $mustache->getLoader();
-        $mustache->setLoader(new Mustache_Loader_StringLoader());
+        $mustache->setLoader(new StringLoader());
         $rendered = $this->render_from_template($html, $vars);
         $mustache->setLoader($tmploader);
         return $rendered;
