@@ -25,12 +25,23 @@ export const init = async(contextid, pagelayout, loggedin) => {
     try {
         const gnotify = await Ajax.call([request], true, loggedin)[0];
         if (Array.isArray(gnotify.notifications) && gnotify.notifications.length) {
-            const {html, js} = await Templates.renderForPromise(gnotify.template,
+            let {html, js} = await Templates.renderForPromise(gnotify.template,
                 {padding: gnotify.padding, notifications: gnotify.notifications});
+            const isLoginPage = document.getElementById('login');
+            if (isLoginPage) {
+                const templateDOM = new DOMParser().parseFromString(html, 'text/html');
+                const gnotifyWrapper = templateDOM.querySelector('#gnotify-wrapper-non-sticky');
+
+                if (gnotifyWrapper) {
+                    gnotifyWrapper.classList.remove('row', 'notification-relative');
+                    gnotifyWrapper.classList.add('notification-absolute');
+                }
+
+                html = templateDOM.body.innerHTML;
+            }
             Templates.prependNodeContents('#page', html, js);
         }
-    } catch (error) {
-    }
+    } catch (error) { /* Empty */ }
 };
 
 export const acknowledge = (id) => {
