@@ -26,20 +26,21 @@
   }}
 <div class="box py-3 generalbox">
     <h3>{{# str }} templates, tool_gnotify {{/ str }}</h3>
-    <table id="templates-{{uniqid}}" class="generaltable fullwidth">
+    <div class="table-responsive">
+    <table id="templates-{{uniqid}}" class="generaltable table table-striped table-hover w-100">
         <thead>
-        <tr>
-            <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
-            <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
-        </tr>
+            <tr>
+                <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
+                <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
+            </tr>
         </thead>
-        <tbody class="table">
+        <tbody>
         {{#templates}}
-            <tr class="table-row">
-                <td class="table-cell">
+            <tr>
+                <td>
                     {{name}}
                 </td>
-                <td class="table-cell">
+                <td>
                     <a href="{{wwwroot}}/admin/tool/gnotify/use.php?templateid={{id}}">{{#pix}}i/new, core, {{# str }} usetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                     <a href="{{wwwroot}}/admin/tool/gnotify/edit.php?id={{id}}">{{#pix}}t/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                     <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&templateid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
@@ -47,100 +48,109 @@
             </tr>
         {{/templates}}
         {{^templates}}
-            <tr class="table-row">
-                <td class="table-cell" colspan="2">
+            <tr>
+                <td colspan="2">
                     {{# str}} notemplates, tool_gnotify {{/str}}
                 </td>
             </tr>
         {{/templates}}
         </tbody>
     </table>
+    </div>
     <a class="btn btn-secondary" href="{{wwwroot}}/admin/tool/gnotify/edit.php">
       {{# str }} createtemplate, tool_gnotify {{/ str }}</a>
 </div>
 <div class="box py-3 generalbox">
     <h3>{{# str }} activenotifications, tool_gnotify {{/ str }}</h3>
-    <table id="active-instances-{{uniqid}}" class="generaltable fullwidth">
+    <div class="table-responsive">
+    <table id="active-instances-{{uniqid}}" class="flexible table table-striped table-hover admintable generaltable w-100">
         <thead>
         <tr>
-            <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
-            <th class="header from">{{# str }} templatetableheaderfrom, tool_gnotify {{/ str }}</th>
-            <th class="header to">{{# str }} templatetableheaderto, tool_gnotify {{/ str }}</th>
-            <th class="header ack">{{# str }} templatetableheaderack, tool_gnotify {{/ str }}</th>
-            <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
+            <th class="header name w-25">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
+            <th class="header from w-25 text-nowrap">{{# str }} templatetableheaderfrom, tool_gnotify {{/ str }}</th>
+            <th class="header to w-25 text-nowrap">{{# str }} templatetableheaderto, tool_gnotify {{/ str }}</th>
+            <th class="header ack text-nowrap">{{# str }} templatetableheaderack, tool_gnotify {{/ str }}</th>
+            <th class="header actions text-nowrap">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
         </tr>
         </thead>
-        <tbody class="table">
+        <tbody>
         {{#activenotifications}}
-            <tr class="table-row">
-                <td class="table-cell">
-                    {{name}}
+            <tr>
+                <td>
+                    <div class="text-truncate" title="{{name}}">
+                        {{name}}
+                    </div>
                 </td>
-                <td class="table-cell">
+                <td class="text-nowrap">
                     {{fromdate}}
                 </td>
-                <td class="table-cell">
+                <td class="text-nowrap">
                     {{todate}}
                 </td>
-                <td class="table-cell">
+                <td class="text-nowrap">
                     {{ack}}
                 </td>
-                <td class="table-cell">
+                <td class="text-nowrap">
                     <a href="{{wwwroot}}/admin/tool/gnotify/use.php?id={{id}}&templateid={{tplid}}">{{#pix}}i/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                     <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&notificationid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                 </td>
             </tr>
         {{/activenotifications}}
         {{^activenotifications}}
-            <tr class="table-row">
-                <td class="table-cell" colspan="5" >
+            <tr>
+                <td colspan="5">
                     {{# str}} nonotifications, tool_gnotify {{/str}}
                 </td>
             </tr>
         {{/activenotifications}}
         </tbody>
     </table>
+    </div>
 </div>
 <div class="box py-3 generalbox">
     <h3>{{# str }} expirednotifications, tool_gnotify {{/ str }}</h3>
-    <table id="expired-instances-{{uniqid}}" class="generaltable fullwidth">
+    <div class="table-responsive">
+    <table id="expired-instances-{{uniqid}}" class="flexible table table-striped table-hover admintable generaltable w-100">
         <thead>
         <tr>
-            <th class="header name">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
-            <th class="header from">{{# str }} templatetableheaderfrom, tool_gnotify {{/ str }}</th>
-            <th class="header to">{{# str }} templatetableheaderto, tool_gnotify {{/ str }}</th>
-            <th class="header ack">{{# str }} templatetableheaderack, tool_gnotify {{/ str }}</th>
-            <th class="header actions">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
+            <th class="header name w-25">{{# str }} templatetableheadername, tool_gnotify {{/ str }}</th>
+            <th class="header from w-25 text-nowrap">{{# str }} templatetableheaderfrom, tool_gnotify {{/ str }}</th>
+            <th class="header to w-25 text-nowrap">{{# str }} templatetableheaderto, tool_gnotify {{/ str }}</th>
+            <th class="header ack text-nowrap">{{# str }} templatetableheaderack, tool_gnotify {{/ str }}</th>
+            <th class="header actions text-nowrap">{{# str }} templatetableheaderactions, tool_gnotify {{/ str }}</th>
         </tr>
         </thead>
-        <tbody class="table">
+        <tbody>
         {{#expirednotifications}}
-            <tr class="table-row">
-                <td class="table-cell">
-                    {{name}}
+            <tr>
+                <td>
+                    <div class="text-truncate" title="{{name}}">
+                        {{name}}
+                    </div>
                 </td>
-                <td class="table-cell">
+                <td class="text-nowrap">
                     {{fromdate}}
                 </td>
-                <td class="table-cell">
+                <td class="text-nowrap">
                     {{todate}}
                 </td>
-                <td class="table-cell">
+                <td class="text-nowrap">
                     {{ack}}
                 </td>
-                <td class="table-cell">
+                <td class="text-nowrap">
                     <a href="{{wwwroot}}/admin/tool/gnotify/use.php?id={{id}}&templateid={{tplid}}">{{#pix}}i/edit, core, {{# str }} edittemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                     <a href="{{wwwroot}}/admin/tool/gnotify/templates.php?action=delete&notificationid={{id}}">{{#pix}}i/trash, core, {{# str }} deletetemplate, tool_gnotify {{/ str }}{{/pix}}</a>
                 </td>
             </tr>
         {{/expirednotifications}}
         {{^expirednotifications}}
-            <tr class="table-row">
-                <td class="table-cell" colspan="5" >
+            <tr>
+                <td colspan="5">
                     {{# str}} nonotifications, tool_gnotify {{/str}}
                 </td>
             </tr>
         {{/expirednotifications}}
         </tbody>
     </table>
+    </div>
 </div>
