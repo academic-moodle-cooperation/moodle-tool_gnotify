@@ -1,3 +1,11 @@
+### Version 5.2.0 (2026-06-30)
+
+* **[FIXED]** #8731  Fix string loader class not found
+* **[FEATURE]** #8420 Redesign notification history to use alert cards and metadata badges
+* **[FIXED]** #8729 Fix login screen notifications
+* **[FIXED]** #8730 Fix manage notification table layout
+* **[CHANGED]** Moodle 5.2.0 compatible version
+
 ### Version 5.1.0 (2026-01-26)
 
 * **[FIXED]** #8513 Remove hard-coded language strings
